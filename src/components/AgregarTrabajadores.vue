@@ -446,37 +446,6 @@ export default {
         .then((response) => {
           console.log(response);
           this.trabajadores = response.data.trabajador;
-          /* let fechaA = Date.now();
-          let fechaActual = new Date(fechaA)
-          for (let i = 0; i < this.trabajadores.length; i++) {
-            const element = this.trabajadores[i];
-            console.log(element);
-            let fechaI =new Date(element.fechaInicio);
-            let fechaAntiguedad= fechaActual.getFullYear() - fechaI.getFullYear()
-            
-            this.trabajador.push({
-              tipo:element.tipo,
-              tipoDocumento:element.tipoDocumento,
-              documento:element.documento,
-              nombre:element.nombre,
-              sexo:element.sexo,
-              fechaNacimiento:element.fechaNacimiento,
-              barrio:element.barrio,
-              telefono:element.telefono,
-              ciudad:element.ciudad,
-              email:element.email,
-              tipoContrato:element.tipoContrato,
-              fechaInicio:element.fechaInicio,
-              fechaVacaciones:element.fechaVacaciones,
-              tiempoLaborado:fechaAntiguedad,
-              areaTrabajo:element.areaTrabajo,
-              salario:element.salario,
-              rol:element.rol,
-              estado:element.estado,
-              anotacion:element.anotacion,
-              id:element._id
-            })
-          } */
         })
         .catch((err) => {
           console.log(err);
