@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <v-col>
+        <v-col>   
           <v-img
             src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
           >
