@@ -2,18 +2,15 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <v-col class="text-center">     
+        <v-col class="text-center">
           <v-template>
             <v-toolbar class="amber accent-2">
-              <v-toolbar-title>Usuarios</v-toolbar-title>
+              <v-toolbar-title><h1> USUARIO</h1> </v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <template>
                 <div class="text-center">
-                  <v-dialog max-width="800px" v-model="dialog">
-                    
-                    
-                  </v-dialog>
+                  <v-dialog max-width="800px" v-model="dialog"> </v-dialog>
                 </div>
               </template>
             </v-toolbar>
@@ -24,7 +21,7 @@
               :headers="headers"
               :items="usuarios"
               sort-by="nombre"
-               class="elevation-1 amber lighten-3"
+              class="elevation-1 amber lighten-3"
             >
               <template>
                 <v-toolbar flat>
@@ -39,7 +36,6 @@
                             }}</v-text-field>
                           </v-col>
 
-                         
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field
                               v-model="documento"
@@ -73,78 +69,106 @@
               </template>
               <!-- estados -->
 
-                    <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show="item.estado == 2" class="boton" v-if="$store.state.usuario.rol=='SISTEMAS'">
-                        <v-btn
-                          color="green"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="cambiarEstado(item)"
-                        >
-                          <font-awesome-icon icon="fa-solid fa-check" />
-                          <div class="texto">
-                            <h5>activar</h5>
-                          </div>
-                        </v-btn>
-                      </div>
-                      <div v-show="item.estado == 1" class="boton" v-if="$store.state.usuario.rol=='SISTEMAS'">
-                        <v-btn
-                          color="red"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="cambiarEstado(item)"
-                        >
-                          <font-awesome-icon icon="fa-solid fa-ban" />
-                          <div class="texto">
-                            <h5>inhabilitar</h5>
-                          </div>
-                        </v-btn>
-                      </div>
-                      
-                      <div class="boton">
-                        <v-btn
-                          color="green"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="detalleUsuario(item)"
-                        >
-                          <font-awesome-icon icon="fa-solid fa-eye" /> 
-                          <div class="texto">
-                            <h5>ver</h5>
-                          </div>
-                        </v-btn>
-                      </div>
-                      <article class="boton" v-if="$store.state.usuario.rol=='SISTEMAS'">
-                        <v-btn
-                          color="primary"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="editarUsuario(item)"
-                        >
-                          <font-awesome-icon icon="fa-solid fa-pencil" />
-                          <div class="texto">
-                            <h5>editar</h5>
-                          </div>
-                        </v-btn>
-                      </article>
-                    </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <div
+                  v-show="item.estado == 2"
+                  class="boton"
+                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                >
+                  <v-btn
+                    color="green"
+                    icon
+                    dark
+                    class="mb-2"
+                    @click="cambiarEstado(item)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-check" />
+                    <div class="texto">
+                      <h5>activar</h5>
+                    </div>
+                  </v-btn>
+                </div>
+                <div
+                  v-show="item.estado == 1"
+                  class="boton"
+                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                >
+                  <v-btn
+                    color="red"
+                    icon
+                    dark
+                    class="mb-2"
+                    @click="cambiarEstado(item)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-ban" />
+                    <div class="texto">
+                      <h5>inhabilitar</h5>
+                    </div>
+                  </v-btn>
+                </div>
 
-                    <!-- cambiar estados -->
-                    <template v-slot:[`item.estado`]="{ item }">
-                      <div v-show="item.estado == 1">
-                        <span class="green--text"> Activo </span>
-                      </div>
-                      <div v-show="item.estado == 2">
-                        <span class="red--text"> Inactivo </span>
-                      </div>
-                      <div v-show="item.estado == 3">
-                        <span class="blue--text"> Vacaciones </span>
-                      </div>
-                    </template>
+                <div class="boton">
+                  <v-btn
+                    color="green"
+                    icon
+                    dark
+                    class="mb-2"
+                    @click="detalleUsuario(item)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-eye" />
+                    <div class="texto">
+                      <h5>ver</h5>
+                    </div>
+                  </v-btn>
+                </div>
+                <article
+                  class="boton"
+                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                >
+                  <v-btn
+                    color="primary"
+                    icon
+                    dark
+                    class="mb-2"
+                    @click="editarUsuario(item)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-pencil" />
+                    <div class="texto">
+                      <h5>editar</h5>
+                    </div>
+                  </v-btn>
+                </article>
+                <article
+                  class="boton"
+                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                >
+                  <v-btn
+                    color="black"
+                    icon
+                    dark
+                    class="mb-2"
+                    @click="eliminarUsuario(item)"
+                  >
+                    <font-awesome-icon :icon="['fas', 'trash']" />
+                    <div class="texto">
+                      <h5>eliminar</h5>
+                    </div>
+                  </v-btn>
+                </article>
+              </template>
+
+              <!-- cambiar estados -->
+              <template v-slot:[`item.estado`]="{ item }">
+                <div v-show="item.estado == 1">
+                  <span class="green--text"> Activo </span>
+                </div>
+                <div v-show="item.estado == 2">
+                  <span class="red--text"> Inactivo </span>
+                </div>
+                <div v-show="item.estado == 3">
+                  <span class="blue--text"> Vacaciones </span>
+                </div>
+              </template>
             </v-data-table>
           </template>
         </v-col>
@@ -157,12 +181,11 @@ import axios from "axios";
 export default {
   name: "PagesVerusuario",
   data: () => ({
-    
     dialog: false,
     dialogEdit: false,
     headers: [
-      { text: "Nombre", value: "nombre" },    
-      { text: "Documento", value: "documento" },  
+      { text: "Nombre", value: "nombre" },
+      { text: "Documento", value: "documento" },
       { text: "Email", value: "email" },
       { text: "Rol", value: "rol" },
       { text: "Estado", value: "estado" },
@@ -176,8 +199,7 @@ export default {
     usuarios: [],
   }),
   methods: {
-
-     editarUsuario(item) {
+    editarUsuario(item) {
       this.$router.push("/Infousuario");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
@@ -186,6 +208,26 @@ export default {
       this.$router.push("/Infousuario");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
+    },
+
+    eliminarUsuario(item) {
+      axios
+        .put(`https://back-coohilados.vercel.app/api/usuario/${item._id}`)
+        .then((response) => {
+          this.traerUsuarios()
+          this.usuario = response.data.usuario;
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se Elimino correctamente 👌",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$swal({
+            icon: "error",
+            title: "No se Pudo Eliminar el Usuario 👎",
+          });
+        });
     },
     close() {
       this.dialog = false;
@@ -202,7 +244,7 @@ export default {
         });
     },
 
-     cambiarEstado(item) {
+    cambiarEstado(item) {
       if (item.estado == 1) {
         axios
           .put(
@@ -229,14 +271,12 @@ export default {
       }
       this.traerUsuarios();
     },
-   
+
     activar(id) {
       console.log(id);
       if (id) {
         axios
-          .put(
-            `https://back-coohilados.vercel.app/api/usuario/activar/${id}`
-          )
+          .put(`https://back-coohilados.vercel.app/api/usuario/activar/${id}`)
           .then((response) => {
             console.log(response);
           })
@@ -245,8 +285,7 @@ export default {
           });
       }
     },
-    
-   
+
     desactivar(id) {
       console.log(id);
       if (id) {
@@ -262,7 +301,7 @@ export default {
           });
       }
     },
-    
+
     agregar() {
       this.loading = true;
       let header = { headers: { "x-token": this.$store.state.token } };

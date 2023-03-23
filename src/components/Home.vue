@@ -34,10 +34,10 @@
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
-              <h1 class="text-left mb-10">
+              <h2 class="text-left mb-10">
                 TALENTO HUMANO
                 <font-awesome-icon :icon="['fas', 'seedling']" />
-              </h1>
+              </h2>
             </div>
             <v-spacer></v-spacer>
             <v-container>
@@ -94,6 +94,7 @@
               </h1>
             </div>
             <v-spacer></v-spacer>
+
             <v-container>
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
