@@ -178,6 +178,7 @@ export default {
             nombre: this.nombre,
             email: this.email,
             password: this.password,
+            area:this.area,
             rol: this.rol,
           },
           header
@@ -202,7 +203,7 @@ export default {
           this.$swal({
             icon: "error",
             title:
-              "Error al guardar el Usuario, Por favor verifique los datos correctamente los datos",
+              "Error al guardar el Usuario, Por favor verifique correctamente los datos",
           });
         });
     },

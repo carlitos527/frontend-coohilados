@@ -81,7 +81,7 @@
               sub-group
             >
               <v-list-item color="red accent-3" to="Gerencia">
-                <h5>CONSEJO O GERENCIA</h5>
+                <h4>CONSEJO O GERENCIA</h4>
               </v-list-item>
 
                <v-list-item color="green accent-4" to="TH">

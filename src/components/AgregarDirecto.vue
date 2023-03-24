@@ -22,7 +22,7 @@
                     >
                     </v-text-field>
                     <v-spacer></v-spacer>
-
+                    
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
                     >
@@ -607,6 +607,7 @@ export default {
     },
   },
   methods: {
+    
     editarDirecto(item) {
       this.$router.push("/infodirecto");
       this.$store.dispatch("setDatos", item);

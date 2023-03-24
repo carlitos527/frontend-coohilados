@@ -76,7 +76,7 @@
                 <div
                   v-show="item.estado == 2"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="green"
@@ -94,7 +94,7 @@
                 <div
                   v-show="item.estado == 1"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="red"
@@ -143,7 +143,7 @@
                 </article>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="black"
@@ -190,7 +190,9 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Documento", value: "documento" },
       { text: "Email", value: "email" },
+      { text: "Area", value: "area" },
       { text: "Rol", value: "rol" },
+      
       { text: "Estado", value: "estado" },
       { text: "Actions", value: "actions", sortable: false },
     ],
