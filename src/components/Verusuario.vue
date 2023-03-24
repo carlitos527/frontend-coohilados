@@ -8,6 +8,9 @@
               <v-toolbar-title><h1> USUARIO</h1> </v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
+              <v-btn color="deep-purple lighten-2" text to="/Sistemas">
+                Regresar
+              </v-btn>
               <template>
                 <div class="text-center">
                   <v-dialog max-width="800px" v-model="dialog"> </v-dialog>

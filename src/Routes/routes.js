@@ -17,11 +17,12 @@ import agregardirectos from "../components/AgregarDirecto.vue"
 import infousuario from "../components/Infousuario.vue"
 import agregarusuario from "../components/Agregarusuario.vue"
 
-import trabajadores from "../components/Trabajadores.vue"
-
 import verusuario from "../components/Verusuario.vue"
 
 import sst from "../components/Sst.vue"
+import sistemas from "../components/Sistemas.vue"
+import gerencia from "../components/Gerencia.vue"
+import th from "../components/TH.vue"
 
 import observarTrabajadores from "../components/observarTrabajadores.vue"
 
@@ -47,11 +48,13 @@ export const routes =[
     {path: "/Infousuario", component:infousuario},
     {path: "/Agregarusuario", component:agregarusuario},
 
-    {path: "/Trabajadores", component:trabajadores},
 
     {path: "/Verusuario", component:verusuario},
 
     {path: "/Sst", component:sst},
+    {path: "/Sistemas", component:sistemas},
+    {path: "/Gerencia", component:gerencia},
+    {path: "/TH", component:th},
 
     {path: "/observarTrabajadores", component:observarTrabajadores},
    

@@ -34,6 +34,14 @@
               ></v-text-field>
 
               <v-select
+                v-model="area"
+                label="Area"
+                :items="area"
+                required
+              ></v-select>
+
+
+              <v-select
                 v-model="rol"
                 label="Rol"
                 :items="rol"
@@ -95,6 +103,13 @@ export default {
         " La contraseña  no puede tener menos de 8 caracteres",
     ],
     valid7: true,
+
+    area: [
+      "CONSEJO O GERENCIA",
+      "TALENTO HUMANO",
+      "SISTEMAS",
+      "SST",
+    ],
     rol: [
       "COORDINADOR SST",
       "GERENCIA O CONSEJO",
