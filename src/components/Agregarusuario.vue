@@ -110,11 +110,11 @@ export default {
       "SISTEMAS",
       "SST",
     ],
-    rol: [
-      "COORDINADOR SST",
-      "GERENCIA O CONSEJO",
-      "TALENTO HUMANO",
-      "SISTEMAS",
+     rol: [
+      "Actualizador",
+      "Administrador",
+      "Editor de Datos",
+      "Visualizador",
     ],
 
     usuarios: [],

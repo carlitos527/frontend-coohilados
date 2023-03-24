@@ -126,7 +126,7 @@
                 </div>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="primary"
