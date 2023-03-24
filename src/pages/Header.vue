@@ -72,7 +72,7 @@
             v-model="group"
             active-class="purple lighten-2"
           >
-            <h1>Trabajadores</h1>
+            <h1>INICIO</h1>
 
             <v-list-group
               color="green accent-4"
@@ -80,18 +80,27 @@
               no-action
               sub-group
             >
-              <v-list-item color="red accent-3" to="agregarTrabajadores">
-                <h3>ASOCIADOS</h3>
+              <v-list-item color="red accent-3" to="Gerencia">
+                <h4>CONSEJO O GERENCIA</h4>
               </v-list-item>
 
-              <v-list-item color="green accent-4" to="AgregarDirecto">
-                <h3>DIRECTOS</h3>
+               <v-list-item color="green accent-4" to="TH">
+                <h3>TALENTO HUMANO</h3>
               </v-list-item>
 
-              <v-list-item color="red accent-3" to="AgregarTemporales">
-                <h3>TEMPORALES</h3>
+              <v-list-item color="red accent-3" to="Sistemas">
+                <h3>SISTEMAS</h3>
               </v-list-item>
+
+              <v-list-item color="red accent-3" to="Sst">
+                <h3>SST</h3>
+              </v-list-item>
+            
+
+
             </v-list-group>
+            
+             
           </v-list-item-group>
         </v-list>
       </v-img>

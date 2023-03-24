@@ -20,7 +20,7 @@
                     outlined
                     rounded
                     text
-                    to="/Trabajadores"
+                    to="/Gerencia"
                   >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
@@ -49,7 +49,7 @@
                     outlined
                     rounded
                     text
-                    to="/Trabajadores"
+                    to="/TH"
                   >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
@@ -77,7 +77,7 @@
                     outlined
                     rounded
                     text
-                    to="/Trabajadores"
+                    to="/Sistemas"
                   >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
@@ -104,7 +104,7 @@
                     outlined
                     rounded
                     text
-                    to="/Trabajadores"
+                    to="/Sst"
                   >
                     <v-icon>mdi-login</v-icon></v-btn
                   >
