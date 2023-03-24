@@ -8,6 +8,9 @@
               <v-toolbar-title><h1> USUARIO</h1> </v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
+              <v-btn color="deep-purple lighten-2" text to="/Sistemas">
+                Regresar
+              </v-btn>
               <template>
                 <div class="text-center">
                   <v-dialog max-width="800px" v-model="dialog"> </v-dialog>
@@ -73,7 +76,7 @@
                 <div
                   v-show="item.estado == 2"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="green"
@@ -91,7 +94,7 @@
                 <div
                   v-show="item.estado == 1"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="red"
@@ -123,7 +126,7 @@
                 </div>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="primary"
@@ -140,7 +143,7 @@
                 </article>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'SISTEMAS'"
+                  v-if="$store.state.usuario.rol == 'Administrador'"
                 >
                   <v-btn
                     color="black"
@@ -187,7 +190,9 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Documento", value: "documento" },
       { text: "Email", value: "email" },
+      { text: "Area", value: "area" },
       { text: "Rol", value: "rol" },
+      
       { text: "Estado", value: "estado" },
       { text: "Actions", value: "actions", sortable: false },
     ],

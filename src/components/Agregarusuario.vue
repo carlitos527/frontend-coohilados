@@ -34,6 +34,14 @@
               ></v-text-field>
 
               <v-select
+                v-model="area"
+                label="Area"
+                :items="area"
+                required
+              ></v-select>
+
+
+              <v-select
                 v-model="rol"
                 label="Rol"
                 :items="rol"
@@ -95,11 +103,18 @@ export default {
         " La contraseña  no puede tener menos de 8 caracteres",
     ],
     valid7: true,
-    rol: [
-      "COORDINADOR SST",
-      "GERENCIA O CONSEJO",
+
+    area: [
+      "CONSEJO O GERENCIA",
       "TALENTO HUMANO",
       "SISTEMAS",
+      "SST",
+    ],
+     rol: [
+      "Actualizador",
+      "Administrador",
+      "Editor de Datos",
+      "Visualizador",
     ],
 
     usuarios: [],
@@ -163,6 +178,7 @@ export default {
             nombre: this.nombre,
             email: this.email,
             password: this.password,
+            area:this.area,
             rol: this.rol,
           },
           header
@@ -187,7 +203,7 @@ export default {
           this.$swal({
             icon: "error",
             title:
-              "Error al guardar el Usuario, Por favor verifique los datos correctamente los datos",
+              "Error al guardar el Usuario, Por favor verifique correctamente los datos",
           });
         });
     },

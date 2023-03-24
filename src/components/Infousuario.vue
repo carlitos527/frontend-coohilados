@@ -52,6 +52,15 @@
 
             <v-col cols="12" sm="6" md="6">
               <v-select
+                v-model="detalleUsuario.area"
+                label="Area"
+                :items="area"
+                required
+              ></v-select>
+            </v-col>
+
+            <v-col cols="12" sm="6" md="6">
+              <v-select
                 v-model="detalleUsuario.rol"
                 label="Rol"
                 :items="rol"
@@ -84,11 +93,18 @@ export default {
 
   data: () => ({
 
-    rol: [
-      "COORDINADOR SST",
-      "GERENCIA O CONSEJO",
+     area: [
+      "CONSEJO O GERENCIA",
       "TALENTO HUMANO",
       "SISTEMAS",
+      "SST",
+    ],
+
+    rol: [
+      "Actualizador",
+      "Administrador",
+      "Editor de Datos",
+      "Visualizador",
     ],
     detalleUsuario: [],
   }),
@@ -106,6 +122,7 @@ export default {
             nombre: this.detalleUsuario.nombre,
             email: this.detalleUsuario.email,
             password: this.detalleUsuario.password,
+            area: this.detalleUsuario.area,
             rol: this.detalleUsuario.rol,
           })
           .then((response) => {
