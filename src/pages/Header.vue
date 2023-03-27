@@ -124,6 +124,11 @@ export default {
       console.log("cerrarSesion");
       localStorage.removeItem("token");
       localStorage.removeItem("usuario")
+
+      this.$swal({
+            icon: "success",
+            title: "Usted cerro sesión exitosamente. 👋",
+          });
     },
     traerUsuario() {
       this.persona = this.$store.state.usuario;
