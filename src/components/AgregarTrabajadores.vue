@@ -188,8 +188,7 @@
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <article class="boton" v-if="$store.state.usuario.rol == 'Editor de Datos' || $store.state.usuario.rol == 'Actualizador'">
                         <v-btn
                           color="primary"
                           icon
