@@ -4,7 +4,7 @@
       <v-row class="justify-center" align="center" style="height:90vh">
          <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
-            <div>
+            <div >
               <h2 class="text-left mb-10">
                 COSEJO Y GERENCIA
                 <font-awesome-icon :icon="['fas', 'list-check']" />
@@ -33,7 +33,7 @@
         
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
-            <div>
+            <div >
               <h2 class="text-left mb-10">
                 TALENTO HUMANO
                 <font-awesome-icon :icon="['fas', 'seedling']" />
@@ -50,8 +50,9 @@
                     rounded
                     text
                     to="/TH"
+                   
                   >
-                    <v-icon>mdi-login</v-icon>
+                    <v-icon >mdi-login</v-icon>
                   </v-btn>
                 </v-col>
               </v-row>

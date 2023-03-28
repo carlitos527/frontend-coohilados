@@ -303,7 +303,8 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show="item.estado == 3" class="boton">
+                      <div v-show="item.estado == 3" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="green"
                           icon
@@ -317,7 +318,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 1" class="boton">
+                      <div v-show="item.estado == 1" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="red"
                           icon
@@ -331,7 +333,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 2" class="boton">
+                      <div v-show="item.estado == 2" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="orange"
                           icon
@@ -359,7 +362,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton">
+                      <article class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="primary"
                           icon
@@ -475,7 +479,6 @@ export default {
       { text: "Estado", value: "estado" },
       { text: "Acciones", value: "actions", sortable: false },
     ],
-
     valid4: true,
     nombre: "",
     nombreRules: [
@@ -483,7 +486,6 @@ export default {
       (n) =>
         (n && n.length <= 50) || " El Nombre solo puede tener 50 caracteres",
     ],
-
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
     valid: true,
     documento: "",
@@ -491,15 +493,11 @@ export default {
       (d) => !!d || " Documento es requerido ❌ ",
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
-
     sexo: ["M", "F"],
     valid2: true,
-
     tipoContrato: ["TERMINO FIJO", "TERMINO INDEFINIDO"],
-
     tiempoLaborado: "",
     areaTrabajo: "",
-
     valid3: true,
     salario: "",
     salarioRules: [
@@ -507,7 +505,6 @@ export default {
       (s) =>
         (s && s.length <= 15) || " EL Salario solo puede tener 15 caracteres",
     ],
-
     valid5: true,
     barrio: "",
     barrioRules: [
@@ -517,7 +514,6 @@ export default {
     ],
     departamento: "",
     city: "",
-
     valid6: true,
     telefono: "",
     telefonoRules: [
@@ -525,7 +521,6 @@ export default {
       (t) =>
         (t && t.length <= 30) || " EL Telefono Solo puede tener 30 caracteres",
     ],
-
     valid7: true,
     email: "",
     emailRules: [
@@ -533,7 +528,6 @@ export default {
       (e) =>
         (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
     ],
-
     valid8: true,
     rol: [
       "ASISTENTE AGRICOLA",
@@ -747,7 +741,6 @@ export default {
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarTrabajadores");
           this.loading = false;
-
           this.$swal({
             icon: "success",
             title: "El trabajador se agrego correctamente",
@@ -782,8 +775,6 @@ export default {
                 `${user.areaTrabajo.nombre}`
               ]
             );
-
-
           }
           let docDefinition = {
             header: [],
@@ -875,7 +866,6 @@ export default {
 .boton {
   position: relative;
 }
-
 .texto {
   position: absolute;
   top: -30px;
@@ -887,7 +877,6 @@ export default {
   transition: hover 0.6s ease;
   border-radius: 10px;
 }
-
 .boton:hover .texto {
   visibility: visible;
 }
