@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-container fluid >
       <v-row class="justify-center" align="center" style="height:90vh">
-         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
+         <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="$store.state.usuario.rol=='Visualizador'">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div >
               <h2 class="text-left mb-10">
@@ -29,9 +29,7 @@
             </v-container>
           </v-card>
         </v-col>
-
-        
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="$store.state.usuario.rol=='Editor de Datos'">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div >
               <h2 class="text-left mb-10">
@@ -59,8 +57,7 @@
             </v-container>
           </v-card>
         </v-col>
-
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="$store.state.usuario.rol=='Administrador'">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -87,7 +84,7 @@
             </v-container>
           </v-card>
         </v-col>
-         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
+         <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="$store.state.usuario.rol=='Actualizador'">
           <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">SST
@@ -114,10 +111,6 @@
             </v-container>
           </v-card>
         </v-col>
-
-        
-
-        
       </v-row>
     </v-container>
   </v-app>
