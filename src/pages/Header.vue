@@ -80,19 +80,19 @@
               no-action
               sub-group
             >
-              <v-list-item color="red accent-3" to="Gerencia">
+              <v-list-item color="red accent-3" to="Gerencia" v-if="$store.state.usuario.rol=='Visualizador'">
                 <h4>CONSEJO O GERENCIA</h4>
               </v-list-item>
 
-               <v-list-item color="green accent-4" to="TH">
+               <v-list-item color="green accent-4" to="TH" v-if="$store.state.usuario.rol=='Editor de Datos'">
                 <h3>TALENTO HUMANO</h3>
               </v-list-item>
 
-              <v-list-item color="red accent-3" to="Sistemas">
+              <v-list-item color="red accent-3" to="Sistemas" v-if="$store.state.usuario.rol=='Administrador'">
                 <h3>SISTEMAS</h3>
               </v-list-item>
 
-              <v-list-item color="red accent-3" to="Sst">
+              <v-list-item color="red accent-3" to="Sst" v-if="$store.state.usuario.rol=='Actualizador'">
                 <h3>SST</h3>
               </v-list-item>
             

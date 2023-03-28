@@ -37,27 +37,27 @@
                 <v-container>
                   <v-row>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.tipoDocumento"
                         label="Tipo de Documento"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.documento"
                         label="Documento"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.nombre"
                         label="Nombre"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-select
                         v-model="detalleTrabajador.sexo"
                         :items="sexo"
@@ -72,6 +72,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -90,7 +91,7 @@
                       ></v-date-picker>
                     </v-menu>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-select
                         v-model="detalleTrabajador.tipoContrato"
                         :items="tipoContrato"
@@ -105,6 +106,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -128,6 +130,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -145,7 +148,7 @@
                       ></v-date-picker>
                     </v-menu>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-select
                         :items="rol"
                         v-model="detalleTrabajador.rol"
@@ -154,7 +157,7 @@
                     </v-col>
 
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-select
                         :items="area"
                         v-model="detalleTrabajador.areaTrabajo.nombre"
@@ -163,14 +166,14 @@
                         item-value="_id"
                       ></v-select>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.salario"
                         label="Salario"
                       ></v-text-field>
                     </v-col>
                      
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.barrio"
                         label="Direccion"
@@ -178,12 +181,14 @@
                     </v-col>
 
                     <v-select
+                    v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       :items="cities"
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
                     ></v-select>
                     <v-select
+                    v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       :items="town"
                       v-model="city"
                       item-text="Ciudad"
@@ -193,28 +198,28 @@
                     ></v-select>
 
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.telefono"
                         label="Telefono"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.email"
                         label="E-mail"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6" v-if="$store.state.usuario.rol == 'Editor de Datos'">
                       <v-text-field
                         v-model="detalleTrabajador.rol"
                         label="Cargo"
                       ></v-text-field>
                     </v-col>
 
-                      <v-col cols="12" sm="6" md="6">
+                      <v-col cols="12" sm="6" md="6" >
                       <v-text-field
                         v-model="detalleTrabajador.anotacion"
                         label="ANOTACIÓN"
