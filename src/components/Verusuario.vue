@@ -217,7 +217,7 @@ export default {
 
     eliminarUsuario(item) {
       axios
-        .put(`https://back-coohilados.vercel.app/api/usuario/${item._id}`)
+        .put(`https://back-coohilados.vercel.app/api/usuario/eliminar/${item._id}`)
         .then((response) => {
           this.traerUsuarios()
           this.usuario = response.data.usuario;

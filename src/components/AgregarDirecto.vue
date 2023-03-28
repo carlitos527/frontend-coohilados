@@ -307,7 +307,8 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show="item.estado == 3" class="boton">
+                      <div v-show="item.estado == 3" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="green"
                           icon
@@ -321,7 +322,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 1" class="boton">
+                      <div v-show="item.estado == 1" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">>
                         <v-btn
                           color="red"
                           icon
@@ -335,7 +337,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 2" class="boton">
+                      <div v-show="item.estado == 2" class="boton"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="orange"
                           icon
@@ -363,7 +366,8 @@
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton">
+                      <article class="boton"
+                       v-if="$store.state.usuario.rol == 'Editor de Datos'">
                         <v-btn
                           color="primary"
                           icon
