@@ -254,22 +254,35 @@ export default {
 
   data: () => ({
      loading: false,
-    fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
+    
+   
+    menu3: false,
+    menu4: false,
+    menu2: false,
+    tipoContrato:[ "TERMINO FIJO","TERMINO INDEFINIDO"],
+    documento:"",
+    sexo: ["F", "M"],
+    nombre:"",
     fechaNacimiento: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     )
       .toISOString()
       .substr(0, 10),
-    menu3: false,
-    menu4: false,
-    menu2: false,
-    tipoContrato:[ "TERMINO FIJO","TERMINO INDEFINIDO"],
-    sexo: ["F", "M"],
+    
+    fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+
+     fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    
+    areaTrabajo:"",
+    salario:"",
+    barrio:"",
+    telefono:"",
+    email:"",
+  
     rol: [
     
     "ASISTENTE AGRICOLA",
@@ -318,6 +331,9 @@ export default {
     rolRules: [
       (r) => !!r || " El Cargo es requerido ❌",
     ],
+
+      
+    anotacion:"",
     area: [],
     cities: [],
     town: [],
