@@ -7,7 +7,7 @@
           <v-img
             src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
           >
-            <v-row>
+            <v-row> 
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
