@@ -40,18 +40,15 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.tipoDocumento" label="Tipo de Documento"></v-text-field>
                     </v-col>
-
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.documento" label="Documento"></v-text-field>
                     </v-col>
-
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.nombre" label="Nombre"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-select v-model="detalleTemporal.sexo" :items="sexoArray" label="Sexo"></v-select>
                     </v-col>
-
                     <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
                       transition="scale-transition" offset-y min-width="auto">
                       <template v-slot:activator="{ on, attrs }">
@@ -59,7 +56,7 @@
                           prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
 
-                      <v-date-picker v-model="fechaNacimiento" @input="menu2 = false"></v-date-picker>
+                      <v-date-picker v-model="fechaNacimiento" @input="menu2 = false" @change="cambioN"></v-date-picker>
                     </v-menu>
 
                     <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
@@ -68,7 +65,7 @@
                         <v-text-field v-model="fechaInicio" label="Escoja la Fecha de inicio de contrato"
                           prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
-                      <v-date-picker v-model="fechaInicio" @input="menu3 = false"></v-date-picker>
+                      <v-date-picker v-model="fechaInicio" @input="menu3 = false" @change="cambioI"></v-date-picker>
                     </v-menu>
                     <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40"
                       transition="scale-transition" offset-y min-width="auto">
@@ -76,7 +73,7 @@
                         <v-text-field v-model="fechaFin" label="Escoja la Fecha de finalización de contrato"
                           prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
-                      <v-date-picker v-model="fechaFin" @input="menu4 = false"></v-date-picker>
+                      <v-date-picker v-model="fechaFin" @input="menu4 = false" @change="cambioF"></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
@@ -84,7 +81,7 @@
                         item-text="nombre" item-value="_id"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-select :items="rolArray" v-model="detalleTemporal.rol" label="Cargo"></v-select>
+                      <v-select :items="rolArray" v-model="detalleTemporal.rol" label="Rol"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.salario" label="Salario"></v-text-field>
@@ -92,12 +89,11 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.barrio" label="Direccion"></v-text-field>
                     </v-col>
-
-                    <v-select :items="cities" v-model="departamento" label="Departamento"
-                      @change="traerCiudades()"></v-select>
+                    <v-select :items="cities" v-model="departamento" label="Departamento" @change="traerCiudades()">
+                    </v-select>
                     <v-select :items="town" v-model="detalleTemporal.city" item-text="Ciudad" item-value="_id"
-                      label="Ciudad" @change="prueba()"></v-select>
-
+                      label="Ciudad" @change="prueba()">
+                    </v-select>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="detalleTemporal.telefono" label="Telefono"></v-text-field>
                     </v-col>
@@ -205,18 +201,31 @@ export default {
       telefono: "",
       anotacion: "",
       sexo: "",
-      rol: ""
+      rol: "",
+      fechaN: "",
+      fechaI: "",
+      fechaF: "",
     },
     id: ""
   }),
   methods: {
+    cambioN() {
+      console.log("cambio la fecha de nacimiento: ");
+      this.detalleTemporal.fechaN = this.fechaNacimiento
+    },
+    cambioI() {
+      console.log("cambio la fecha de inicio: ");
+      this.detalleTemporal.fechaI = this.fechaInicio
+    },
+    cambioF() {
+      console.log("cambio la fecha fin: ");
+      this.detalleTemporal.fechaF = this.fechaFin
+    },
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
         .then((response) => {
-          // response.data.ciudad.reduce((obj, item) => (obj[item.Departamento] = true, obj), {});
           this.area = response.data.lugar;
-          console.log(this.area);
         })
         .catch((err) => {
           console.log(err);
@@ -242,7 +251,6 @@ export default {
           //this.town = response.data.city.reduce((obj, item) => (obj[item.Ciudad] = true, obj), {});
           //this.ciudad = response.data.city.filter(c => { return c.Ciudad.length > 3})
           this.town = response.data.city;
-          console.log(this.town);
         })
         .catch((err) => {
           console.log(err);
@@ -250,19 +258,22 @@ export default {
     },
     traerTemporal() {
       this.id = this.$store.state.datos._id;
-      this.detalleTemporal = {
-        tipoDocumento: this.$store.state.datos.tipoDocumento,
-        documento: this.$store.state.datos.documento,
-        nombre: this.$store.state.datos.nombre,
-        salario: this.$store.state.datos.salario,
-        barrio: this.$store.state.datos.barrio,
-        telefono: this.$store.state.datos.telefono,
-        anotacion: this.$store.state.datos.anotacion,
-        sexo: this.$store.state.datos.sexo,
-        rol: this.$store.state.datos.rol,
-        areaTrabajo: this.$store.state.datos.areaTrabajo._id,
-        city: this.$store.state.datos.ciudad
-      }
+        this.detalleTemporal = {
+          tipoDocumento: this.$store.state.datos.tipoDocumento,
+          documento: this.$store.state.datos.documento,
+          nombre: this.$store.state.datos.nombre,
+          salario: this.$store.state.datos.salario,
+          barrio: this.$store.state.datos.barrio,
+          telefono: this.$store.state.datos.telefono,
+          anotacion: this.$store.state.datos.anotacion,
+          sexo: this.$store.state.datos.sexo,
+          rol: this.$store.state.datos.rol,
+          areaTrabajo: this.$store.state.datos.areaTrabajo._id,
+          city: this.$store.state.datos.ciudad,
+          fechaN: this.$store.state.datos.fechaNacimiento,
+          fechaI: this.$store.state.datos.fechaInicio,
+          fechaF: this.$store.state.datos.fechaFin
+        }
     },
     editarItem() {
       axios
@@ -271,9 +282,9 @@ export default {
           documento: this.detalleTemporal.documento,
           sexo: this.detalleTemporal.sexo,
           nombre: this.detalleTemporal.nombre,
-          fechaNacimiento: this.fechaNacimiento,
-          fechaInicio: this.fechaInicio,
-          fechaFin: this.fechaFin,
+          fechaNacimiento: this.detalleTemporal.fechaN,
+          fechaInicio: this.detalleTemporal.fechaI,
+          fechaFin: this.detalleTemporal.fechaF,
           areaTrabajo: this.detalleTemporal.areaTrabajo,
           salario: this.detalleTemporal.salario,
           barrio: this.detalleTemporal.barrio,
@@ -304,7 +315,6 @@ export default {
             title: "Error al editar el trabajador",
           });
         });
-
     },
     fecha(r) {
       let d = new Date(r);
