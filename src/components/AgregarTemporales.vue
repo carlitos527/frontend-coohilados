@@ -487,6 +487,7 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
+    sexo1:"",
     valid2: true,
     tipoContrato: ["OBRA O LABOR"],
     tiempoLaborado: "",
