@@ -486,13 +486,7 @@ export default {
     ],
 
     valid90: true,
-    tipo: ["Asociado", "Directo", "Temporal"],
-    tipoRules: [
-      (ti) => !!ti || " tipo de trabajador es requerido ❌ ",
-      (ti) =>
-        (ti && ti.length <= 20) ||
-        " Tipo de trabajador solo puede tener 20 caracteres",
-    ],
+    
 
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
     valid: true,
