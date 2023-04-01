@@ -7,7 +7,7 @@
           <v-img
             src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
           >
-            <v-row> 
+            <v-row>
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
@@ -22,7 +22,7 @@
                     >
                     </v-text-field>
                     <v-spacer></v-spacer>
-                    
+
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
                     >
@@ -40,6 +40,9 @@
                               class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
+                              v-if="
+                                $store.state.usuario.rol == 'Editor de Datos'
+                              "
                             >
                               Nuevo Trabajador
                             </v-btn>
@@ -307,51 +310,68 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show="item.estado == 3" class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
-                        <v-btn
-                          color="green"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="cambiarEstado(item)"
+                      <div
+                        v-if="
+                          $store.state.usuario.rol != 'Actualizador' &&
+                          $store.state.usuario.rol != 'Visualizador'
+                        "
+                      >
+                        <div
+                          v-show="item.estado == 3"
+                          class="boton"
+                         
                         >
-                          <font-awesome-icon icon="fa-solid fa-check" />
-                          <div class="texto">
-                            <h5>activar</h5>
-                          </div>
-                        </v-btn>
-                      </div>
-                      <div v-show="item.estado == 1" class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
-                        <v-btn
-                          color="red"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="cambiarEstado(item)"
+                          <v-btn
+                            color="green"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
+                            <font-awesome-icon icon="fa-solid fa-check" />
+                            <div class="texto">
+                              <h5>activar</h5>
+                            </div>
+                          </v-btn>
+                        </div>
+                        <div
+                          v-show="item.estado == 1"
+                          class="boton"
+                         
                         >
-                          <font-awesome-icon icon="fa-solid fa-ban" />
-                          <div class="texto">
-                            <h5>inhabilitar</h5>
-                          </div>
-                        </v-btn>
-                      </div>
-                      <div v-show="item.estado == 2" class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
-                        <v-btn
-                          color="orange"
-                          icon
-                          dark
-                          class="mb-2"
-                          @click="cambiarEstado(item)"
+                          <v-btn
+                            color="red"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
+                            <font-awesome-icon icon="fa-solid fa-ban" />
+                            <div class="texto">
+                              <h5>inhabilitar</h5>
+                            </div>
+                          </v-btn>
+                        </div>
+                        <div
+                          v-show="item.estado == 2"
+                          class="boton"
+                          
                         >
-                          <font-awesome-icon icon="fa-solid fa-plane" />
-                          <div class="texto">
-                            <h5>vacaciones</h5>
-                          </div>
-                        </v-btn>
+                          <v-btn
+                            color="orange"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
+                            <font-awesome-icon icon="fa-solid fa-plane" />
+                            <div class="texto">
+                              <h5>vacaciones</h5>
+                            </div>
+                          </v-btn>
+                        </div>
                       </div>
+
                       <div class="boton">
                         <v-btn
                           color="green"
@@ -366,8 +386,12 @@
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton"
-                       v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <article
+                        class="boton"
+                        v-if="
+                          $store.state.usuario.rol == 'Editor de Datos' ||
+                          $store.state.usuario.rol == 'Actualizador'"
+                      >
                         <v-btn
                           color="primary"
                           icon
@@ -435,7 +459,7 @@
   </v-app>
 </template>
 <script>
-import logo from "../assets/imagenBase64.js"
+import logo from "../assets/imagenBase64.js";
 import axios from "axios";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -486,9 +510,8 @@ export default {
     ],
 
     valid90: true,
-    
 
-    tipoDocumento: ["C.C", "Cedula de Extranjeria"],
+    tipoDocumento: ["C.C", "C.E"],
     valid: true,
     documento: "",
     documentoRules: [
@@ -606,7 +629,6 @@ export default {
     },
   },
   methods: {
-    
     editarDirecto(item) {
       this.$router.push("/infodirecto");
       this.$store.dispatch("setDatos", item);
@@ -818,21 +840,23 @@ export default {
           }
           let docDefinition = {
             header: [],
-            footer:
-              {text: 
-                'Calle 22 N. 9-57 PBX : (607) 7248062 Fax: (607) 7247460 \nhttp://www.coohilados.com.co \nE-mail:ventas@coohilados.com.co gerencia@coohilados.com.co \nSAN GIL - SANTANDER - COLOMBIA',
-                style:'footer'
-              },
+            footer: {
+              text: "Calle 22 N. 9-57 PBX : (607) 7248062 Fax: (607) 7247460 \nhttp://www.coohilados.com.co \nE-mail:ventas@coohilados.com.co gerencia@coohilados.com.co \nSAN GIL - SANTANDER - COLOMBIA",
+              style: "footer",
+            },
             content: [
-              { 
-                columns: [    
-                  { 
-                  image: logo.coohilados,
-                   style: 'img', 
-                    fit: [200, 200] 
-                  }, 
-                  { text: 'INFORME \nVISUALIZACIÓN DE TRABAJADORES DIRECTOS ACTIVOS', style: 'header' }, 
-                ]
+              {
+                columns: [
+                  {
+                    image: logo.coohilados,
+                    style: "img",
+                    fit: [200, 200],
+                  },
+                  {
+                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES DIRECTOS ACTIVOS",
+                    style: "header",
+                  },
+                ],
               },
               {
                 margin: [20, 5, 0, 0],
@@ -854,26 +878,26 @@ export default {
                 },
                 layout: {
                   fillColor: (rowIndex) => {
-                    return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
-                  }
-                }
-              }
+                    return rowIndex % 2 === 0 ? "#CCCCCC" : null;
+                  },
+                },
+              },
             ],
             styles: {
-              img: { 
-                alignment: 'center', 
-                margin: [0, 10, 0, 20], 
+              img: {
+                alignment: "center",
+                margin: [0, 10, 0, 20],
               },
               header: {
-                alignment: 'center', 
-                fontSize: 10, 
-                bold: true, 
-                margin: [0, 10, 0, 0] 
-              }, 
-              footer: { 
-                fontSize:8, 
-                margin:[0, 0, 0, 10] 
-              } 
+                alignment: "center",
+                fontSize: 10,
+                bold: true,
+                margin: [0, 10, 0, 0],
+              },
+              footer: {
+                fontSize: 8,
+                margin: [0, 0, 0, 10],
+              },
             },
             defaultStyle: {
               alignment: "center",

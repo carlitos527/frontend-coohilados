@@ -39,7 +39,7 @@
                               class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
-                            >
+                              v-if="$store.state.usuario.rol == 'Editor de Datos'">
                               Nuevo Trabajador
                             </v-btn>
                           </template>
@@ -210,7 +210,7 @@
 
                                   <v-select
                                     v-model="rol"
-                                    :items="rol"
+                                    :items="rolArray"
                                     :rules="rolRules"
                                     required
                                     label="Escoja el cargo del trabajador"
@@ -304,8 +304,17 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show="item.estado == 2" class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <div
+                        v-if="
+                          $store.state.usuario.rol != 'Actualizador' &&
+                          $store.state.usuario.rol != 'Visualizador'
+                        "
+                      >
+                      <div
+                        v-show="item.estado == 2"
+                        class="boton"
+                        
+                      >
                         <v-btn
                           color="green"
                           icon
@@ -319,8 +328,11 @@
                           </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 1" class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <div
+                        v-show="item.estado == 1"
+                        class="boton"
+                        
+                      >
                         <v-btn
                           color="red"
                           icon
@@ -333,6 +345,7 @@
                             <h5>inhabilitar</h5>
                           </div>
                         </v-btn>
+                      </div>
                       </div>
                       <!-- <div v-show="item.estado == 2" class="boton">
                         <v-btn
@@ -362,8 +375,13 @@
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <article
+                        class="boton"
+                         v-if="
+                          $store.state.usuario.rol == 'Editor de Datos' ||
+                          $store.state.usuario.rol == 'Actualizador'
+                        "
+                      >
                         <v-btn
                           color="primary"
                           icon
@@ -430,7 +448,7 @@
   </v-app>
 </template>
 <script>
-import logo from "../assets/imagenBase64.js"
+import logo from "../assets/imagenBase64.js";
 import axios from "axios";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -479,7 +497,7 @@ export default {
       (n) => (n && n.length <= 50) || " nombre solo puede tener 50 caracteres",
     ],
 
-    tipoDocumento: ["C.C", "Cedula de Extranjeria"],
+    tipoDocumento: ["C.C", "C.E"],
     valid: true,
     documento: "",
     documentoRules: [
@@ -528,7 +546,7 @@ export default {
     ],
 
     valid8: true,
-    rol: [
+    rolArray: [
       "ASISTENTE AGRICOLA",
       "ASISTENTE DIRECTOR COMERCIAL",
       "AUXILIAR ADMINISTRATIVO",
@@ -574,6 +592,7 @@ export default {
       "TECNICO MANTENIMIENTO-TORNERO",
     ],
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
+    rol:"",
     area: [],
     cities: [],
     town: [],
@@ -792,8 +811,8 @@ export default {
               {
                 columns: [
                   {
-                  image: logo.coohilados,
-                   style: "img",
+                    image: logo.coohilados,
+                    style: "img",
                     fit: [200, 200],
                   },
                   {

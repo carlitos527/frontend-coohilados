@@ -2,10 +2,16 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <v-img src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg">
+        <v-img
+          src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
+        >
           <v-card class="mx-auto my-12 yellow lighten-4" max-width="500">
             <template slot="progress">
-              <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
             </template>
 
             <!-- inicio de la cart del usuario a editar -->
@@ -38,67 +44,186 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.tipoDocumento" label="Tipo de Documento"></v-text-field>
+                      <v-select
+                        v-model="detalleTemporal.tipoDocumento"
+                        :items="tDocumento"
+                        label="Tipo de Documento"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.documento" label="Documento"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.documento"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        label="Documento"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.nombre" label="Nombre"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.nombre"
+                        label="Nombre"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-select v-model="detalleTemporal.sexo" :items="sexoArray" label="Sexo"></v-select>
+                      <v-select
+                        v-model="detalleTemporal.sexo"
+                        :items="sexoArray"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        label="Sexo"
+                      ></v-select>
                     </v-col>
-                    <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
-                      transition="scale-transition" offset-y min-width="auto">
+                    <v-menu
+                      v-model="menu2"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="fechaNacimiento" label="Escoja la Fecha de Nacimiento"
-                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                        <v-text-field
+                          v-model="fechaNacimiento"
+                          label="Escoja la Fecha de Nacimiento"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
                       </template>
 
-                      <v-date-picker v-model="fechaNacimiento" @input="menu2 = false" @change="cambioN"></v-date-picker>
+                      <v-date-picker
+                        v-model="fechaNacimiento"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        @input="menu2 = false"
+                        @change="cambioN"
+                      ></v-date-picker>
                     </v-menu>
 
-                    <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
-                      transition="scale-transition" offset-y min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="fechaInicio" label="Escoja la Fecha de inicio de contrato"
-                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                    <v-menu
+                      v-model="menu3"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                    >
+                      <template v-slot:activator="{ on, attrs }"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                        <v-text-field
+                          v-model="fechaInicio"
+                          label="Escoja la Fecha de inicio de contrato"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
                       </template>
-                      <v-date-picker v-model="fechaInicio" @input="menu3 = false" @change="cambioI"></v-date-picker>
+                      <v-date-picker
+                        v-model="fechaInicio"
+                        @input="menu3 = false"
+                        @change="cambioI"
+                      ></v-date-picker>
                     </v-menu>
-                    <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40"
-                      transition="scale-transition" offset-y min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="fechaFin" label="Escoja la Fecha de finalización de contrato"
-                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                    <v-menu
+                      v-model="menu4"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                        <v-text-field
+                          v-model="fechaFin"
+                          label="Escoja la Fecha de finalización de contrato"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
                       </template>
-                      <v-date-picker v-model="fechaFin" @input="menu4 = false" @change="cambioF"></v-date-picker>
+                      <v-date-picker
+                        v-model="fechaFin"
+                        @input="menu4 = false"
+                        @change="cambioF"
+                      ></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-select :items="area" v-model="detalleTemporal.areaTrabajo" label="Área de trabajo"
-                        item-text="nombre" item-value="_id"></v-select>
+                      <v-select
+                        :items="area"
+                        v-model="detalleTemporal.areaTrabajo"
+                        label="Área de trabajo"
+                        item-text="nombre"
+                        item-value="_id"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-select :items="rolArray" v-model="detalleTemporal.rol" label="Rol"></v-select>
+                      <v-select
+                        :items="rolArray"
+                        v-model="detalleTemporal.rol"
+                        label="Rol"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.salario" label="Salario"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.salario"
+                        label="Salario"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.barrio" label="Direccion"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.barrio"
+                        label="Direccion"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
                     </v-col>
-                    <v-select :items="cities" v-model="departamento" label="Departamento" @change="traerCiudades()">
+                    <v-select
+                      :items="cities"
+                      v-model="departamento"
+                      label="Departamento"
+                      @change="traerCiudades()"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                    >
                     </v-select>
-                    <v-select :items="town" v-model="detalleTemporal.city" item-text="Ciudad" item-value="_id"
-                      label="Ciudad" @change="prueba()">
+                    <v-select
+                      :items="town"
+                      v-model="detalleTemporal.city"
+                      item-text="Ciudad"
+                      item-value="_id"
+                      label="Ciudad"
+                      @change="prueba()"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                    >
                     </v-select>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.telefono" label="Telefono"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.telefono"
+                        label="Telefono"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
                     </v-col>
+                    <v-col>
+
+                    <v-text-field
+                        v-model="detalleTemporal.email"
+                        label="E-mail"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="detalleTemporal.anotacion" label="ANOTACIÓN"></v-text-field>
+                      <v-text-field
+                        v-model="detalleTemporal.anotacion"
+                        label="ANOTACIÓN"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -140,9 +265,8 @@ export default {
     fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
-    rolRules: [
-      (r) => !!r || " El Cargo es requerido ❌",
-    ],
+      
+    rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
     rolArray: [
       "ASISTENTE AGRICOLA",
       "ASISTENTE DIRECTOR COMERCIAL",
@@ -152,7 +276,9 @@ export default {
       "AUXILIAR CONTABLE II",
       "AUXILIAR CONTROL DE CALIDAD",
       "AUXILIAR PRODUCCION",
-      "BODEGUERO", "BODEGUERO P.T", "BODEGUERO M.P",
+      "BODEGUERO",
+      "BODEGUERO P.T",
+      "BODEGUERO M.P",
       "COMPRADOR ALMACENISTA",
       "COORDINADOR DE PRODUCCIÓN",
       "COORDINADOR DE SST",
@@ -184,12 +310,13 @@ export default {
       "TECNICO MANTENIMIENTO-BARRAS",
       "TECNICO MANTENIMIENTO-EBANISTA",
       "TECNICO MANTENIMIENTO-FRESADOR",
-      "TECNICO MANTENIMIENTO-TORNERO"
+      "TECNICO MANTENIMIENTO-TORNERO",
     ],
     sexoArray: ["F", "M"],
     area: [],
     cities: [],
     town: [],
+    tDocumento:["C.C","C.E"],
     detalleTemporal: {
       tipoDocumento: "",
       documento: "",
@@ -205,21 +332,22 @@ export default {
       fechaN: "",
       fechaI: "",
       fechaF: "",
+      
     },
-    id: ""
+    id: "",
   }),
   methods: {
     cambioN() {
       console.log("cambio la fecha de nacimiento: ");
-      this.detalleTemporal.fechaN = this.fechaNacimiento
+      this.detalleTemporal.fechaN = this.fechaNacimiento;
     },
     cambioI() {
       console.log("cambio la fecha de inicio: ");
-      this.detalleTemporal.fechaI = this.fechaInicio
+      this.detalleTemporal.fechaI = this.fechaInicio;
     },
     cambioF() {
       console.log("cambio la fecha fin: ");
-      this.detalleTemporal.fechaF = this.fechaFin
+      this.detalleTemporal.fechaF = this.fechaFin;
     },
     traerAreaTrabajo() {
       axios
@@ -258,41 +386,46 @@ export default {
     },
     traerTemporal() {
       this.id = this.$store.state.datos._id;
-        this.detalleTemporal = {
-          tipoDocumento: this.$store.state.datos.tipoDocumento,
-          documento: this.$store.state.datos.documento,
-          nombre: this.$store.state.datos.nombre,
-          salario: this.$store.state.datos.salario,
-          barrio: this.$store.state.datos.barrio,
-          telefono: this.$store.state.datos.telefono,
-          anotacion: this.$store.state.datos.anotacion,
-          sexo: this.$store.state.datos.sexo,
-          rol: this.$store.state.datos.rol,
-          areaTrabajo: this.$store.state.datos.areaTrabajo._id,
-          city: this.$store.state.datos.ciudad,
-          fechaN: this.$store.state.datos.fechaNacimiento,
-          fechaI: this.$store.state.datos.fechaInicio,
-          fechaF: this.$store.state.datos.fechaFin
-        }
+      this.detalleTemporal = {
+        tipoDocumento: this.$store.state.datos.tipoDocumento,
+        documento: this.$store.state.datos.documento,
+        nombre: this.$store.state.datos.nombre,
+        salario: this.$store.state.datos.salario,
+        barrio: this.$store.state.datos.barrio,
+        telefono: this.$store.state.datos.telefono,
+        anotacion: this.$store.state.datos.anotacion,
+        sexo: this.$store.state.datos.sexo,
+        rol: this.$store.state.datos.rol,
+        areaTrabajo: this.$store.state.datos.areaTrabajo._id,
+        city: this.$store.state.datos.ciudad,
+        fechaN: this.$store.state.datos.fechaNacimiento,
+        email: this.$store.state.datos.email,
+        fechaI: this.$store.state.datos.fechaInicio,
+        fechaF: this.$store.state.datos.fechaFin,
+      };
     },
     editarItem() {
       axios
-        .put(`https://back-coohilados.vercel.app/api/ayudaTemporal/${this.id}`, {
-          tipoDocumento: this.detalleTemporal.tipoDocumento,
-          documento: this.detalleTemporal.documento,
-          sexo: this.detalleTemporal.sexo,
-          nombre: this.detalleTemporal.nombre,
-          fechaNacimiento: this.detalleTemporal.fechaN,
-          fechaInicio: this.detalleTemporal.fechaI,
-          fechaFin: this.detalleTemporal.fechaF,
-          areaTrabajo: this.detalleTemporal.areaTrabajo,
-          salario: this.detalleTemporal.salario,
-          barrio: this.detalleTemporal.barrio,
-          ciudad: this.detalleTemporal.city,
-          telefono: this.detalleTemporal.telefono,
-          anotacion: this.detalleTemporal.anotacion,
-          rol: this.detalleTemporal.rol,
-        })
+        .put(
+          `https://back-coohilados.vercel.app/api/ayudaTemporal/${this.id}`,
+          {
+            tipoDocumento: this.detalleTemporal.tipoDocumento,
+            documento: this.detalleTemporal.documento,
+            sexo: this.detalleTemporal.sexo,
+            nombre: this.detalleTemporal.nombre,
+            fechaNacimiento: this.detalleTemporal.fechaN,
+            fechaInicio: this.detalleTemporal.fechaI,
+            fechaFin: this.detalleTemporal.fechaF,
+            areaTrabajo: this.detalleTemporal.areaTrabajo,
+            salario: this.detalleTemporal.salario,
+            barrio: this.detalleTemporal.barrio,
+            ciudad: this.detalleTemporal.city,
+            telefono: this.detalleTemporal.telefono,
+            email: this.detalleTemporal.email,
+            anotacion: this.detalleTemporal.anotacion,
+            rol: this.detalleTemporal.rol,
+          }
+        )
         .then((response) => {
           this.traerTemporal();
           this.dialog = false;
