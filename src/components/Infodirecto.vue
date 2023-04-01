@@ -211,7 +211,7 @@
                     ></v-select>
                     <v-select
                       :items="town"
-                      v-model="city"
+                      v-model="detalleDirecto.city"
                       item-text="Ciudad"
                       item-value="_id"
                       label="Ciudad"
@@ -298,6 +298,7 @@ export default {
     ],
     sexoArray: ["F", "M"],
     
+    departamento:"",
 
     rolArray: [
       "ASISTENTE AGRICOLA",
@@ -421,11 +422,12 @@ export default {
 
     traerDirecto() {
       this.id = this.$store.state.datos._id;
+     
       this.detalleDirecto = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
-        tipoContrato:this.$store.state.tipoContrato,
+        tipoContrato:this.$store.state.datos.tipoContrato,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,
@@ -457,8 +459,7 @@ export default {
               areaTrabajo: this.detalleDirecto.areaTrabajo,
               salario: this.detalleDirecto.salario,
               barrio: this.detalleDirecto.barrio,
-              departamento: this.detalleDirecto.departamento,
-              ciudad: this.city,
+              ciudad: this.detalleDirecto.city,
               telefono: this.detalleDirecto.telefono,
               anotacion: this.detalleDirecto.anotacion,
               rol: this.detalleDirecto.rol,

@@ -206,7 +206,7 @@
                     <v-select
                       v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       :items="town"
-                      v-model="city"
+                      v-model="detalleTrabajador.city"
                       item-text="Ciudad"
                       item-value="_id"
                       label="Ciudad"
@@ -422,7 +422,7 @@ export default {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
-        tipoContrato:this.$store.state.tipoContrato,
+        tipoContrato:this.$store.state.datos.tipoContrato,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,

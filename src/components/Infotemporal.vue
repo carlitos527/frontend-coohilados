@@ -167,7 +167,7 @@
                       <v-select
                         :items="rolArray"
                         v-model="detalleTemporal.rol"
-                        label="Rol"
+                        label="Cargo"
                         v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
