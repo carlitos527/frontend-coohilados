@@ -43,17 +43,20 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
+                    <v-col cols="12" sm="6" md="6"
+                    v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      <v-select
                         v-model="detalleDirecto.tipoDocumento"
+                        :items="tDocumento"
                         label="Tipo de Documento"
-                      ></v-text-field>
+                      ></v-select>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.documento"
                         label="Documento"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -61,13 +64,15 @@
                       <v-text-field
                         v-model="detalleDirecto.nombre"
                         label="Nombre"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleDirecto.sexo"
-                        :items="sexo"
+                        :items="sexoArray"
                         label="Sexo"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -78,6 +83,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -87,20 +93,23 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
+                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
 
                       <v-date-picker
                         v-model="fechaNacimiento"
                         @input="menu2 = false"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleDirecto.tipoContrato"
-                        :items="tipoContrato"
+                        :items="tContrato"
                         label="Tipo de contrato"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -111,6 +120,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -120,11 +130,13 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
+                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaInicio"
                         @input="menu3 = false"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
                     <v-menu
@@ -134,6 +146,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -143,36 +156,41 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
+                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaFin"
                         @input="menu4 = false"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         :items="area"
-                        v-model="detalleDirecto.areaTrabajo.nombre"
+                        v-model="detalleDirecto.areaTrabajo"
                         label="Área de trabajo"
                         item-text="nombre"
                         item-value="_id"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        :items="rol"
+                        :items="rolArray"
                         v-model="detalleDirecto.rol"
                         label="Cargo"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
-                    
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.salario"
                         label="Salario"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -180,6 +198,7 @@
                       <v-text-field
                         v-model="detalleDirecto.barrio"
                         label="Direccion"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -188,6 +207,7 @@
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     ></v-select>
                     <v-select
                       :items="town"
@@ -196,12 +216,14 @@
                       item-value="_id"
                       label="Ciudad"
                       @change="prueba()"
+                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
                     ></v-select>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.telefono"
                         label="Telefono"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -209,15 +231,15 @@
                       <v-text-field
                         v-model="detalleDirecto.email"
                         label="E-mail"
+                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-
-                     
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.anotacion"
                         label="ANOTACIÓN"
+                        
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -232,7 +254,7 @@
               <v-btn
                 color="deep-purple lighten-2"
                 text
-                @click="editarItem(detalleDirecto._id)"
+                @click="editarItem()"
               >
                 Guardar
               </v-btn>
@@ -266,64 +288,98 @@ export default {
     menu3: false,
     menu4: false,
     menu2: false,
-    tipoContrato:[ "PRESTACIÓN SERVICIO","TERMINO INDEFINIDO", "TERMINO FIJO", "OBRA O LABOR"],
-    sexo: ["F", "M"],
 
-     rol: [
+    tDocumento:["C.C","C.E"],
+    tContrato: [
+      "PRESTACIÓN SERVICIO",
+      "TERMINO INDEFINIDO",
+      "TERMINO FIJO",
+      "OBRA O LABOR",
+    ],
+    sexoArray: ["F", "M"],
     
-    "ASISTENTE AGRICOLA",
-    "ASISTENTE DIRECTOR COMERCIAL",
-    "AUXILIAR ADMINISTRATIVO",
-    "AUXLIAR COMERCIAL",
-    "AUXILIAR CONTABLE",
-    "AUXILIAR CONTABLE II",
-    "AUXILIAR CONTROL DE CALIDAD",
-    "AUXILIAR PRODUCCION",
-    "BODEGUERO","BODEGUERO P.T","BODEGUERO M.P",
-    "COMPRADOR ALMACENISTA",
-    "COORDINADOR DE PRODUCCIÓN",
-    "COORDINADOR DE SST",
-    "DIRECTOR COMERCIAL",
-    "DIRECTOR CONTABLE",
-    "GERENTE GENERA",
-    "INGENIERO DE SISTEMAS",
-    "JEFE DE BODEGA DE PRODUCTOS TERMINADOS",
-    "JEFE DE COMPRAS DE MATERIA PRIMA",
-    "JEFE DE GESTION HUMANA",
-    "JEFE DE MANTENIMIENTO Y TALLER",
-    "LIDER AUXILIAR DE COSTURA",
-    "LIDER DE SECCIÓN DE COSTURA",
-    "LIDER DE SECCIÓN HILOS",
-    "LIQUIDADOR DE PRODUCCIÓN",
-    "MENSAJERO",
-    "NOMINA",
-    "OPERARIO",
-    "OPERARIO DE PLANTA",
-    "OPERARIO HILADORAS-HUSOS",
-    "OPERARIO DE PRENSA",
-    "RECEPCIONISTA",
-    "RECEPCIONISTA DEL SGC",
-    "SECRETARIO CONSEJO",
-    "SECRETARIA GERENCIA",
-    "SERVICIOS GENERALES",
-    "TECNICO MANTENIMIENTO-CUADRILLA",
-    "TECNICO MANTENIMIENTO-CUADRILLA-E",
-    "TECNICO MANTENIMIENTO-BARRAS",
-    "TECNICO MANTENIMIENTO-EBANISTA",
-    "TECNICO MANTENIMIENTO-FRESADOR",
-    "TECNICO MANTENIMIENTO-TORNERO",
 
+    rolArray: [
+      "ASISTENTE AGRICOLA",
+      "ASISTENTE DIRECTOR COMERCIAL",
+      "AUXILIAR ADMINISTRATIVO",
+      "AUXLIAR COMERCIAL",
+      "AUXILIAR CONTABLE",
+      "AUXILIAR CONTABLE II",
+      "AUXILIAR CONTROL DE CALIDAD",
+      "AUXILIAR PRODUCCION",
+      "BODEGUERO",
+      "BODEGUERO P.T",
+      "BODEGUERO M.P",
+      "COMPRADOR ALMACENISTA",
+      "COORDINADOR DE PRODUCCIÓN",
+      "COORDINADOR DE SST",
+      "DIRECTOR COMERCIAL",
+      "DIRECTOR CONTABLE",
+      "GERENTE GENERA",
+      "INGENIERO DE SISTEMAS",
+      "JEFE DE BODEGA DE PRODUCTOS TERMINADOS",
+      "JEFE DE COMPRAS DE MATERIA PRIMA",
+      "JEFE DE GESTION HUMANA",
+      "JEFE DE MANTENIMIENTO Y TALLER",
+      "LIDER AUXILIAR DE COSTURA",
+      "LIDER DE SECCIÓN DE COSTURA",
+      "LIDER DE SECCIÓN HILOS",
+      "LIQUIDADOR DE PRODUCCIÓN",
+      "MENSAJERO",
+      "NOMINA",
+      "OPERARIO",
+      "OPERARIO DE PLANTA",
+      "OPERARIO HILADORAS-HUSOS",
+      "OPERARIO DE PRENSA",
+      "RECEPCIONISTA",
+      "RECEPCIONISTA DEL SGC",
+      "SECRETARIO CONSEJO",
+      "SECRETARIA GERENCIA",
+      "SERVICIOS GENERALES",
+      "TECNICO MANTENIMIENTO-CUADRILLA",
+      "TECNICO MANTENIMIENTO-CUADRILLA-E",
+      "TECNICO MANTENIMIENTO-BARRAS",
+      "TECNICO MANTENIMIENTO-EBANISTA",
+      "TECNICO MANTENIMIENTO-FRESADOR",
+      "TECNICO MANTENIMIENTO-TORNERO",
     ],
-    rolRules: [
-      (r) => !!r || " El Cargo es requerido ❌",
-    ],
+    rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
     area: [],
     cities: [],
     town: [],
-    detalleDirecto: [],
-    city:""
+    detalleDirecto: {
+      tipoDocumento: "",
+      documento: "",
+      nombre: "",
+      tipoContrato:"",
+      areaTrabajo: "",
+      salario: "",
+      barrio: "",
+      city: "",
+      telefono: "",
+      anotacion: "",
+      sexo: "",
+      rol: "",
+      fechaN: "",
+      fechaI: "",
+      fechaF: "",
+    },
+    id: "",
   }),
   methods: {
+    cambioN() {
+      console.log("cambio la fecha de nacimiento: ");
+      this.detalleDirecto.fechaN = this.fechaNacimiento;
+    },
+    cambioI() {
+      console.log("cambio la fecha de inicio: ");
+      this.detalleDirecto.fechaI = this.fechaInicio;
+    },
+    cambioF() {
+      console.log("cambio la fecha fin: ");
+      this.detalledirecto.fechaF = this.fechaFin;
+    },
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -364,14 +420,31 @@ export default {
     },
 
     traerDirecto() {
-      this.detalleDirecto = this.$store.state.datos;
-      console.log(this.detalleDirecto);
+      this.id = this.$store.state.datos._id;
+      this.detalleDirecto = {
+        tipoDocumento: this.$store.state.datos.tipoDocumento,
+        documento: this.$store.state.datos.documento,
+        nombre: this.$store.state.datos.nombre,
+        tipoContrato:this.$store.state.tipoContrato,
+        salario: this.$store.state.datos.salario,
+        barrio: this.$store.state.datos.barrio,
+        telefono: this.$store.state.datos.telefono,
+        email: this.$store.state.datos.email,
+        anotacion: this.$store.state.datos.anotacion,
+        sexo: this.$store.state.datos.sexo,
+        rol: this.$store.state.datos.rol,
+        areaTrabajo: this.$store.state.datos.areaTrabajo._id,
+        city: this.$store.state.datos.ciudad,
+        fechaN: this.$store.state.datos.fechaNacimiento,
+        fechaI: this.$store.state.datos.fechaInicio,
+        fechaF: this.$store.state.datos.fechaFin,
+      };
     },
-    editarItem(id) {
-      if (id) {
+    editarItem() {
+     
         axios
           .put(
-            `https://back-coohilados.vercel.app/api/trabajadorDirecto/${id}`,
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/${this.id}`,
             {
               tipoDocumento: this.detalleDirecto.tipoDocumento,
               documento: this.detalleDirecto.documento,
@@ -413,7 +486,7 @@ export default {
               title: "Error al editar el trabajador",
             });
           });
-      }
+      
     },
 
     fecha(r) {
