@@ -62,6 +62,7 @@
             </v-container>
           </v-card>
         </v-col>
+        
         <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="user.rol == 'Actualizador'">
           <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
@@ -81,6 +82,27 @@
             </v-container>
           </v-card>
         </v-col>
+
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2" >
+          <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
+            <div>
+              <h1 class="text-left mb-10">Perfil
+                <font-awesome-icon :icon="['fas', 'user']" />
+              </h1>
+            </div>
+            <v-spacer></v-spacer>
+
+            <v-container>
+              <v-row class="justify-end mt-0">
+                <v-col cols="3">
+                  <v-btn color="#41B44C" class="black" outlined rounded text to="Perfil">
+                    <v-icon>mdi-login</v-icon></v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+
       </v-row>
     </v-container>
   </v-app>

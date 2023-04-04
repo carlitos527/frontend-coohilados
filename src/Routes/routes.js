@@ -25,6 +25,7 @@ import gerencia from "../components/Gerencia.vue"
 import th from "../components/TH.vue"
 
 import observarTrabajadores from "../components/observarTrabajadores.vue"
+import perfil from "../components/Perfil.vue"
 
 
 export const routes =[
@@ -57,5 +58,7 @@ export const routes =[
     {path: "/TH", component:th},
 
     {path: "/observarTrabajadores", component:observarTrabajadores},
+
+    {path: "/Perfil", component:perfil},
    
 ]

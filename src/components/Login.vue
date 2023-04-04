@@ -13,7 +13,7 @@
             <v-form ref="form" class="pa-4 pt-6">
               <v-text-field v-model="email" label="Usuario" type="text" outlined required hint="Correo Corporativo">
               </v-text-field>
-              <v-text-field v-model="password" :counter="10" label="Password"
+              <v-text-field v-model="password" :counter="20" label="Password"
                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" outlined required
                 @click:append="show1 = !show1"></v-text-field>
 
@@ -49,7 +49,6 @@
 import axios from "axios";
 export default {
   name: "PageLogin",
-
   data: () => ({
     email: "",
     password: "",
@@ -71,7 +70,6 @@ export default {
           this.$store.dispatch("setDatosUsuario", response.data.usuario);
           /* localStorage.setItem('nav','siVer') */
           this.$router.push("/Home");
-
           this.$swal({
             icon: "success",
             title: "Inicio de sesión exitoso",

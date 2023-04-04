@@ -116,7 +116,7 @@ export default {
     editarItem(id) {
       if (id) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/usuario/${id}`, {
+          .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
             
             documento: this.detalleUsuario.documento,
             nombre: this.detalleUsuario.nombre,

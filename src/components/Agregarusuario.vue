@@ -1,61 +1,66 @@
 <template>
   <v-app>
-    <v-container fluid >
-      <v-row class="justify-center align-center" style="height:90vh">
-        <v-col class="text-center" col="12" sm="6">
-          <v-card style="background-color:#ffe082">
-            <v-card-title class="text-h5"><h1> Ingrese nuevo usuario</h1></v-card-title>
-            <v-card-text>
-              <v-text-field
-                v-model="documento"
-                :rules="documentoRules"
-                label="Documento"
-                required
-              ></v-text-field>
+    <v-container>
+      <br />
+      <v-row>
+        <v-col colored-border type="warning">
+          <v-row>
+            <v-col >
+              <v-row align="end" class="fill-height">
+                <v-col align-self="start" class="pa-0" cols="12">
+                  <v-card class="mx-auto yellow accent-1" max-width="700" tile>
+                    <v-card-title class="text-h5"
+                      ><h1>Ingrese nuevo usuario</h1></v-card-title
+                    >
+                    <v-card-text>
+                      <v-text-field
+                        v-model="documento"
+                        :rules="documentoRules"
+                        label="Documento"
+                        required
+                      ></v-text-field>
 
-              <v-text-field
-                v-model="nombre"
-                label="Nombre y Apellidos"
-                :rules="nombreRules"
-                required
-              ></v-text-field>
+                      <v-text-field
+                        v-model="nombre"
+                        label="Nombre y Apellidos"
+                        :rules="nombreRules"
+                        required
+                      ></v-text-field>
 
-              <v-text-field
-                v-model="email"
-                label="E-mail"
-                :rules="emailRules"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="password"
-                label="Escriba una Contraseña"
-                :rules="passwordRules"
-                required
-              ></v-text-field>
+                      <v-text-field
+                        v-model="email"
+                        label="E-mail"
+                        :rules="emailRules"
+                        required
+                      ></v-text-field>
+                      
 
-              <v-select
-                v-model="area"
-                label="Area"
-                :items="area"
-                required
-              ></v-select>
+                      <v-select
+                        v-model="area"
+                        label="Area"
+                        :items="area"
+                        required
+                      ></v-select>
 
-
-              <v-select
-                v-model="rol"
-                label="Rol"
-                :items="rol"
-                required
-              ></v-select>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="blue darken-1" text to="/">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="agregar()"
-                >Guardar</v-btn
-              >
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
+                      <v-select
+                        v-model="rol"
+                        label="Rol"
+                        :items="rol"
+                        required
+                      ></v-select>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn color="blue darken-1" text to="/">Cancel</v-btn>
+                      <v-btn color="blue darken-1" text @click="agregar()"
+                        >Guardar</v-btn
+                      >
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -94,28 +99,10 @@ export default {
         (e && e.length <= 40) ||
         " el email  solo puede tener menos de  40 caracteres",
     ],
-    valid6: true,
-    password: "",
-    passwordlRules: [
-      (p) => !!p || " La contraseña es requerido ❌",
-      (p) =>
-        (p && p.length <= 20) ||
-        " La contraseña  no puede tener menos de 8 caracteres",
-    ],
-    valid7: true,
+   
 
-    area: [
-      "CONSEJO O GERENCIA",
-      "TALENTO HUMANO",
-      "SISTEMAS",
-      "SST",
-    ],
-     rol: [
-      "Actualizador",
-      "Administrador",
-      "Editor de Datos",
-      "Visualizador",
-    ],
+    area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
+    rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
 
     usuarios: [],
   }),
@@ -177,8 +164,8 @@ export default {
             documento: this.documento,
             nombre: this.nombre,
             email: this.email,
-            password: this.password,
-            area:this.area,
+            
+            area: this.area,
             rol: this.rol,
           },
           header

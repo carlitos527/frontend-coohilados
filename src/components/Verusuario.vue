@@ -8,7 +8,7 @@
               <v-toolbar-title><h1> USUARIO</h1> </v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
-              <v-btn color="deep-purple lighten-2" text to="/Sistemas">
+              <v-btn color="deep-purple lighten-2" text to="/Home">
                 Regresar
               </v-btn>
               <template>
@@ -320,6 +320,7 @@ export default {
             email: this.email,
             password: this.password,
             rol: this.rol,
+            area: this.detalleUsuario.area,
           },
           header
         )
