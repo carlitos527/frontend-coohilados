@@ -73,6 +73,7 @@ export default {
           this.$swal({
             icon: "success",
             title: "Inicio de sesión exitoso",
+            password:[],
           });
           this.expirarSesion();
         })

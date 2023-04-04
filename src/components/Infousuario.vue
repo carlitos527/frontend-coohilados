@@ -8,14 +8,20 @@
       ></v-progress-linear>
     </template>
 
-    <v-card-title justify-right>
-     
-    </v-card-title>
+    <v-card-title justify-right> </v-card-title>
 
     <v-card-text>
       <v-row align="center" class="mx-0">
         <v-col cols="12" sm="6" md="4">
-          <p label="Estado">Estado: {{ detalleUsuario.estado }}</p>
+          <p label="Estado" v-if="this.$store.state.datos.estado == 1">
+            Estado: Activo
+          </p>
+          <p label="Estado" v-if="this.$store.state.datos.estado == 2">
+            Estado: Inactivo
+          </p>
+          <p label="Estado" v-if="this.$store.state.datos.estado == 3">
+            Estado: De vacaciones
+          </p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -28,20 +34,18 @@
       <template>
         <v-container>
           <v-row>
-         
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 v-model="detalleUsuario.documento"
                 label="Documento"
               ></v-text-field>
             </v-col>
-             <v-col cols="12" sm="6" md="6">
+            <v-col cols="12" sm="6" md="6">
               <v-text-field
                 v-model="detalleUsuario.nombre"
                 label="Nombres"
               ></v-text-field>
             </v-col>
-
 
             <v-col cols="12" sm="6" md="6">
               <v-text-field
@@ -78,7 +82,7 @@
       </v-btn>
       <v-btn
         color="deep-purple lighten-2"
-        text 
+        text
         @click="editarItem(detalleUsuario._id)"
       >
         Guardar
@@ -90,22 +94,9 @@
 import axios from "axios";
 export default {
   name: "PageInfousuario",
-
   data: () => ({
-
-     area: [
-      "CONSEJO O GERENCIA",
-      "TALENTO HUMANO",
-      "SISTEMAS",
-      "SST",
-    ],
-
-    rol: [
-      "Actualizador",
-      "Administrador",
-      "Editor de Datos",
-      "Visualizador",
-    ],
+    area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
+    rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
     detalleUsuario: [],
   }),
   methods: {
@@ -117,7 +108,6 @@ export default {
       if (id) {
         axios
           .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
-            
             documento: this.detalleUsuario.documento,
             nombre: this.detalleUsuario.nombre,
             email: this.detalleUsuario.email,
@@ -132,7 +122,6 @@ export default {
             this.$store.dispatch("setDatos", response.data.item);
             this.$router.push("/Verusuario");
             this.loading = false;
-
             this.$swal({
               icon: "success",
               title: "Se edito Usuario correctamente",
@@ -144,7 +133,8 @@ export default {
             this.loading = false;
             this.$swal({
               icon: "error",
-              title: "Error al editar el Usuario, por favor verifique los datos",
+              title:
+                "Error al editar el Usuario, por favor verifique los datos",
             });
           });
       }
