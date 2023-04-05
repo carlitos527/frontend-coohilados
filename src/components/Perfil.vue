@@ -22,17 +22,17 @@
                         <h3 class="mb-0">{{ `Rol: ${$store.state.usuario.rol}` }}</h3>
                         <h3 v-if="$store.state.usuario.estado == 1"> Estado:
                           <p label="Estado" style="color: green" >
-                            Activo
+                            🟢
                           </p>
                         </h3>
                         <h3 v-if="$store.state.usuario.estado == 2"> Estado:
                           <p label="Estado" style="color:red" >
-                          Inactivo
+                          🔴
                         </p>
                         </h3>
                         <h3 v-if="$store.state.usuario.estado == 3">Estado:
                           <p label="Estado" style="color: orange" >
-                          Estado: De vacaciones
+                          🟠
                         </p>
                         </h3>
                       </v-col>
