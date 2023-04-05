@@ -180,7 +180,7 @@ export default {
           this.$swal({
             icon: "success",
             title:
-              "Se creo el Usuario  correctamente 👌, por favor digite su correo y  contraseña ⌨",
+              `Se creo el Usuario  correctamente 👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
               
           });
         })

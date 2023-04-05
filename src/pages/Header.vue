@@ -56,19 +56,7 @@
           </v-list-item-group>
         </v-list>
       </v-img>
-      <v-row>
-        <v-col class="text-center">
-          <div style="background-color: rgba(1,1,1,0.4);">
-            <h1>
-              {{ `${$store.state.usuario.nombre}` }}
-            </h1>
-            <h3>
-              {{ `Área: ${$store.state.usuario.area}` }} <br>
-              {{ `Rol: ${$store.state.usuario.rol}` }}
-            </h3>
-          </div>
-        </v-col>
-      </v-row>
+      
     </v-navigation-drawer>
   </div>
 </template>

@@ -5,8 +5,24 @@
         <v-col class="text-center">
           <v-template>
             <v-toolbar class="amber accent-2">
-              <v-toolbar-title><h1> USUARIO</h1> </v-toolbar-title>
+              <v-toolbar-title><h1>USUARIO</h1> </v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
+
+              <v-text-field
+                v-model="busqueda"
+                append-icon="mdi-magnify"
+                label="buscar"
+                single-line
+                hide-details
+              >
+              </v-text-field> 
+               <v-spacer></v-spacer>
+
+              <h4 class="text-center">
+                <router-link to="/Agregarusuario" color="black">
+                  Crea un usuario!
+                </router-link>
+              </h4>
               <v-spacer></v-spacer>
               <v-btn color="deep-purple lighten-2" text to="/Home">
                 Regresar
@@ -192,7 +208,7 @@ export default {
       { text: "Email", value: "email" },
       { text: "Area", value: "area" },
       { text: "Rol", value: "rol" },
-      
+
       { text: "Estado", value: "estado" },
       { text: "Actions", value: "actions", sortable: false },
     ],
@@ -202,8 +218,20 @@ export default {
     password: "",
     rol: "",
     usuarios: [],
+    busqueda: "",
   }),
   methods: {
+
+    buscar() {
+      return this.usuarios.filter((user) => {
+        const identificacion = user.documento.toLowerCase();
+        const nombre = user.nombre.toLowerCase();
+        const busqueda = this.busqueda.toLowerCase();
+        return identificacion.includes(busqueda) || nombre.includes(busqueda);
+      });
+    },
+  
+
     editarUsuario(item) {
       this.$router.push("/Infousuario");
       this.$store.dispatch("setDatos", item);
@@ -217,9 +245,11 @@ export default {
 
     eliminarUsuario(item) {
       axios
-        .put(`https://back-coohilados.vercel.app/api/usuario/eliminar/${item._id}`)
+        .put(
+          `https://back-coohilados.vercel.app/api/usuario/eliminar/${item._id}`
+        )
         .then((response) => {
-          this.traerUsuarios()
+          this.traerUsuarios();
           this.usuario = response.data.usuario;
           this.$swal({
             icon: "success",

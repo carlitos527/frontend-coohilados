@@ -9,6 +9,11 @@
                 <h2>Ingresar</h2>
               </v-toolbar-title>
             </v-toolbar>
+            <h4 class="text-center">
+                <router-link to="/Agregarusuario" color="black">
+                  Crea un usuario!
+                </router-link>
+              </h4>
 
             <v-form ref="form" class="pa-4 pt-6">
               <v-text-field v-model="email" label="Usuario" type="text" outlined required hint="Correo Corporativo">
@@ -17,11 +22,7 @@
                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" outlined required
                 @click:append="show1 = !show1"></v-text-field>
 
-              <h4 class="text-center">
-                <router-link to="/Agregarusuario" color="black">
-                  Crea un usuario!
-                </router-link>
-              </h4>
+              
               <v-card-action>
                 <v-flex class="text-center">
                   <v-btn rounded class="ma-2" outlined color="green" @click="login()">
@@ -73,7 +74,7 @@ export default {
           this.$swal({
             icon: "success",
             title: "Inicio de sesión exitoso",
-            password:[],
+            
           });
           this.expirarSesion();
         })

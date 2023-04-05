@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-12" max-width="500">
+  <v-card class="yellow accent-1 mx-auto my-12" max-width="500">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -7,87 +7,125 @@
         indeterminate
       ></v-progress-linear>
     </template>
+    <v-row>
+      <v-col class="yellow accent-1">
+        <v-row align="end" class="fill-height">
+          <v-col align-self="start" class="pa-0" cols="12">
+            <v-card-title justify-right> </v-card-title>
+            <v-card-title>{{ detalleUsuario.nombre }}</v-card-title>
 
-    <v-card-title justify-right> </v-card-title>
+            <v-card-text>
+              <v-row align="center" class="mx-0">
+                <v-col cols="12" sm="6" md="4">
+                  <h3 v-if="$store.state.usuario.estado == 1">
+                    Estado:
+                    <p label="Estado" style="color: green">🟢</p>
+                  </h3>
+                  <h3 v-if="$store.state.usuario.estado == 2">
+                    Estado:
+                    <p label="Estado" style="color: red">🔴</p>
+                  </h3>
+                  <h3 v-if="$store.state.usuario.estado == 3">
+                    Estado:
+                    <p label="Estado" style="color: orange">🟠</p>
+                  </h3>
+                </v-col>
+              </v-row>
+            </v-card-text>
 
-    <v-card-text>
-      <v-row align="center" class="mx-0">
-        <v-col cols="12" sm="6" md="4">
-          <p label="Estado" v-if="this.$store.state.datos.estado == 1">
-            Estado: Activo
-          </p>
-          <p label="Estado" v-if="this.$store.state.datos.estado == 2">
-            Estado: Inactivo
-          </p>
-          <p label="Estado" v-if="this.$store.state.datos.estado == 3">
-            Estado: De vacaciones
-          </p>
-        </v-col>
-      </v-row>
-    </v-card-text>
+            <v-divider class="mx-4"></v-divider>
 
-    <v-divider class="mx-4"></v-divider>
+            <v-card-text>
+              <template>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleUsuario.documento"
+                        label="Documento"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleUsuario.nombre"
+                        label="Nombres"
+                      ></v-text-field>
+                    </v-col>
 
-    <v-card-title>{{ detalleUsuario.nombre }}</v-card-title>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleUsuario.email"
+                        label="E-mail"
+                      ></v-text-field>
+                    </v-col>
 
-    <v-card-text>
-      <template>
-        <v-container>
-          <v-row>
-            <v-col cols="12" sm="6" md="6">
-              <v-text-field
-                v-model="detalleUsuario.documento"
-                label="Documento"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6">
-              <v-text-field
-                v-model="detalleUsuario.nombre"
-                label="Nombres"
-              ></v-text-field>
-            </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="detalleUsuario.area"
+                        label="Area"
+                        :items="area"
+                        required
+                      ></v-select>
+                    </v-col>
 
-            <v-col cols="12" sm="6" md="6">
-              <v-text-field
-                v-model="detalleUsuario.email"
-                label="E-mail"
-              ></v-text-field>
-            </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="detalleUsuario.rol"
+                        label="Rol"
+                        :items="rol"
+                        required
+                      ></v-select>
+                    </v-col>
 
-            <v-col cols="12" sm="6" md="6">
-              <v-select
-                v-model="detalleUsuario.area"
-                label="Area"
-                :items="area"
-                required
-              ></v-select>
-            </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleUsuario.password"
+                        label="Password"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </template>
+            </v-card-text>
 
-            <v-col cols="12" sm="6" md="6">
-              <v-select
-                v-model="detalleUsuario.rol"
-                label="Rol"
-                :items="rol"
-                required
-              ></v-select>
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn color="deep-purple lighten-2" text to="/Verusuario">
-        Regresar
-      </v-btn>
-      <v-btn
-        color="deep-purple lighten-2"
-        text
-        @click="editarItem(detalleUsuario._id)"
-      >
-        Guardar
-      </v-btn>
-    </v-card-actions>
+            <v-card-actions>
+              <v-btn
+                rounded
+                outlined
+                color="black"
+                class="mb-2 red accent-3"
+                text
+                to="/Verusuario"
+              >
+                Regresar
+              </v-btn>
+              <v-btn
+                rounded
+                outlined
+                color="black"
+                class="mb-2 green accent-3"
+                @click="editarItem(detalleUsuario._id)"
+              >
+                Guardar
+              </v-btn>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-row class="align-center">
+      <v-col>
+        <v-overlay :value="loading">
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
+        </v-overlay>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 <script>
@@ -95,49 +133,73 @@ import axios from "axios";
 export default {
   name: "PageInfousuario",
   data: () => ({
+    loading: false,
+    valid6: true,
+    password: "",
     area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
     rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
-    detalleUsuario: [],
+    usuarios: [],
+    detalleUsuario: {
+      documento: "",
+      nombre: "",
+      email: "",
+      password: "",
+      area: "",
+      rol: "",
+    },
+    id: "",
   }),
   methods: {
     traerUsuario() {
-      this.detalleUsuario = this.$store.state.datos;
-      console.log(this.detalleUsuario);
+      this.id = this.$store.state.usuario._id;
+      this.detalleUsuario = {
+        documento: this.$store.state.usuario.documento,
+        nombre: this.$store.state.usuario.nombre,
+        email: this.$store.state.usuario.email,
+        password: this.$store.state.usuario.password,
+        area: this.$store.state.usuario.area,
+        rol: this.$store.state.usuario.rol,
+      };
     },
-    editarItem(id) {
-      if (id) {
-        axios
-          .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
-            documento: this.detalleUsuario.documento,
-            nombre: this.detalleUsuario.nombre,
-            email: this.detalleUsuario.email,
-            password: this.detalleUsuario.password,
-            area: this.detalleUsuario.area,
-            rol: this.detalleUsuario.rol,
-          })
-          .then((response) => {
-            this.traerUsuario();
-            this.dialog = false;
-            console.log(response);
-            this.$store.dispatch("setDatos", response.data.item);
-            this.$router.push("/Verusuario");
-            this.loading = false;
-            this.$swal({
-              icon: "success",
-              title: "Se edito Usuario correctamente",
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-            this.dialog = false;
-            this.loading = false;
-            this.$swal({
-              icon: "error",
-              title:
-                "Error al editar el Usuario, por favor verifique los datos",
-            });
+    editarItem() {
+      console.log("documento"+this.detalleUsuario.documento)
+       console.log("nombre"+this.detalleUsuario.nombre)
+       console.log("email"+this.detalleUsuario.email)
+       console.log("password"+this.detalleUsuario.password)
+       console.log("area"+this.detalleUsuario.area)
+       console.log("rol"+this.detalleUsuario.rol)
+      this.loading= true;
+      axios
+        .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
+          documento: this.detalleUsuario.documento,
+          nombre: this.detalleUsuario.nombre,
+          email: this.detalleUsuario.email,
+          password: this.detalleUsuario.password,
+          area: this.detalleUsuario.area,
+          rol: this.detalleUsuario.rol,
+        })
+        .then((response) => {
+          this.traerUsuario();
+          this.loading= false,
+         
+          console.log(response);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/Infousuario");
+
+          this.$swal({
+            icon: "success",
+            title: "Se edito Usuario correctamente",
           });
-      }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.dialog = false;
+          this.loading= false;
+          this.$swal({
+            icon: "error",
+            title: "Error al editar el Usuario, por favor verifique los datos",
+          });
+        });
     },
   },
   created() {
