@@ -67,7 +67,7 @@
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
                             <v-text-field v-model="detalleUsuario.password" label="Password"
-                              :rules="passwordlRules"></v-text-field>
+                              ></v-text-field>
                           </v-col>
                         </v-row>
                         <v-card-actions>
@@ -126,12 +126,7 @@ export default {
     ],
     valid6: true,
     password: "",
-    passwordlRules: [
-      (p) => !!p || " La contraseña es requerido ❌",
-      (p) =>
-        (p && p.length <= 20) ||
-        " La contraseña  no puede tener menos de 8 caracteres",
-    ],
+    
     usuarios: [],
     detalleUsuario: {
       documento: "",
