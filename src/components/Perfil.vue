@@ -26,27 +26,27 @@
                     <v-row align="center" class="mx-0">
                       <v-col cols="12" sm="6" md="4">
                         <h3 class="mb-0">
-                          {{ `Área: ${$store.state.usuario.area}` }}
+                          {{ `Área: ${user.area}` }}
                         </h3>
                         <h3 class="mb-0">
-                          {{ `Rol: ${$store.state.usuario.rol}` }}
+                          {{ `Rol: ${user.rol}` }}
                         </h3>
-                        <h3 v-if="$store.state.usuario.estado == 1">
+                        <h3 v-if="user.estado == 1">
                           Estado:
                           <p label="Estado" style="color: green">🟢</p>
                         </h3>
-                        <h3 v-if="$store.state.usuario.estado == 2">
+                        <h3 v-if="user.estado == 2">
                           Estado:
                           <p label="Estado" style="color: red">🔴</p>
                         </h3>
-                        <h3 v-if="$store.state.usuario.estado == 3">
+                        <h3 v-if="user.estado == 3">
                           Estado:
                           <p label="Estado" style="color: orange">🟠</p>
                         </h3>
                       </v-col>
                       <v-card-title justify-right>
                         <v-card-title>{{
-                          `${$store.state.usuario.nombre}`
+                          `${user.nombre}`
                         }}</v-card-title>
                       </v-card-title>
                     </v-row>
@@ -145,7 +145,7 @@ export default {
   data: () => ({
     loading: false,
     show1: false,
-
+    user:"",
     dialog: false,
     dialogEdit: false,
     valid: true,
@@ -184,12 +184,12 @@ export default {
   }),
   methods: {
     traerUsuario() {
-      this.id = this.$store.state.usuario._id;
+      this.id = this.user._id;
       this.detalleUsuario = {
-        documento: this.$store.state.usuario.documento,
-        nombre: this.$store.state.usuario.nombre,
-        email: this.$store.state.usuario.email,
-        password: this.$store.state.usuario.password,
+        documento: this.user.documento,
+        nombre: this.user.nombre,
+        email: this.user.email,
+        password: this.user.password,
       };
     },
     editarItem() {
@@ -223,10 +223,13 @@ export default {
           });
         });
     },
-    estado() {},
+    traer() {
+      this.user = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
 
   created() {
+    this.traer();
     this.traerUsuario();
   },
 };
