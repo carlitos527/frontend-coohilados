@@ -111,7 +111,7 @@ export default {
     }
   },
   created() {
-    console.log("created de login");
+
   }
 };
 </script>
