@@ -276,6 +276,13 @@ export default {
         });
     },
     editarItem() {
+      console.log("documento: "+this.detalleUsuario.documento);
+      console.log("nombre: "+this.detalleUsuario.nombre);
+      console.log("area: "+this.detalleUsuario.area);
+      console.log("correo: "+this.detalleUsuario.email);
+      console.log("rol: "+this.detalleUsuario.rol);
+
+      
       this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
