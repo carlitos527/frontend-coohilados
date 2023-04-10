@@ -68,15 +68,16 @@ export default {
     group: null,
     cerrar: "",
     persona: "",
-    navbar: ""
+    navbar: "",
+    i:""
   }),
   methods: {
     cerrarSesion() {
+      clearInterval(this.i);
       this.$store.state.token == undefined
       this.$router.push("/");
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
-      localStorage.setItem('nav', 'noVer')
       /* localStorage.clear(); */
       this.$swal({
         icon: "success",
@@ -87,7 +88,7 @@ export default {
       this.persona = this.$store.state.usuario;
     },
     expirarSesion() {
-      let i = setInterval(() => {
+      this.i = setInterval(() => {
         window.onmousemove = () => {
           this.tiempo = 900
         }
@@ -108,7 +109,7 @@ export default {
             icon: "info",
             title: "Su sesión a expirado",
           });
-          clearInterval(i)
+          clearInterval(this.i)
         }
       }, 1200)
     },
@@ -120,10 +121,8 @@ export default {
   created() {
     this.traerUsuario();
     this.traer();
-    console.log("created de header");
+    
   },
-  mounted(){
-    console.log("mounted de header");
-  }
+  
 };
 </script>

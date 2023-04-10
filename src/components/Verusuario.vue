@@ -92,7 +92,7 @@
                 <div
                   v-show="item.estado == 2"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'Administrador'"
+                  v-if="user.rol == 'Administrador'"
                 >
                   <v-btn
                     color="green"
@@ -110,7 +110,7 @@
                 <div
                   v-show="item.estado == 1"
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'Administrador'"
+                  v-if="user.rol == 'Administrador'"
                 >
                   <v-btn
                     color="red"
@@ -142,7 +142,7 @@
                 </div>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'Administrador'"
+                  v-if="user.rol == 'Administrador'"
                 >
                   <v-btn
                     color="primary"
@@ -159,7 +159,7 @@
                 </article>
                 <article
                   class="boton"
-                  v-if="$store.state.usuario.rol == 'Administrador'"
+                  v-if="user.rol == 'Administrador'"
                 >
                   <v-btn
                     color="black"
@@ -219,9 +219,12 @@ export default {
     rol: "",
     usuarios: [],
     busqueda: "",
+    user:""
   }),
   methods: {
-
+    traer() {
+      this.user = JSON.parse(localStorage.getItem("usuario"));
+    },
     buscar() {
       return this.usuarios.filter((user) => {
         const identificacion = user.documento.toLowerCase();
@@ -230,8 +233,6 @@ export default {
         return identificacion.includes(busqueda) || nombre.includes(busqueda);
       });
     },
-  
-
     editarUsuario(item) {
       this.$router.push("/Infousuario");
       this.$store.dispatch("setDatos", item);
@@ -242,7 +243,6 @@ export default {
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
     },
-
     eliminarUsuario(item) {
       axios
         .put(
@@ -267,7 +267,6 @@ export default {
     close() {
       this.dialog = false;
     },
-
     traerUsuarios() {
       axios
         .get("https://back-coohilados.vercel.app/api/usuario")
@@ -278,7 +277,6 @@ export default {
           console.log(err);
         });
     },
-
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
@@ -306,7 +304,6 @@ export default {
       }
       this.traerUsuarios();
     },
-
     activar(id) {
       console.log(id);
       if (id) {
@@ -320,7 +317,6 @@ export default {
           });
       }
     },
-
     desactivar(id) {
       console.log(id);
       if (id) {
@@ -336,7 +332,6 @@ export default {
           });
       }
     },
-
     agregar() {
       this.loading = true;
       let header = { headers: { "x-token": this.$store.state.token } };
@@ -381,6 +376,7 @@ export default {
 
   created() {
     this.traerUsuarios();
+    this.traer();
   },
 };
 </script>
