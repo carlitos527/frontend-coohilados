@@ -204,14 +204,14 @@ export default {
   }),
   methods: {
     traerUsuario() {
-      this.id = this.$store.state.usuario._id;
+      this.id = this.$store.state.datos._id;
       this.detalleUsuario = {
-        documento: this.$store.state.usuario.documento,
-        nombre: this.$store.state.usuario.nombre,
-        email: this.$store.state.usuario.email,
-        password: this.$store.state.usuario.password,
-        area: this.$store.state.usuario.area,
-        rol: this.$store.state.usuario.rol,
+        documento: this.$store.state.datos.documento,
+        nombre: this.$store.state.datos.nombre,
+        email: this.$store.state.datos.email,
+        password: this.$store.state.datos.password,
+        area: this.$store.state.datos.area,
+        rol: this.$store.state.datos.rol,
       };
     },
     editarItem() {

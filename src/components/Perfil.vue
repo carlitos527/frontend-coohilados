@@ -173,7 +173,6 @@ export default {
       documento: "",
       nombre: "",
       email: "",
-      password: "",
     },
     id: "",
   }),
@@ -191,7 +190,6 @@ export default {
         documento: this.user.documento,
         nombre: this.user.nombre,
         email: this.user.email,
-        password: this.user.password,
       };
     },
     cambiarPassword() {
