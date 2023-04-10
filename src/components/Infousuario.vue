@@ -222,7 +222,6 @@ export default {
       documento: "",
       nombre: "",
       email: "",
-      password: "",
       area: "",
       rol: "",
     },
@@ -242,12 +241,10 @@ export default {
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
         email: this.$store.state.datos.email,
-        password: this.$store.state.datos.password,
         area: this.$store.state.datos.area,
         rol: this.$store.state.datos.rol,
       };
     },
-
      cambiarPassword() {
       this.loading = true;
       axios
@@ -279,19 +276,12 @@ export default {
         });
     },
     editarItem() {
-      console.log("documento" + this.detalleUsuario.documento);
-      console.log("nombre" + this.detalleUsuario.nombre);
-      console.log("email" + this.detalleUsuario.email);
-      console.log("password" + this.detalleUsuario.password);
-      console.log("area" + this.detalleUsuario.area);
-      console.log("rol" + this.detalleUsuario.rol);
       this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
           documento: this.detalleUsuario.documento,
           nombre: this.detalleUsuario.nombre,
           email: this.detalleUsuario.email,
-          password: this.detalleUsuario.password,
           area: this.detalleUsuario.area,
           rol: this.detalleUsuario.rol,
         })
@@ -316,14 +306,13 @@ export default {
           });
         });
     },
-
      traer() {
       this.user = JSON.parse(localStorage.getItem("usuario"));
     },
   },
   created() {
-    this.traerUsuario();
     this.traer();
+    this.traerUsuario();
   },
 };
 </script>
