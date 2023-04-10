@@ -63,6 +63,19 @@
           </v-row>
         </v-col>
       </v-row>
+       <v-row class="align-center">
+      <v-col>
+        <v-overlay :value="loading">
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
+        </v-overlay>
+      </v-col>
+    </v-row>
     </v-container>
   </v-app>
 </template>
@@ -180,7 +193,7 @@ export default {
           this.$swal({
             icon: "success",
             title:
-              `Se creo el Usuario  correctamente 👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
+              `👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
               
           });
         })

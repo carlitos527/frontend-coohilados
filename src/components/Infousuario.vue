@@ -79,40 +79,66 @@
 
                     <!-- editar contraseña -->
 
-                      <v-row align="center" justify="center">
-                        <v-dialog v-model="dialog" persistent max-width="600px">
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="orange" dark v-bind="attrs" v-on="on">
-                              Editar contraseña
-                            </v-btn>
-                          </template>
-                          <v-card>
-                            <v-card-title>
-                              Editar contraseña
-                            </v-card-title>
-                            <v-card-text>
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-form ref="form" v-model="valid" lazy-validation>
-                                    <v-text-field v-model="passwordActual" :rules="passwordActualRules"
-                                      label="Contraseña actual" outlined dense></v-text-field>
-                                    <v-text-field v-model="nuevaPassword" :rules="nuevaPasswordRules"
-                                      label="Nueva contraseña" outlined dense></v-text-field>
-                                    <v-text-field v-model="confirmarPassword"
-                                      :rules="[rules.required, rules.max, compararPasswords]" label="Confirmar contraseña"
-                                      outlined dense></v-text-field>
-                                    <v-btn :disabled="!valid" color="green" @click="cambiarPassword">Cambiar contraseña</v-btn>
-                                  </v-form>
-                                </v-col>
-                              </v-row>
-                            </v-card-text>
-                            <v-card-actions>
-                              <v-btn color="red" @click="dialog = false">cerrar</v-btn>
-
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
-                      </v-row>
+                    <v-row align="center" justify="center">
+                      <v-dialog v-model="dialog" persistent max-width="600px">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn color="orange" dark v-bind="attrs" v-on="on">
+                            Editar contraseña
+                          </v-btn>
+                        </template>
+                        <v-card>
+                          <v-card-title> Editar contraseña </v-card-title>
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="12">
+                                <v-form
+                                  ref="form"
+                                  v-model="valid"
+                                  lazy-validation
+                                >
+                                  <v-text-field
+                                    v-model="passwordActual"
+                                    :rules="passwordActualRules"
+                                    label="Contraseña actual"
+                                    outlined
+                                    dense
+                                  ></v-text-field>
+                                  <v-text-field
+                                    v-model="nuevaPassword"
+                                    :rules="nuevaPasswordRules"
+                                    label="Nueva contraseña"
+                                    outlined
+                                    dense
+                                  ></v-text-field>
+                                  <v-text-field
+                                    v-model="confirmarPassword"
+                                    :rules="[
+                                      rules.required,
+                                      rules.max,
+                                      compararPasswords,
+                                    ]"
+                                    label="Confirmar contraseña"
+                                    outlined
+                                    dense
+                                  ></v-text-field>
+                                  <v-btn
+                                    :disabled="!valid"
+                                    color="green"
+                                    @click="cambiarPassword"
+                                    >Cambiar contraseña</v-btn
+                                  >
+                                </v-form>
+                              </v-col>
+                            </v-row>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-btn color="red" @click="dialog = false"
+                              >cerrar</v-btn
+                            >
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-row>
                   </v-row>
                 </v-container>
               </template>
@@ -171,7 +197,7 @@ export default {
     area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
     rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
     usuarios: [],
-     passwordActual: "",
+    passwordActual: "",
     passwordActualRules: [
       (value) => !!value || "Password actual es requerida",
       (value) =>
@@ -203,6 +229,13 @@ export default {
     id: "",
   }),
   methods: {
+    compararPasswords() {
+      if (this.nuevaPassword === this.confirmarPassword) {
+        return true;
+      } else {
+        return "Passwords deben coincidir";
+      }
+    },
     traerUsuario() {
       this.id = this.$store.state.usuario._id;
       this.detalleUsuario = {
@@ -214,14 +247,45 @@ export default {
         rol: this.$store.state.usuario.rol,
       };
     },
+
+     cambiarPassword() {
+      this.loading = true;
+      axios
+        .put(
+          `https://back-coohilados.vercel.app/api/usuario/cambiarPassword/${this.id}`,
+          {
+            passwordActual: this.passwordActual,
+            nuevaPassword: this.nuevaPassword,
+          }
+        )
+        .then((res) => {
+          console.log(res.data.modificar);
+          this.loading = false;
+          this.dialog = false;
+          this.$swal({
+            icon: "success",
+            title: "Se editó la contraseña correctamente",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          this.dialog = false;
+          this.$swal({
+            icon: "error",
+            title:
+              "Error al editar la contraseña, por favor verifique los datos",
+          });
+        });
+    },
     editarItem() {
-      console.log("documento"+this.detalleUsuario.documento)
-       console.log("nombre"+this.detalleUsuario.nombre)
-       console.log("email"+this.detalleUsuario.email)
-       console.log("password"+this.detalleUsuario.password)
-       console.log("area"+this.detalleUsuario.area)
-       console.log("rol"+this.detalleUsuario.rol)
-      this.loading= true;
+      console.log("documento" + this.detalleUsuario.documento);
+      console.log("nombre" + this.detalleUsuario.nombre);
+      console.log("email" + this.detalleUsuario.email);
+      console.log("password" + this.detalleUsuario.password);
+      console.log("area" + this.detalleUsuario.area);
+      console.log("rol" + this.detalleUsuario.rol);
+      this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
           documento: this.detalleUsuario.documento,
@@ -233,9 +297,7 @@ export default {
         })
         .then((response) => {
           this.traerUsuario();
-          this.loading= false,
-         
-          console.log(response);
+          (this.loading = false), console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/Infousuario");
 
@@ -247,16 +309,21 @@ export default {
         .catch((error) => {
           console.log(error);
           this.dialog = false;
-          this.loading= false;
+          this.loading = false;
           this.$swal({
             icon: "error",
             title: "Error al editar el Usuario, por favor verifique los datos",
           });
         });
     },
+
+     traer() {
+      this.user = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
   created() {
     this.traerUsuario();
+    this.traer();
   },
 };
 </script>
