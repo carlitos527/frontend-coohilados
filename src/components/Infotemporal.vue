@@ -48,13 +48,13 @@
                         v-model="detalleTemporal.tipoDocumento"
                         :items="tDocumento"
                         label="Tipo de Documento"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.documento"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                         label="Documento"
                       ></v-text-field>
                     </v-col>
@@ -62,20 +62,20 @@
                       <v-text-field
                         v-model="detalleTemporal.nombre"
                         label="Nombre"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleTemporal.sexo"
                         :items="sexoArray"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                         label="Sexo"
                       ></v-select>
                     </v-col>
                     <v-menu
                       v-model="menu2"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
@@ -95,7 +95,7 @@
 
                       <v-date-picker
                         v-model="fechaNacimiento"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                         @input="menu2 = false"
                         @change="cambioN"
                       ></v-date-picker>
@@ -108,10 +108,10 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      v-if="usuario.rol == 'Editor de Datos'">
                         <v-text-field
                           v-model="fechaInicio"
                           label="Escoja la Fecha de inicio de contrato"
@@ -136,7 +136,7 @@
                       min-width="auto"
                     >
                       <template v-slot:activator="{ on, attrs }"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                      v-if="usuario.rol == 'Editor de Datos'">
                         <v-text-field
                           v-model="fechaFin"
                           label="Escoja la Fecha de finalización de contrato"
@@ -160,7 +160,7 @@
                         label="Área de trabajo"
                         item-text="nombre"
                         item-value="_id"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -168,21 +168,21 @@
                         :items="rolArray"
                         v-model="detalleTemporal.rol"
                         label="Cargo"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.salario"
                         label="Salario"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.barrio"
                         label="Direccion"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-select
@@ -190,7 +190,7 @@
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                     </v-select>
                     <v-select
@@ -200,14 +200,14 @@
                       item-value="_id"
                       label="Ciudad"
                       @change="prueba()"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                     </v-select>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.telefono"
                         label="Telefono"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col>
@@ -215,7 +215,7 @@
                     <v-text-field
                         v-model="detalleTemporal.email"
                         label="E-mail"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -335,18 +335,16 @@ export default {
       
     },
     id: "",
+    usuario:""
   }),
   methods: {
     cambioN() {
-      console.log("cambio la fecha de nacimiento: ");
       this.detalleTemporal.fechaN = this.fechaNacimiento;
     },
     cambioI() {
-      console.log("cambio la fecha de inicio: ");
       this.detalleTemporal.fechaI = this.fechaInicio;
     },
     cambioF() {
-      console.log("cambio la fecha fin: ");
       this.detalleTemporal.fechaF = this.fechaFin;
     },
     traerAreaTrabajo() {
@@ -454,8 +452,12 @@ export default {
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
+    traer() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
   created() {
+    this.traer();
     this.traerTemporal();
     this.traerAreaTrabajo();
     this.traerDepartamentos();

@@ -39,7 +39,7 @@
                               class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
-                              v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                              v-if="usuario.rol == 'Editor de Datos'">
                               Nuevo Trabajador
                             </v-btn>
                           </template>
@@ -306,8 +306,8 @@
                     <template v-slot:[`item.actions`]="{ item }">
                       <div
                         v-if="
-                          $store.state.usuario.rol != 'Actualizador' &&
-                          $store.state.usuario.rol != 'Visualizador'
+                          usuario.rol != 'Actualizador' &&
+                          usuario.rol != 'Visualizador'
                         "
                       >
                       <div
@@ -378,8 +378,8 @@
                       <article
                         class="boton"
                          v-if="
-                          $store.state.usuario.rol == 'Editor de Datos' ||
-                          $store.state.usuario.rol == 'Actualizador'
+                          usuario.rol == 'Editor de Datos' ||
+                          usuario.rol == 'Actualizador'
                         "
                       >
                         <v-btn
@@ -598,8 +598,8 @@ export default {
     town: [],
     temporales: [],
     busqueda: "",
+    usuario:""
   }),
-
   computed: {
     buscar() {
       return this.temporales.filter((user) => {
@@ -610,7 +610,6 @@ export default {
       });
     },
   },
-
   methods: {
     editarTemporal(item) {
       this.$router.push("/Infotemporal");
@@ -782,7 +781,6 @@ export default {
           });
         });
     },
-
     pdf() {
       axios
         .get("https://back-coohilados.vercel.app/api/ayudaTemporal/activo")
@@ -878,9 +876,12 @@ export default {
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
+    traer() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
-
   created() {
+    this.traer();
     this.traerDepartamentos();
     this.traerTemporal();
     this.traerAreaTrabajo();

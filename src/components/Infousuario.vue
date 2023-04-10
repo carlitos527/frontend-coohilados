@@ -17,15 +17,15 @@
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <v-col cols="12" sm="6" md="4">
-                  <h3 v-if="$store.state.usuario.estado == 1">
+                  <h3 v-if="usuario.estado == 1">
                     Estado:
                     <p label="Estado" style="color: green">🟢</p>
                   </h3>
-                  <h3 v-if="$store.state.usuario.estado == 2">
+                  <h3 v-if="usuario.estado == 2">
                     Estado:
                     <p label="Estado" style="color: red">🔴</p>
                   </h3>
-                  <h3 v-if="$store.state.usuario.estado == 3">
+                  <h3 v-if="usuario.estado == 3">
                     Estado:
                     <p label="Estado" style="color: orange">🟠</p>
                   </h3>
@@ -226,6 +226,7 @@ export default {
       rol: "",
     },
     id: "",
+    usuario:""
   }),
   methods: {
     compararPasswords() {
@@ -307,7 +308,7 @@ export default {
         });
     },
      traer() {
-      this.user = JSON.parse(localStorage.getItem("usuario"));
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
     },
   },
   created() {

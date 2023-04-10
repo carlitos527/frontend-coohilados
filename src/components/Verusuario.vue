@@ -375,8 +375,8 @@ export default {
   },
 
   created() {
-    this.traerUsuarios();
     this.traer();
+    this.traerUsuarios();
   },
 };
 </script>
