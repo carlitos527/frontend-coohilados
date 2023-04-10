@@ -40,7 +40,7 @@
                               v-bind="attrs"
                               v-on="on"
                               v-if="
-                                $store.state.usuario.rol == 'Editor de Datos'
+                                user.rol == 'Editor de Datos'
                               "
                             >
                               Nuevo Trabajador
@@ -308,8 +308,8 @@
                     <template v-slot:[`item.actions`]="{ item }">
                       <div
                         v-if="
-                          $store.state.usuario.rol != 'Actualizador' &&
-                          $store.state.usuario.rol != 'Visualizador'
+                          user.rol != 'Actualizador' &&
+                          user.rol != 'Visualizador'
                         "
                       >
                         <div v-show="item.estado == 3" class="boton">
@@ -372,8 +372,8 @@
                       <article
                         class="boton"
                         v-if="
-                          $store.state.usuario.rol == 'Editor de Datos' ||
-                          $store.state.usuario.rol == 'Actualizador'
+                          user.rol == 'Editor de Datos' ||
+                          user.rol == 'Actualizador'
                         "
                       >
                         <v-btn
@@ -594,6 +594,7 @@ export default {
     trabajadores: [],
     trabajador: [],
     busqueda: "",
+    user:""
   }),
   computed: {
     buscar() {
@@ -606,6 +607,9 @@ export default {
     },
   },
   methods: {
+    traer() {
+      this.user = JSON.parse(localStorage.getItem("usuario"));
+    },
     editarTrabajador(item) {
       this.$router.push("/infotrabajador");
       this.$store.dispatch("setDatos", item);
@@ -866,11 +870,10 @@ export default {
     },
   },
   created() {
+    this.traer();
+    this.traerTrabajador();
     this.traerAreaTrabajo();
     this.traerDepartamentos();
-    //this.traerCiudades()
-    //this.agregar()
-    this.traerTrabajador();
   },
 };
 </script>

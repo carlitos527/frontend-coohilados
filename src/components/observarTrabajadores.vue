@@ -1,5 +1,5 @@
 <template>
-  <v-container style="height: 90vh">
+  <v-container >
     <v-row>
       <v-col>
         <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
