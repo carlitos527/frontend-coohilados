@@ -44,7 +44,7 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6"
-                    v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                    v-if="usuario.rol == 'Editor de Datos'">
                       <v-select
                         v-model="detalleDirecto.tipoDocumento"
                         :items="tDocumento"
@@ -56,7 +56,7 @@
                       <v-text-field
                         v-model="detalleDirecto.documento"
                         label="Documento"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -64,7 +64,7 @@
                       <v-text-field
                         v-model="detalleDirecto.nombre"
                         label="Nombre"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -72,7 +72,7 @@
                         v-model="detalleDirecto.sexo"
                         :items="sexoArray"
                         label="Sexo"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -83,7 +83,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -93,14 +93,14 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
 
                       <v-date-picker
                         v-model="fechaNacimiento"
                         @input="menu2 = false"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
 
@@ -109,7 +109,7 @@
                         v-model="detalleDirecto.tipoContrato"
                         :items="tContrato"
                         label="Tipo de contrato"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -120,7 +120,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -130,13 +130,13 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaInicio"
                         @input="menu3 = false"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
                     <v-menu
@@ -146,7 +146,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -156,13 +156,13 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaFin"
                         @input="menu4 = false"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-date-picker>
                     </v-menu>
 
@@ -173,7 +173,7 @@
                         label="Área de trabajo"
                         item-text="nombre"
                         item-value="_id"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -182,7 +182,7 @@
                         :items="rolArray"
                         v-model="detalleDirecto.rol"
                         label="Cargo"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -190,7 +190,7 @@
                       <v-text-field
                         v-model="detalleDirecto.salario"
                         label="Salario"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -198,7 +198,7 @@
                       <v-text-field
                         v-model="detalleDirecto.barrio"
                         label="Direccion"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -207,7 +207,7 @@
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     ></v-select>
                     <v-select
                       :items="town"
@@ -216,14 +216,14 @@
                       item-value="_id"
                       label="Ciudad"
                       @change="prueba()"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     ></v-select>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.telefono"
                         label="Telefono"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -231,7 +231,7 @@
                       <v-text-field
                         v-model="detalleDirecto.email"
                         label="E-mail"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -367,6 +367,7 @@ export default {
       fechaF: "",
     },
     id: "",
+    usuario:""
   }),
   methods: {
     cambioN() {
@@ -419,7 +420,6 @@ export default {
           console.log(err);
         });
     },
-
     traerDirecto() {
       this.id = this.$store.state.datos._id;
      
@@ -443,7 +443,6 @@ export default {
       };
     },
     editarItem() {
-     
         axios
           .put(
             `https://back-coohilados.vercel.app/api/trabajadorDirecto/${this.id}`,
@@ -489,14 +488,17 @@ export default {
           });
       
     },
-
     fecha(r) {
       let d = new Date(r);
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
+    traer() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
   created() {
+    this.traer();
     this.traerAreaTrabajo();
     this.traerDepartamentos();
     //this.traerCiudades()

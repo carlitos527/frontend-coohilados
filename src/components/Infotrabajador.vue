@@ -44,7 +44,7 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6"
-                    v-if="$store.state.usuario.rol == 'Editor de Datos'">
+                    v-if="usuario.rol == 'Editor de Datos'">
                       <v-select
                         v-model="detalleTrabajador.tipoDocumento"
                         :items="tDocumento"
@@ -57,7 +57,7 @@
                       <v-text-field
                         v-model="detalleTrabajador.documento"
                         label="Documento"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -65,7 +65,7 @@
                       <v-text-field
                         v-model="detalleTrabajador.nombre"
                         label="Nombre"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -73,7 +73,7 @@
                         v-model="detalleTrabajador.sexo"
                         :items="sexoArray"
                         label="Sexo"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -84,7 +84,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -108,7 +108,7 @@
                         v-model="detalleTrabajador.tipoContrato"
                         :items="tContrato"
                         label="Tipo de contrato"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -119,7 +119,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -143,7 +143,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -166,7 +166,7 @@
                         :items="rolArray"
                         v-model="detalleTrabajador.rol"
                         label="Cargo"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
 
@@ -177,14 +177,14 @@
                         label="Área de trabajo"
                         item-text="nombre"
                         item-value="_id"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTrabajador.salario"
                         label="Salario"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -192,19 +192,19 @@
                       <v-text-field
                         v-model="detalleTrabajador.barrio"
                         label="Direccion"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
                     <v-select
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                       :items="cities"
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
                     ></v-select>
                     <v-select
-                      v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                      v-if="usuario.rol == 'Editor de Datos'"
                       :items="town"
                       v-model="detalleTrabajador.city"
                       item-text="Ciudad"
@@ -217,7 +217,7 @@
                       <v-text-field
                         v-model="detalleTrabajador.telefono"  
                         label="Telefono"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -225,7 +225,7 @@
                       <v-text-field
                         v-model="detalleTrabajador.email"
                         label="E-mail"
-                        v-if="$store.state.usuario.rol == 'Editor de Datos'"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
 
@@ -362,22 +362,19 @@ export default {
       fechaF: "",
     },
     id: "",
+    usuario:""
   }),
   computed: {},
   methods: {
     cambioN() {
-      console.log("cambio la fecha de nacimiento: ");
       this.detalleTrabajador.fechaN = this.fechaNacimiento;
     },
     cambioI() {
-      console.log("cambio la fecha de inicio: ");
       this.detalleTrabajador.fechaI = this.fechaInicio;
     },
     cambioF() {
-      console.log("cambio la fecha fin: ");
       this.detalleTrabajador.fechaF = this.fechaFin;
     },
-
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -486,8 +483,12 @@ export default {
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
+    traer() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
   created() {
+    this.traer();
     this.traerTrabajador();
     this.traerAreaTrabajo();
     this.traerDepartamentos();

@@ -41,7 +41,7 @@
                               v-bind="attrs"
                               v-on="on"
                               v-if="
-                                $store.state.usuario.rol == 'Editor de Datos'
+                                usuario.rol == 'Editor de Datos'
                               "
                             >
                               Nuevo Trabajador
@@ -312,8 +312,8 @@
                     <template v-slot:[`item.actions`]="{ item }">
                       <div
                         v-if="
-                          $store.state.usuario.rol != 'Actualizador' &&
-                          $store.state.usuario.rol != 'Visualizador'
+                          usuario.rol != 'Actualizador' &&
+                          usuario.rol != 'Visualizador'
                         "
                       >
                         <div
@@ -389,8 +389,8 @@
                       <article
                         class="boton"
                         v-if="
-                          $store.state.usuario.rol == 'Editor de Datos' ||
-                          $store.state.usuario.rol == 'Actualizador'"
+                          usuario.rol == 'Editor de Datos' ||
+                          usuario.rol == 'Actualizador'"
                       >
                         <v-btn
                           color="primary"
@@ -617,6 +617,7 @@ export default {
     town: [],
     directos: [],
     busqueda: "",
+    usuario:""
   }),
   computed: {
     buscar() {
@@ -632,22 +633,14 @@ export default {
     editarDirecto(item) {
       this.$router.push("/infodirecto");
       this.$store.dispatch("setDatos", item);
-      console.log(this.$store.state.datos);
     },
-
     detalleDirecto(item) {
       this.$router.push("/observarTrabajadores");
       this.$store.dispatch("setDatos", item);
-      console.log(this.$store.state.datos);
     },
     close() {
       this.dialog = false;
     },
-
-    prueba() {
-      console.log("ciudad: " + this.city);
-    },
-
     traerDirecto() {
       axios
         .get("https://back-coohilados.vercel.app/api/trabajadorDirecto")
@@ -659,7 +652,6 @@ export default {
           console.log(err);
         });
     },
-
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -769,7 +761,6 @@ export default {
     },
     agregar() {
       this.loading = true;
-      console.log(this.$store.state.token);
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
       axios
@@ -819,7 +810,6 @@ export default {
           });
         });
     },
-
     pdf() {
       axios
         .get("https://back-coohilados.vercel.app/api/trabajadorDirecto/activo")
@@ -915,9 +905,13 @@ export default {
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
+    traer() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    },
   },
 
   created() {
+    this.traer();
     this.traerAreaTrabajo();
     this.traerDepartamentos();
     //this.traerCiudades()
