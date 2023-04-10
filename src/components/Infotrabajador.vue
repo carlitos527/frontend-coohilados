@@ -43,13 +43,16 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6"
-                    v-if="usuario.rol == 'Editor de Datos'">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    >
                       <v-select
                         v-model="detalleTrabajador.tipoDocumento"
                         :items="tDocumento"
                         label="Tipo de Documento"
-                        
                       ></v-select>
                     </v-col>
 
@@ -215,7 +218,7 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="detalleTrabajador.telefono"  
+                        v-model="detalleTrabajador.telefono"
                         label="Telefono"
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
@@ -235,6 +238,33 @@
                         label="ANOTACIÓN"
                       ></v-text-field>
                     </v-col>
+
+                    <v-col>
+                      <template>
+                        <div class="text-center">
+                          <v-dialog
+                            max-width="1600px"
+                            v-model="dialog"
+                            persistent
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-btn
+                                dark
+                                class="mb-2 red darken-4"
+                                v-bind="attrs"
+                                v-on="on"
+                              >
+                                Nuevo Trabajador
+                              </v-btn>
+                            </template>
+                          </v-dialog>
+                        </div>
+                      </template>
+                    </v-col>
+                    <v-col>
+                      <v-data-table :headers="headers" :items="anotacion">
+                      </v-data-table>
+                    </v-col>
                   </v-row>
                 </v-container>
               </template>
@@ -247,11 +277,7 @@
               >
                 Regresar
               </v-btn>
-              <v-btn
-                color="deep-purple lighten-2"
-                text
-                @click="editarItem()"
-              >
+              <v-btn color="deep-purple lighten-2" text @click="editarItem()">
                 Guardar
               </v-btn>
             </v-card-actions>
@@ -272,6 +298,12 @@ export default {
     menu3: false,
     menu4: false,
     menu2: false,
+    headers: [
+      { text: "fecha", value: "fecha" },
+      { text: "Anotacion", value: "descripcion" },
+    ],
+
+    anotacion: [],
 
     fechaNacimiento: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
@@ -340,7 +372,6 @@ export default {
     ],
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
 
-    
     area: [],
     cities: [],
     town: [],
@@ -362,7 +393,7 @@ export default {
       fechaF: "",
     },
     id: "",
-    usuario:""
+    usuario: "",
   }),
   computed: {},
   methods: {
@@ -419,7 +450,7 @@ export default {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
-        tipoContrato:this.$store.state.datos.tipoContrato,
+        tipoContrato: this.$store.state.datos.tipoContrato,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,
@@ -433,50 +464,50 @@ export default {
         fechaI: this.$store.state.datos.fechaInicio,
         fechaF: this.$store.state.datos.fechaFin,
       };
+      this.anotacion = this.$store.state.datos.anotacion;
     },
     editarItem() {
-        axios
-          .put(`https://back-coohilados.vercel.app/api/servicio/${this.id}`, 
-          {
-            tipoDocumento: this.detalleTrabajador.tipoDocumento,
-            documento: this.detalleTrabajador.documento,
-            sexo: this.detalleTrabajador.sexo,
-            nombre: this.detalleTrabajador.nombre,
-            fechaNacimiento: this.detalleTrabajador.fechaNacimiento,
-            tipoContrato: this.detalleTrabajador.tipoContrato,
-            fechaInicio: this.detalleTrabajador.fechaInicio,
-            fechaFin: this.detalleTrabajador.fechaFin,
-            areaTrabajo: this.detalleTrabajador.areaTrabajo,
-            salario: this.detalleTrabajador.salario,
-            barrio: this.detalleTrabajador.barrio,
-            ciudad: this.detalleTrabajador.city,
-            telefono: this.detalleTrabajador.telefono,
-            email: this.detalleTrabajador.email,
-            rol: this.detalleTrabajador.rol,
-            anotacion: this.detalleTrabajador.anotacion,
-          })
-          .then((response) => {
-            this.traerTrabajador();
-            this.dialog = false;
-            console.log(response);
-            this.$store.dispatch("setDatos", response.data.item);
-            this.$router.push("/AgregarTrabajadores");
-            this.loading = false;
+      axios
+        .put(`https://back-coohilados.vercel.app/api/servicio/${this.id}`, {
+          tipoDocumento: this.detalleTrabajador.tipoDocumento,
+          documento: this.detalleTrabajador.documento,
+          sexo: this.detalleTrabajador.sexo,
+          nombre: this.detalleTrabajador.nombre,
+          fechaNacimiento: this.detalleTrabajador.fechaNacimiento,
+          tipoContrato: this.detalleTrabajador.tipoContrato,
+          fechaInicio: this.detalleTrabajador.fechaInicio,
+          fechaFin: this.detalleTrabajador.fechaFin,
+          areaTrabajo: this.detalleTrabajador.areaTrabajo,
+          salario: this.detalleTrabajador.salario,
+          barrio: this.detalleTrabajador.barrio,
+          ciudad: this.detalleTrabajador.city,
+          telefono: this.detalleTrabajador.telefono,
+          email: this.detalleTrabajador.email,
+          rol: this.detalleTrabajador.rol,
+          anotacion: this.detalleTrabajador.anotacion,
+        })
+        .then((response) => {
+          this.traerTrabajador();
+          this.dialog = false;
+          console.log(response);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/AgregarTrabajadores");
+          this.loading = false;
 
-            this.$swal({
-              icon: "success",
-              title: "El trabajador se edito correctamente",
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-            this.dialog = false;
-            this.loading = false;
-            this.$swal({
-              icon: "error",
-              title: "Error al editar el trabajador",
-            });
-          }); 
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se edito correctamente",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.dialog = false;
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "Error al editar el trabajador",
+          });
+        });
     },
     fecha(r) {
       let d = new Date(r);
