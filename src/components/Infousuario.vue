@@ -77,12 +77,42 @@
                       ></v-select>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleUsuario.password"
-                        label="Password"
-                      ></v-text-field>
-                    </v-col>
+                    <!-- editar contraseña -->
+
+                      <v-row align="center" justify="center">
+                        <v-dialog v-model="dialog" persistent max-width="600px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn color="orange" dark v-bind="attrs" v-on="on">
+                              Editar contraseña
+                            </v-btn>
+                          </template>
+                          <v-card>
+                            <v-card-title>
+                              Editar contraseña
+                            </v-card-title>
+                            <v-card-text>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-form ref="form" v-model="valid" lazy-validation>
+                                    <v-text-field v-model="passwordActual" :rules="passwordActualRules"
+                                      label="Contraseña actual" outlined dense></v-text-field>
+                                    <v-text-field v-model="nuevaPassword" :rules="nuevaPasswordRules"
+                                      label="Nueva contraseña" outlined dense></v-text-field>
+                                    <v-text-field v-model="confirmarPassword"
+                                      :rules="[rules.required, rules.max, compararPasswords]" label="Confirmar contraseña"
+                                      outlined dense></v-text-field>
+                                    <v-btn :disabled="!valid" color="green" @click="cambiarPassword">Cambiar contraseña</v-btn>
+                                  </v-form>
+                                </v-col>
+                              </v-row>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-btn color="red" @click="dialog = false">cerrar</v-btn>
+
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-row>
                   </v-row>
                 </v-container>
               </template>
@@ -134,11 +164,34 @@ export default {
   name: "PageInfousuario",
   data: () => ({
     loading: false,
+    valid: true,
+    dialog: false,
     valid6: true,
     password: "",
     area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
     rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
     usuarios: [],
+     passwordActual: "",
+    passwordActualRules: [
+      (value) => !!value || "Password actual es requerida",
+      (value) =>
+        (value && value.length >= 8) ||
+        "Password actual debe ser mayor a 8 caracteres",
+    ],
+    nuevaPassword: "",
+    nuevaPasswordRules: [
+      (value) => !!value || "Nueva password es requerida",
+      (value) =>
+        (value && value.length >= 8) ||
+        "Nueva password debe ser mayor a 8 caracteres",
+    ],
+    confirmarPassword: "",
+    rules: {
+      required: (value) => !!value || "Confirmar password es requerida",
+      max: (value) =>
+        (value && value.length >= 8) ||
+        "Confirmar password debe ser mayor a 8 caracteres",
+    },
     detalleUsuario: {
       documento: "",
       nombre: "",
