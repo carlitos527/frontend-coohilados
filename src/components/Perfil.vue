@@ -6,7 +6,9 @@
           <v-row align="end" class="fill-height">
             <v-col align-self="start" class="pa-0" cols="12">
               <v-avatar class="profile" color="grey" size="164" tile>
-                <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                <v-img
+                  src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                ></v-img>
               </v-avatar>
               <v-card-text>
                 <v-row align="center" class="mx-0">
@@ -31,9 +33,7 @@
                     </h3>
                   </v-col>
                   <v-card-title justify-right>
-                    <v-card-title>{{
-                      `${user.nombre}`
-                    }}</v-card-title>
+                    <v-card-title>{{ `${user.nombre}` }}</v-card-title>
                   </v-card-title>
                 </v-row>
               </v-card-text>
@@ -46,16 +46,27 @@
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.documento" :rules="documentoRules"
-                          label="Documento"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.documento"
+                          :rules="documentoRules"
+                          label="Documento"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.nombre" :rules="nombreRules" label="Nombres"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.nombre"
+                          :rules="nombreRules"
+                          label="Nombres"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.email" label="E-mail" :rules="emailRules"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.email"
+                          label="E-mail"
+                          :rules="emailRules"
+                        ></v-text-field>
                       </v-col>
 
                       <!-- editar contraseña -->
@@ -68,28 +79,54 @@
                             </v-btn>
                           </template>
                           <v-card>
-                            <v-card-title>
-                              Editar contraseña
-                            </v-card-title>
+                            <v-card-title> Editar contraseña </v-card-title>
                             <v-card-text>
                               <v-row>
                                 <v-col cols="12">
-                                  <v-form ref="form" v-model="valid" lazy-validation>
-                                    <v-text-field v-model="passwordActual" :rules="passwordActualRules"
-                                      label="Contraseña actual" outlined dense></v-text-field>
-                                    <v-text-field v-model="nuevaPassword" :rules="nuevaPasswordRules"
-                                      label="Nueva contraseña" outlined dense></v-text-field>
-                                    <v-text-field v-model="confirmarPassword"
-                                      :rules="[rules.required, rules.max, compararPasswords]" label="Confirmar contraseña"
-                                      outlined dense></v-text-field>
-                                    <v-btn :disabled="!valid" color="green" @click="cambiarPassword">Cambiar contraseña</v-btn>
+                                  <v-form
+                                    ref="form"
+                                    v-model="valid"
+                                    lazy-validation
+                                  >
+                                    <v-text-field
+                                      v-model="passwordActual"
+                                      :rules="passwordActualRules"
+                                      label="Contraseña actual"
+                                      outlined
+                                      dense
+                                    ></v-text-field>
+                                    <v-text-field
+                                      v-model="nuevaPassword"
+                                      :rules="nuevaPasswordRules"
+                                      label="Nueva contraseña"
+                                      outlined
+                                      dense
+                                    ></v-text-field>
+                                    <v-text-field
+                                      v-model="confirmarPassword"
+                                      :rules="[
+                                        rules.required,
+                                        rules.max,
+                                        compararPasswords,
+                                      ]"
+                                      label="Confirmar contraseña"
+                                      outlined
+                                      dense
+                                    ></v-text-field>
+                                    <v-btn
+                                      :disabled="!valid"
+                                      color="green"
+                                      @click="cambiarPassword"
+                                      >Cambiar contraseña</v-btn
+                                    >
                                   </v-form>
                                 </v-col>
                               </v-row>
                             </v-card-text>
                             <v-card-actions>
-                              <v-btn color="red" @click="dialog = false">cerrar</v-btn>
-
+                              <v-btn color="red" @click="dialog = false"
+                                >cerrar</v-btn
+                              >
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -97,10 +134,23 @@
                     </v-row>
 
                     <v-card-actions>
-                      <v-btn rounded outlined color="black" class="mb-2 red accent-3" text to="/Home">
+                      <v-btn
+                        rounded
+                        outlined
+                        color="black"
+                        class="mb-2 red accent-3"
+                        text
+                        to="/Home"
+                      >
                         Regresar
                       </v-btn>
-                      <v-btn rounded outlined color="black" class="mb-2 green accent-3" @click="editarItem()">
+                      <v-btn
+                        rounded
+                        outlined
+                        color="black"
+                        class="mb-2 green accent-3"
+                        @click="editarItem()"
+                      >
                         Guardar
                       </v-btn>
                     </v-card-actions>
@@ -115,8 +165,13 @@
     <v-row class="align-center">
       <v-col>
         <v-overlay :value="loading">
-          <v-progress-circular v-show="loading == true" :size="70" :width="7" color="black"
-            indeterminate></v-progress-circular>
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
         </v-overlay>
       </v-col>
     </v-row>
@@ -156,17 +211,23 @@ export default {
     passwordActual: "",
     passwordActualRules: [
       (value) => !!value || "Password actual es requerida",
-      (value) => (value && value.length >= 8) || "Password actual debe ser mayor a 8 caracteres"
+      (value) =>
+        (value && value.length >= 8) ||
+        "Password actual debe ser mayor a 8 caracteres",
     ],
     nuevaPassword: "",
     nuevaPasswordRules: [
       (value) => !!value || "Nueva password es requerida",
-      (value) => (value && value.length >= 8) || "Nueva password debe ser mayor a 8 caracteres"
+      (value) =>
+        (value && value.length >= 8) ||
+        "Nueva password debe ser mayor a 8 caracteres",
     ],
     confirmarPassword: "",
     rules: {
       required: (value) => !!value || "Confirmar password es requerida",
-      max: (value) => (value && value.length >= 8) || "Confirmar password debe ser mayor a 8 caracteres",
+      max: (value) =>
+        (value && value.length >= 8) ||
+        "Confirmar password debe ser mayor a 8 caracteres",
     },
     usuarios: [],
     detalleUsuario: {
@@ -181,7 +242,7 @@ export default {
       if (this.nuevaPassword === this.confirmarPassword) {
         return true;
       } else {
-        return 'Passwords deben coincidir';
+        return "Passwords deben coincidir";
       }
     },
     traerUsuario() {
@@ -193,11 +254,15 @@ export default {
       };
     },
     cambiarPassword() {
-      this.loading = true
-      axios.put(`https://back-coohilados.vercel.app/api/usuario/cambiarPassword/${this.id}`, {
-        passwordActual: this.passwordActual,
-        nuevaPassword: this.nuevaPassword
-      })
+      this.loading = true;
+      axios
+        .put(
+          `https://back-coohilados.vercel.app/api/usuario/cambiarPassword/${this.id}`,
+          {
+            passwordActual: this.passwordActual,
+            nuevaPassword: this.nuevaPassword,
+          }
+        )
         .then((res) => {
           console.log(res.data.modificar);
           this.loading = false;
@@ -213,9 +278,10 @@ export default {
           this.dialog = false;
           this.$swal({
             icon: "error",
-            title: "Error al editar la contraseña, por favor verifique los datos",
+            title:
+              "Error al editar la contraseña, por favor verifique los datos",
           });
-        })
+        });
     },
     editarItem() {
       this.loading = true;
