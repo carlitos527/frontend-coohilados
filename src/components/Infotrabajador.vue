@@ -2,16 +2,10 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <v-img
-          src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
-        >
+        <v-img src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg">
           <v-card class="mx-auto my-12 yellow lighten-4" max-width="500">
             <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
+              <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
             </template>
 
             <!-- inicio de la cart del usuario a editar -->
@@ -43,226 +37,138 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
-                      <v-select
-                        v-model="detalleTrabajador.tipoDocumento"
-                        :items="tDocumento"
-                        label="Tipo de Documento"
-                      ></v-select>
+                    <v-col cols="12" sm="6" md="6" v-if="usuario.rol == 'Editor de Datos'">
+                      <v-select v-model="detalleTrabajador.tipoDocumento" :items="tDocumento"
+                        label="Tipo de Documento"></v-select>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.documento"
-                        label="Documento"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.documento" label="Documento"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.nombre"
-                        label="Nombre"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.nombre" label="Nombre"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        v-model="detalleTrabajador.sexo"
-                        :items="sexoArray"
-                        label="Sexo"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
+                      <v-select v-model="detalleTrabajador.sexo" :items="sexoArray" label="Sexo"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-select>
                     </v-col>
 
-                    <v-menu
-                      v-model="menu2"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
+                    <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y min-width="auto" v-if="usuario.rol == 'Editor de Datos'">
                       <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="fechaNacimiento"
-                          label="Escoja la Fecha de Nacimiento"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
+                        <v-text-field v-model="fechaNacimiento" label="Escoja la Fecha de Nacimiento"
+                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
 
-                      <v-date-picker
-                        v-model="fechaNacimiento"
-                        @input="menu2 = false"
-                      ></v-date-picker>
+                      <v-date-picker v-model="fechaNacimiento" @input="menu2 = false"></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        v-model="detalleTrabajador.tipoContrato"
-                        :items="tContrato"
-                        label="Tipo de contrato"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
+                      <v-select v-model="detalleTrabajador.tipoContrato" :items="tContrato" label="Tipo de contrato"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-select>
                     </v-col>
 
-                    <v-menu
-                      v-model="menu3"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
+                    <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y min-width="auto" v-if="usuario.rol == 'Editor de Datos'">
                       <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="fechaInicio"
-                          label="Escoja la Fecha de inicio de contrato"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
+                        <v-text-field v-model="fechaInicio" label="Escoja la Fecha de inicio de contrato"
+                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
-                      <v-date-picker
-                        v-model="fechaInicio"
-                        @input="menu3 = false"
-                      ></v-date-picker>
+                      <v-date-picker v-model="fechaInicio" @input="menu3 = false"></v-date-picker>
                     </v-menu>
-                    <v-menu
-                      v-model="menu4"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
+                    <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y min-width="auto" v-if="usuario.rol == 'Editor de Datos'">
                       <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="fechaFin"
-                          label="Escoja la Fecha de finalización de contrato"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
+                        <v-text-field v-model="fechaFin" label="Escoja la Fecha de finalización de contrato"
+                          prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                       </template>
-                      <v-date-picker
-                        v-model="fechaFin"
-                        @input="menu4 = false"
-                      ></v-date-picker>
+                      <v-date-picker v-model="fechaFin" @input="menu4 = false"></v-date-picker>
                     </v-menu>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="rolArray"
-                        v-model="detalleTrabajador.rol"
-                        label="Cargo"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
+                      <v-select :items="rolArray" v-model="detalleTrabajador.rol" label="Cargo"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-select>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="area"
-                        v-model="detalleTrabajador.areaTrabajo"
-                        label="Área de trabajo"
-                        item-text="nombre"
-                        item-value="_id"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
+                      <v-select :items="area" v-model="detalleTrabajador.areaTrabajo" label="Área de trabajo"
+                        item-text="nombre" item-value="_id" v-if="usuario.rol == 'Editor de Datos'"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.salario"
-                        label="Salario"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.salario" label="Salario"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.barrio"
-                        label="Direccion"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.barrio" label="Direccion"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
 
-                    <v-select
-                      v-if="usuario.rol == 'Editor de Datos'"
-                      :items="cities"
-                      v-model="departamento"
-                      label="Departamento"
-                      @change="traerCiudades()"
-                    ></v-select>
-                    <v-select
-                      v-if="usuario.rol == 'Editor de Datos'"
-                      :items="town"
-                      v-model="detalleTrabajador.city"
-                      item-text="Ciudad"
-                      item-value="_id"
-                      label="Ciudad"
-                      @change="prueba()"
-                    ></v-select>
+                    <v-select v-if="usuario.rol == 'Editor de Datos'" :items="cities" v-model="departamento"
+                      label="Departamento" @change="traerCiudades()"></v-select>
+                    <v-select v-if="usuario.rol == 'Editor de Datos'" :items="town" v-model="detalleTrabajador.city"
+                      item-text="Ciudad" item-value="_id" label="Ciudad" @change="prueba()"></v-select>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.telefono"
-                        label="Telefono"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.telefono" label="Telefono"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.email"
-                        label="E-mail"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.anotacion"
-                        label="ANOTACIÓN"
-                      ></v-text-field>
+                      <v-text-field v-model="detalleTrabajador.email" label="E-mail"
+                        v-if="usuario.rol == 'Editor de Datos'"></v-text-field>
                     </v-col>
 
                     <v-col>
-                      <template>
-                        <div class="text-center">
-                          <v-dialog
-                            max-width="1600px"
-                            v-model="dialog"
-                            persistent
-                          >
-                            <template v-slot:activator="{ on, attrs }">
-                              <v-btn
-                                dark
-                                class="mb-2 red darken-4"
-                                v-bind="attrs"
-                                v-on="on"
-                              >
-                                Nuevo Trabajador
-                              </v-btn>
-                            </template>
-                          </v-dialog>
-                        </div>
-                      </template>
-                    </v-col>
-                    <v-col>
-                      <v-data-table :headers="headers" :items="anotacion">
+                      <v-data-table :headers="headers" :items="anotacion" class="elevation-1">
+                        <template v-slot:top>
+                          <v-toolbar flat>
+                            <v-tolbar-title>Anotaciones</v-tolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-dialog max-width="1600px" v-model="dialog" persistent>
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-btn dark class="mb-2 red darken-4" v-bind="attrs" v-on="on">
+                                  Agregar nueva anotación
+                                </v-btn>
+                              </template>
+                              <v-card>
+                                <v-card-title>Nueva anotación</v-card-title>
+                                <v-card-text>
+                                  <v-menu v-model="menuAnotacion" :close-on-content-click="false" :nudge-right="40"
+                                    transition="scale-transition" offset-y min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field v-model="fechaAnotacion" label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                    </template>
+                                    <v-date-picker v-model="fechaAnotacion"
+                                      @input="menuAnotacion = false"></v-date-picker>
+                                  </v-menu>
+                                  <v-col cols="12">
+                                    <v-textarea v-model="descripcion">
+                                      <template v-slot:label>
+                                        <div>
+                                          Anotación
+                                        </div>
+                                      </template>
+                                    </v-textarea>
+                                  </v-col>
+                                </v-card-text>
+                                <v-card-actions>
+                                  <v-btn @click="dialog = false" class="red">Cerrar</v-btn>
+                                  <v-btn @click="anota" class="green">Agregar</v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+
+                          </v-toolbar>
+                        </template>
+                        <template v-slot:[`item.fecha`]="{ item }">
+                          <span>{{ fecha(item.fecha) }}</span>
+                        </template>
                       </v-data-table>
                     </v-col>
                   </v-row>
@@ -270,11 +176,7 @@
               </template>
             </v-card-text>
             <v-card-actions>
-              <v-btn
-                color="deep-purple lighten-2"
-                text
-                to="/AgregarTrabajadores"
-              >
+              <v-btn color="deep-purple lighten-2" text to="/AgregarTrabajadores">
                 Regresar
               </v-btn>
               <v-btn color="deep-purple lighten-2" text @click="editarItem()">
@@ -294,17 +196,22 @@ export default {
 
   data: () => ({
     loading: false,
-
+    dialog: false,
     menu3: false,
     menu4: false,
     menu2: false,
+    menuAnotacion: false,
     headers: [
       { text: "fecha", value: "fecha" },
       { text: "Anotacion", value: "descripcion" },
     ],
-
     anotacion: [],
-
+    fechaAnotacion: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    descripcion: "",
     fechaNacimiento: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     )
@@ -320,11 +227,8 @@ export default {
       .substr(0, 10),
 
     tDocumento: ["C.C", "C.E"],
-
     tContrato: ["TERMINO FIJO", "TERMINO INDEFINIDO"],
-
     sexoArray: ["F", "M"],
-
     rolArray: [
       "ASISTENTE AGRICOLA",
       "ASISTENTE DIRECTOR COMERCIAL",
@@ -371,7 +275,6 @@ export default {
       "TECNICO MANTENIMIENTO-TORNERO",
     ],
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
-
     area: [],
     cities: [],
     town: [],
@@ -385,7 +288,6 @@ export default {
       barrio: "",
       city: "",
       telefono: "",
-      anotacion: "",
       sexo: "",
       rol: "",
       fechaN: "",
@@ -394,9 +296,17 @@ export default {
     },
     id: "",
     usuario: "",
+    note: []
   }),
   computed: {},
   methods: {
+    anota() {
+      this.note.push({
+        fecha: this.fechaAnotacion,
+        descripcion: this.descripcion
+      })
+      this.descripcion="";
+    },
     cambioN() {
       this.detalleTrabajador.fechaN = this.fechaNacimiento;
     },
@@ -455,7 +365,6 @@ export default {
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,
         email: this.$store.state.datos.email,
-        anotacion: this.$store.state.datos.anotacion,
         sexo: this.$store.state.datos.sexo,
         rol: this.$store.state.datos.rol,
         areaTrabajo: this.$store.state.datos.areaTrabajo._id,
@@ -465,6 +374,7 @@ export default {
         fechaF: this.$store.state.datos.fechaFin,
       };
       this.anotacion = this.$store.state.datos.anotacion;
+      this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
       axios
@@ -484,7 +394,7 @@ export default {
           telefono: this.detalleTrabajador.telefono,
           email: this.detalleTrabajador.email,
           rol: this.detalleTrabajador.rol,
-          anotacion: this.detalleTrabajador.anotacion,
+          anotacion: this.note,
         })
         .then((response) => {
           this.traerTrabajador();
