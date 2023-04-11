@@ -65,18 +65,10 @@
                         label="Area"
                         :items="area"
                         required
+                        @change="cargo(detalleUsuario.area)"
                       ></v-select>
                     </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        v-model="detalleUsuario.rol"
-                        label="Rol"
-                        :items="rol"
-                        required
-                      ></v-select>
-                    </v-col>
-
+                    
                     <!-- editar contraseña -->
 
                     <v-row align="center" justify="center">
@@ -223,11 +215,26 @@ export default {
       nombre: "",
       email: "",
       area: "",
-      rol: "",
+      cargos: "",
     },
     id: "",
+    
   }),
   methods: {
+
+    cargo(item) {
+      if (item == "CONSEJO O GERENCIA") {
+        this.detalleUsuario.cargos = "Visualizador";
+      } else if (item == "TALENTO HUMANO") {
+        this.detalleUsuario.cargos = "Editor de Datos";
+      } else if (item == "SISTEMAS") {
+        this.detalleUsuario.cargos = "Administrador";
+      } else if (item == "SST") {
+        this.detalleUsuario.cargos = "Actualizador";
+      }
+      console.log(item);
+    },
+
     compararPasswords() {
       if (this.nuevaPassword === this.confirmarPassword) {
         return true;
@@ -242,7 +249,7 @@ export default {
         nombre: this.$store.state.datos.nombre,
         email: this.$store.state.datos.email,
         area: this.$store.state.datos.area,
-        rol: this.$store.state.datos.rol,
+        cargos: this.$store.state.datos.rol,
       };
     },
      cambiarPassword() {
@@ -276,13 +283,7 @@ export default {
         });
     },
     editarItem() {
-      console.log("documento: "+this.detalleUsuario.documento);
-      console.log("nombre: "+this.detalleUsuario.nombre);
-      console.log("area: "+this.detalleUsuario.area);
-      
-      console.log("rol: "+this.detalleUsuario.rol);
-
-      
+     
       this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
@@ -290,7 +291,7 @@ export default {
           nombre: this.detalleUsuario.nombre,
           email: this.detalleUsuario.email,
           area: this.detalleUsuario.area,
-          rol: this.detalleUsuario.rol,
+          rol: this.detalleUsuario.cargos,
         })
         .then((response) => {
           this.traerUsuario();

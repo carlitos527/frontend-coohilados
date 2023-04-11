@@ -5,7 +5,7 @@
       <v-row>
         <v-col colored-border type="warning">
           <v-row>
-            <v-col >
+            <v-col>
               <v-row align="end" class="fill-height">
                 <v-col align-self="start" class="pa-0" cols="12">
                   <v-card class="mx-auto yellow accent-1" max-width="700" tile>
@@ -33,21 +33,16 @@
                         :rules="emailRules"
                         required
                       ></v-text-field>
-                      
 
                       <v-select
                         v-model="area"
                         label="Area"
                         :items="area"
                         required
+                        @change="cargo(area)"
                       ></v-select>
 
-                      <v-select
-                        v-model="rol"
-                        label="Rol"
-                        :items="rol"
-                        required
-                      ></v-select>
+                      
                     </v-card-text>
                     <v-card-actions>
                       <v-btn color="blue darken-1" text to="/">Cancel</v-btn>
@@ -63,19 +58,19 @@
           </v-row>
         </v-col>
       </v-row>
-       <v-row class="align-center">
-      <v-col>
-        <v-overlay :value="loading">
-          <v-progress-circular
-            v-show="loading == true"
-            :size="70"
-            :width="7"
-            color="black"
-            indeterminate
-          ></v-progress-circular>
-        </v-overlay>
-      </v-col>
-    </v-row>
+      <v-row class="align-center">
+        <v-col>
+          <v-overlay :value="loading">
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
+          </v-overlay>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -112,14 +107,26 @@ export default {
         (e && e.length <= 40) ||
         " el email  solo puede tener menos de  40 caracteres",
     ],
-   
 
     area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
     rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
+    cargos: "",
 
     usuarios: [],
   }),
   methods: {
+    cargo(item) {
+      if (item == "CONSEJO O GERENCIA") {
+        this.cargos = "Visualizador";
+      } else if (item == "TALENTO HUMANO") {
+        this.cargos = "Editor de Datos";
+      } else if (item == "SISTEMAS") {
+        this.cargos = "Administrador";
+      } else if (item == "SST") {
+        this.cargos = "Actualizador";
+      }
+      console.log(item);
+    },
     detalleUsuario(item) {
       this.$router.push("/Infousuario");
       this.$store.dispatch("setDatos", item);
@@ -177,9 +184,8 @@ export default {
             documento: this.documento,
             nombre: this.nombre,
             email: this.email,
-            
             area: this.area,
-            rol: this.rol,
+            rol: this.cargos,
           },
           header
         )
@@ -192,9 +198,7 @@ export default {
 
           this.$swal({
             icon: "success",
-            title:
-              `👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
-              
+            title: `👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
           });
         })
         .catch((error) => {
