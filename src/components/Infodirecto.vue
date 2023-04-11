@@ -387,7 +387,7 @@ export default {
       "ASISTENTE AGRICOLA",
       "ASISTENTE DIRECTOR COMERCIAL",
       "AUXILIAR ADMINISTRATIVO",
-      "AUXLIAR COMERCIAL",
+      "AUXILIAR COMERCIAL",
       "AUXILIAR CONTABLE",
       "AUXILIAR CONTABLE II",
       "AUXILIAR CONTROL DE CALIDAD",
@@ -448,6 +448,7 @@ export default {
       fechaN: "",
       fechaI: "",
       fechaF: "",
+      email:""
     },
     id: "",
     usuario: "",
@@ -462,15 +463,12 @@ export default {
       this.descripcion = "";
     },
     cambioN() {
-      console.log("cambio la fecha de nacimiento: ");
       this.detalleDirecto.fechaN = this.fechaNacimiento;
     },
     cambioI() {
-      console.log("cambio la fecha de inicio: ");
       this.detalleDirecto.fechaI = this.fechaInicio;
     },
     cambioF() {
-      console.log("cambio la fecha fin: ");
       this.detalledirecto.fechaF = this.fechaFin;
     },
     traerAreaTrabajo() {
@@ -513,7 +511,7 @@ export default {
     },
     traerDirecto() {
       this.id = this.$store.state.datos._id;
-
+      console.log(this.$store.state.datos);
       this.detalleDirecto = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
@@ -590,11 +588,9 @@ export default {
   },
   created() {
     this.traer();
+    this.traerDirecto();
     this.traerAreaTrabajo();
     this.traerDepartamentos();
-    //this.traerCiudades()
-    //this.agregar()
-    this.traerDirecto();
   },
 };
 </script>

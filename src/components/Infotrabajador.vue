@@ -240,7 +240,7 @@
                       >
                         <template v-slot:top>
                           <v-toolbar flat>
-                            <v-tolbar-title>Anotaciones</v-tolbar-title>
+                            <v-toolbar-title>Anotaciones</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
                             <v-dialog
@@ -375,7 +375,7 @@ export default {
       "ASISTENTE AGRICOLA",
       "ASISTENTE DIRECTOR COMERCIAL",
       "AUXILIAR ADMINISTRATIVO",
-      "AUXLIAR COMERCIAL",
+      "AUXILIAR COMERCIAL",
       "AUXILIAR CONTABLE",
       "AUXILIAR CONTABLE II",
       "AUXILIAR CONTROL DE CALIDAD",

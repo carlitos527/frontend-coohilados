@@ -11,13 +11,13 @@
           <v-card-text>
             <v-row align="center" class="mx-0">
               <v-col cols="12" sm="6" md="4">
-                <p label="Estado" v-if="this.$store.state.datos.estado == 1">
+                <p label="Estado" style="color:green; font-weight: bold;" v-if="this.$store.state.datos.estado == 1">
                   Estado: Activo
                 </p>
-                <p label="Estado" v-if="this.$store.state.datos.estado == 2">
+                <p label="Estado" style="color:red; font-weight: bold;" v-if="this.$store.state.datos.estado == 2">
                   Estado: Inactivo
                 </p>
-                <p label="Estado" v-if="this.$store.state.datos.estado == 3">
+                <p label="Estado" style="color:orange; font-weight: bold;" v-if="this.$store.state.datos.estado == 3">
                   Estado: De vacaciones
                 </p>
               </v-col>
@@ -56,21 +56,11 @@
                 <h2>Fecha inicio contrato:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
               </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-                v-if="this.$store.state.datos.tipo == 'Asociado'"
-              >
+              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo == 'Asociado'">
                 <h2>Fecha de vacaciones:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaVacaciones) }}</h4>
               </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-                v-if="this.$store.state.datos.tipo != 'Asociado'"
-              >
+              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo != 'Asociado'">
                 <h2>Fecha fin contrato:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
               </v-col>
@@ -112,34 +102,11 @@
                 <h2>Cargo:</h2>
                 <h4>{{ this.$store.state.datos.rol }}</h4>
               </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>ANOTACIÓN:</h2>
-                <h4>{{ this.$store.state.datos.anotacion }}</h4>
-              </v-col>
               <v-col>
-                <v-data-table
-                  :headers="headers"
-                  :items="anotacion"
-                  class="elevation-1"
-                >
+                <v-data-table :headers="headers" :items="this.$store.state.datos.anotacion" class="elevation-1">
                   <template v-slot:top>
                     <v-toolbar flat>
-                      <v-tolbar-title>Anotaciones</v-tolbar-title>
-                      <v-divider class="mx-4" inset vertical></v-divider>
-                      <v-spacer></v-spacer>
-                      <v-dialog max-width="1600px" v-model="dialog" persistent>
-                        <v-card>
-                          <v-card-text>
-                            <v-col cols="12">
-                              <v-textarea v-model="descripcion">
-                                <template v-slot:label>
-                                  <div>Anotación</div>
-                                </template>
-                              </v-textarea>
-                            </v-col>
-                          </v-card-text>
-                        </v-card>
-                      </v-dialog>
+                      <v-toolbar-title>Anotaciones</v-toolbar-title>
                     </v-toolbar>
                   </template>
                   <template v-slot:[`item.fecha`]="{ item }">
@@ -170,7 +137,6 @@ export default {
       { text: "fecha", value: "fecha" },
       { text: "Anotacion", value: "descripcion" },
     ],
-    anotacion: [],
     fechaAnotacion: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     )
@@ -178,17 +144,9 @@ export default {
       .substr(0, 10),
     descripcion: "",
     departamentos: {},
-    note: [],
   }),
   computed: {},
   methods: {
-    anota() {
-      this.note.push({
-        fecha: this.fechaAnotacion,
-        descripcion: this.descripcion,
-      });
-      this.descripcion = "";
-    },
     regresar() {
       console.log(this.$store.state.datos.tipo);
       if (this.$store.state.datos.tipo == "Temporal") {
