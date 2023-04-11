@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="500">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"
@@ -110,8 +110,10 @@
                       min-width="auto"
                       v-if="usuario.rol == 'Editor de Datos'"
                     >
-                      <template v-slot:activator="{ on, attrs }"
-                      v-if="usuario.rol == 'Editor de Datos'">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
                           v-model="fechaInicio"
                           label="Escoja la Fecha de inicio de contrato"
@@ -135,8 +137,10 @@
                       offset-y
                       min-width="auto"
                     >
-                      <template v-slot:activator="{ on, attrs }"
-                      v-if="usuario.rol == 'Editor de Datos'">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
                           v-model="fechaFin"
                           label="Escoja la Fecha de finalización de contrato"
@@ -211,19 +215,88 @@
                       ></v-text-field>
                     </v-col>
                     <v-col>
-
-                    <v-text-field
+                      <v-text-field
                         v-model="detalleTemporal.email"
                         label="E-mail"
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.anotacion"
-                        label="ANOTACIÓN"
-                      ></v-text-field>
+                    <v-col>
+                      <v-data-table
+                        :headers="headers"
+                        :items="anotacion"
+                        class="elevation-1"
+                      >
+                        <template v-slot:top>
+                          <v-toolbar flat>
+                            <v-tolbar-title>Anotaciones</v-tolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-dialog
+                              max-width="1600px"
+                              v-model="dialog"
+                              persistent
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                  dark
+                                  class="mb-2 red darken-4"
+                                  v-bind="attrs"
+                                  v-on="on"
+                                >
+                                  Agregar nueva anotación
+                                </v-btn>
+                              </template>
+                              <v-card>
+                                <v-card-title>Nueva anotación</v-card-title>
+                                <v-card-text>
+                                  <v-menu
+                                    v-model="menuAnotacion"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaAnotacion"
+                                        label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaAnotacion"
+                                      @input="menuAnotacion = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                  <v-col cols="12">
+                                    <v-textarea v-model="descripcion">
+                                      <template v-slot:label>
+                                        <div>Anotación</div>
+                                      </template>
+                                    </v-textarea>
+                                  </v-col>
+                                </v-card-text>
+                                <v-card-actions>
+                                  <v-btn @click="dialog = false" class="red"
+                                    >Cerrar</v-btn
+                                  >
+                                  <v-btn @click="anota" class="green"
+                                    >Agregar</v-btn
+                                  >
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </v-toolbar>
+                        </template>
+                        <template v-slot:[`item.fecha`]="{ item }">
+                          <span>{{ fecha(item.fecha) }}</span>
+                        </template>
+                      </v-data-table>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -251,9 +324,23 @@ export default {
 
   data: () => ({
     loading: false,
+    dialog: false,
     menu3: false,
     menu4: false,
     menu2: false,
+    menuAnotacion: false,
+    headers: [
+      { text: "fecha", value: "fecha" },
+      { text: "Anotacion", value: "descripcion" },
+    ],
+    anotacion: [],
+    fechaAnotacion: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    descripcion: "",
+
     fechaNacimiento: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     )
@@ -265,7 +352,7 @@ export default {
     fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
-      
+
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
     rolArray: [
       "ASISTENTE AGRICOLA",
@@ -316,7 +403,7 @@ export default {
     area: [],
     cities: [],
     town: [],
-    tDocumento:["C.C","C.E"],
+    tDocumento: ["C.C", "C.E"],
     detalleTemporal: {
       tipoDocumento: "",
       documento: "",
@@ -332,12 +419,20 @@ export default {
       fechaN: "",
       fechaI: "",
       fechaF: "",
-      
     },
     id: "",
-    usuario:""
+    usuario: "",
+    note: [],
   }),
+  computed: {},
   methods: {
+    anota() {
+      this.note.push({
+        fecha: this.fechaAnotacion,
+        descripcion: this.descripcion,
+      });
+      this.descripcion = "";
+    },
     cambioN() {
       this.detalleTemporal.fechaN = this.fechaNacimiento;
     },
@@ -391,7 +486,6 @@ export default {
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,
-        anotacion: this.$store.state.datos.anotacion,
         sexo: this.$store.state.datos.sexo,
         rol: this.$store.state.datos.rol,
         areaTrabajo: this.$store.state.datos.areaTrabajo._id,
@@ -401,6 +495,8 @@ export default {
         fechaI: this.$store.state.datos.fechaInicio,
         fechaF: this.$store.state.datos.fechaFin,
       };
+      this.anotacion = this.$store.state.datos.anotacion;
+      this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
       axios
@@ -420,7 +516,7 @@ export default {
             ciudad: this.detalleTemporal.city,
             telefono: this.detalleTemporal.telefono,
             email: this.detalleTemporal.email,
-            anotacion: this.detalleTemporal.anotacion,
+            anotacion: this.note,
             rol: this.detalleTemporal.rol,
           }
         )
