@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="500">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"
@@ -43,8 +43,12 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6"
-                    v-if="usuario.rol == 'Editor de Datos'">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    >
                       <v-select
                         v-model="detalleDirecto.tipoDocumento"
                         :items="tDocumento"
@@ -235,12 +239,82 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.anotacion"
-                        label="ANOTACIÓN"
-                        
-                      ></v-text-field>
+                    <v-col>
+                      <v-data-table
+                        :headers="headers"
+                        :items="anotacion"
+                        class="elevation-1"
+                      >
+                        <template v-slot:top>
+                          <v-toolbar flat>
+                            <v-tolbar-title>Anotaciones</v-tolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-dialog
+                              max-width="1600px"
+                              v-model="dialog"
+                              persistent
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                  dark
+                                  class="mb-2 red darken-4"
+                                  v-bind="attrs"
+                                  v-on="on"
+                                >
+                                  Agregar nueva anotación
+                                </v-btn>
+                              </template>
+                              <v-card>
+                                <v-card-title>Nueva anotación</v-card-title>
+                                <v-card-text>
+                                  <v-menu
+                                    v-model="menuAnotacion"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaAnotacion"
+                                        label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaAnotacion"
+                                      @input="menuAnotacion = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                  <v-col cols="12">
+                                    <v-textarea v-model="descripcion">
+                                      <template v-slot:label>
+                                        <div>Anotación</div>
+                                      </template>
+                                    </v-textarea>
+                                  </v-col>
+                                </v-card-text>
+                                <v-card-actions>
+                                  <v-btn @click="dialog = false" class="red"
+                                    >Cerrar</v-btn
+                                  >
+                                  <v-btn @click="anota" class="green"
+                                    >Agregar</v-btn
+                                  >
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </v-toolbar>
+                        </template>
+                        <template v-slot:[`item.fecha`]="{ item }">
+                          <span>{{ fecha(item.fecha) }}</span>
+                        </template>
+                      </v-data-table>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -251,11 +325,7 @@
               <v-btn color="deep-purple lighten-2" text to="/AgregarDirecto">
                 Regresar
               </v-btn>
-              <v-btn
-                color="deep-purple lighten-2"
-                text
-                @click="editarItem()"
-              >
+              <v-btn color="deep-purple lighten-2" text @click="editarItem()">
                 Guardar
               </v-btn>
             </v-card-actions>
@@ -274,6 +344,19 @@ export default {
 
   data: () => ({
     loading: false,
+    dialog: false,
+    menuAnotacion: false,
+    headers: [
+      { text: "fecha", value: "fecha" },
+      { text: "Anotacion", value: "descripcion" },
+    ],
+    anotacion: [],
+    fechaAnotacion: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    descripcion: "",
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -289,7 +372,7 @@ export default {
     menu4: false,
     menu2: false,
 
-    tDocumento:["C.C","C.E"],
+    tDocumento: ["C.C", "C.E"],
     tContrato: [
       "PRESTACIÓN SERVICIO",
       "TERMINO INDEFINIDO",
@@ -297,8 +380,8 @@ export default {
       "OBRA O LABOR",
     ],
     sexoArray: ["F", "M"],
-    
-    departamento:"",
+
+    departamento: "",
 
     rolArray: [
       "ASISTENTE AGRICOLA",
@@ -353,7 +436,7 @@ export default {
       tipoDocumento: "",
       documento: "",
       nombre: "",
-      tipoContrato:"",
+      tipoContrato: "",
       areaTrabajo: "",
       salario: "",
       barrio: "",
@@ -367,9 +450,17 @@ export default {
       fechaF: "",
     },
     id: "",
-    usuario:""
+    usuario: "",
+    note: [],
   }),
   methods: {
+    anota() {
+      this.note.push({
+        fecha: this.fechaAnotacion,
+        descripcion: this.descripcion,
+      });
+      this.descripcion = "";
+    },
     cambioN() {
       console.log("cambio la fecha de nacimiento: ");
       this.detalleDirecto.fechaN = this.fechaNacimiento;
@@ -422,17 +513,16 @@ export default {
     },
     traerDirecto() {
       this.id = this.$store.state.datos._id;
-     
+
       this.detalleDirecto = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
-        tipoContrato:this.$store.state.datos.tipoContrato,
+        tipoContrato: this.$store.state.datos.tipoContrato,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
         telefono: this.$store.state.datos.telefono,
         email: this.$store.state.datos.email,
-        anotacion: this.$store.state.datos.anotacion,
         sexo: this.$store.state.datos.sexo,
         rol: this.$store.state.datos.rol,
         areaTrabajo: this.$store.state.datos.areaTrabajo._id,
@@ -441,52 +531,53 @@ export default {
         fechaI: this.$store.state.datos.fechaInicio,
         fechaF: this.$store.state.datos.fechaFin,
       };
+      this.anotacion = this.$store.state.datos.anotacion;
+      this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
-        axios
-          .put(
-            `https://back-coohilados.vercel.app/api/trabajadorDirecto/${this.id}`,
-            {
-              tipoDocumento: this.detalleDirecto.tipoDocumento,
-              documento: this.detalleDirecto.documento,
-              sexo: this.detalleDirecto.sexo,
-              nombre: this.detalleDirecto.nombre,
-              fechaNacimiento: this.detalleDirecto.fechaNacimiento,
-              tipoContrato: this.detalleDirecto.tipoContrato,
-              fechaInicio: this.detalleDirecto.fechaInicio,
-              fechaFin: this.detalleDirecto.fechaFin,
-              areaTrabajo: this.detalleDirecto.areaTrabajo,
-              salario: this.detalleDirecto.salario,
-              barrio: this.detalleDirecto.barrio,
-              ciudad: this.detalleDirecto.city,
-              telefono: this.detalleDirecto.telefono,
-              anotacion: this.detalleDirecto.anotacion,
-              rol: this.detalleDirecto.rol,
-            }
-          )
-          .then((response) => {
-            this.traerDirecto();
-            this.dialog = false;
-            console.log(response);
-            this.$store.dispatch("setDatos", response.data.item);
-            this.$router.push("/AgregarDirecto");
-            this.loading = false;
+      axios
+        .put(
+          `https://back-coohilados.vercel.app/api/trabajadorDirecto/${this.id}`,
+          {
+            tipoDocumento: this.detalleDirecto.tipoDocumento,
+            documento: this.detalleDirecto.documento,
+            sexo: this.detalleDirecto.sexo,
+            nombre: this.detalleDirecto.nombre,
+            fechaNacimiento: this.detalleDirecto.fechaNacimiento,
+            tipoContrato: this.detalleDirecto.tipoContrato,
+            fechaInicio: this.detalleDirecto.fechaInicio,
+            fechaFin: this.detalleDirecto.fechaFin,
+            areaTrabajo: this.detalleDirecto.areaTrabajo,
+            salario: this.detalleDirecto.salario,
+            barrio: this.detalleDirecto.barrio,
+            ciudad: this.detalleDirecto.city,
+            telefono: this.detalleDirecto.telefono,
+            anotacion: this.note,
+            rol: this.detalleDirecto.rol,
+          }
+        )
+        .then((response) => {
+          this.traerDirecto();
+          this.dialog = false;
+          console.log(response);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/AgregarDirecto");
+          this.loading = false;
 
-            this.$swal({
-              icon: "success",
-              title: "El trabajador se edito correctamente",
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-            this.dialog = false;
-            this.loading = false;
-            this.$swal({
-              icon: "error",
-              title: "Error al editar el trabajador",
-            });
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se edito correctamente",
           });
-      
+        })
+        .catch((error) => {
+          console.log(error);
+          this.dialog = false;
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "Error al editar el trabajador",
+          });
+        });
     },
     fecha(r) {
       let d = new Date(r);

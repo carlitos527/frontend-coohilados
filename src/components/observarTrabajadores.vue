@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <v-row>
       <v-col>
         <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
@@ -56,17 +56,27 @@
                 <h2>Fecha inicio contrato:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
               </v-col>
-              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo=='Asociado'">
+              <v-col
+                cols="12"
+                sm="6"
+                md="6"
+                v-if="this.$store.state.datos.tipo == 'Asociado'"
+              >
                 <h2>Fecha de vacaciones:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaVacaciones) }}</h4>
               </v-col>
-              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo!='Asociado'">
+              <v-col
+                cols="12"
+                sm="6"
+                md="6"
+                v-if="this.$store.state.datos.tipo != 'Asociado'"
+              >
                 <h2>Fecha fin contrato:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6" v-else>
                 <h2>Tiempo laborado en años:</h2>
-                <h4>{{antiguedad(this.$store.state.datos.fechaInicio)}}</h4>
+                <h4>{{ antiguedad(this.$store.state.datos.fechaInicio) }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <h2>Area de trabajo:</h2>
@@ -106,6 +116,37 @@
                 <h2>ANOTACIÓN:</h2>
                 <h4>{{ this.$store.state.datos.anotacion }}</h4>
               </v-col>
+              <v-col>
+                <v-data-table
+                  :headers="headers"
+                  :items="anotacion"
+                  class="elevation-1"
+                >
+                  <template v-slot:top>
+                    <v-toolbar flat>
+                      <v-tolbar-title>Anotaciones</v-tolbar-title>
+                      <v-divider class="mx-4" inset vertical></v-divider>
+                      <v-spacer></v-spacer>
+                      <v-dialog max-width="1600px" v-model="dialog" persistent>
+                        <v-card>
+                          <v-card-text>
+                            <v-col cols="12">
+                              <v-textarea v-model="descripcion">
+                                <template v-slot:label>
+                                  <div>Anotación</div>
+                                </template>
+                              </v-textarea>
+                            </v-col>
+                          </v-card-text>
+                        </v-card>
+                      </v-dialog>
+                    </v-toolbar>
+                  </template>
+                  <template v-slot:[`item.fecha`]="{ item }">
+                    <span>{{ fecha(item.fecha) }}</span>
+                  </template>
+                </v-data-table>
+              </v-col>
             </v-row>
           </v-card-text>
           <v-card-actions>
@@ -120,23 +161,42 @@
 </template>
 
 <script>
-import axios from "axios"; 
+import axios from "axios";
 export default {
   name: "PagesobservarTrabajadores",
   data: () => ({
-    departamentos:{}
+    dialog: false,
+    headers: [
+      { text: "fecha", value: "fecha" },
+      { text: "Anotacion", value: "descripcion" },
+    ],
+    anotacion: [],
+    fechaAnotacion: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    descripcion: "",
+    departamentos: {},
+    note: [],
   }),
   computed: {},
   methods: {
-    regresar(){
+    anota() {
+      this.note.push({
+        fecha: this.fechaAnotacion,
+        descripcion: this.descripcion,
+      });
+      this.descripcion = "";
+    },
+    regresar() {
       console.log(this.$store.state.datos.tipo);
-      if(this.$store.state.datos.tipo=="Temporal"){
-        this.$router.push("/AgregarTemporales")
-
-      }else if(this.$store.state.datos.tipo=="Directo"){
-        this.$router.push("/AgregarDirecto")
-      }else {
-        this.$router.push("/AgregarTrabajadores")
+      if (this.$store.state.datos.tipo == "Temporal") {
+        this.$router.push("/AgregarTemporales");
+      } else if (this.$store.state.datos.tipo == "Directo") {
+        this.$router.push("/AgregarDirecto");
+      } else {
+        this.$router.push("/AgregarTrabajadores");
       }
     },
     departamento() {
@@ -146,7 +206,7 @@ export default {
         )
         .then((response) => {
           console.log(response.data.idCity);
-          this.departamentos=response.data.idCity
+          this.departamentos = response.data.idCity;
         })
         .catch((err) => {
           console.log(err);
@@ -157,15 +217,15 @@ export default {
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
-    antiguedad(item){
+    antiguedad(item) {
       let fecha = Date.now();
       let fechaActual = new Date(fecha);
-      let fechaInicial =new Date(item);
-      let antiguedad = fechaActual.getFullYear() - fechaInicial.getFullYear()
-      if(antiguedad<=1){
-        return `${antiguedad} año`
-      }else{
-        return `${antiguedad} años`
+      let fechaInicial = new Date(item);
+      let antiguedad = fechaActual.getFullYear() - fechaInicial.getFullYear();
+      if (antiguedad <= 1) {
+        return `${antiguedad} año`;
+      } else {
+        return `${antiguedad} años`;
       }
     },
   },
