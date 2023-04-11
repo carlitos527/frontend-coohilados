@@ -329,6 +329,19 @@
         </v-img>
       </v-col>
     </v-row>
+    <v-row class="align-center">
+      <v-col>
+        <v-overlay :value="loading">
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
+        </v-overlay>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -519,6 +532,7 @@ export default {
       this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
+      this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/servicio/${this.id}`, {
           tipoDocumento: this.detalleTrabajador.tipoDocumento,
