@@ -24,7 +24,7 @@
           <v-card class="pt-0 light-green-accent-4" color="#41B44C" max-width="340" outlined>
             <div>
               <h2 class="text-left mb-10">
-                COSEJO Y GERENCIA
+                CONSEJO Y GERENCIA
                 <font-awesome-icon :icon="['fas', 'list-check']" />
               </h2>
             </div>
