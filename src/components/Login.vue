@@ -108,10 +108,15 @@ export default {
           clearInterval(i)
         }
       }, 1200)
+    },
+    entrar(){
+      if(JSON.parse(localStorage.getItem("usuario"))){
+        this.$router.push('/home')
+      }
     }
   },
   created() {
-
+    this.entrar();
   }
 };
 </script>
