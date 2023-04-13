@@ -39,9 +39,7 @@
                               class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
-                              v-if="
-                                user.rol == 'Editor de Datos'
-                              "
+                              v-if="user.rol == 'Editor de Datos'"
                             >
                               Nuevo Trabajador
                             </v-btn>
@@ -73,6 +71,20 @@
                                     label="Sexo"
                                     required
                                   ></v-select>
+
+                                  <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
 
                                   <v-text-field
                                     v-model="nombre"
@@ -507,6 +519,21 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
+
+    valid00: true,
+    arl: "",
+    arlRules: [
+      (ar) => !!ar || "ARL es requerida ❌",
+      (ar) => (ar && ar.length <= 50) || " ARL solo puede tener 50 caracteres",
+    ],
+
+    valid01: true,
+    eps: "",
+    epsRules: [
+      (ep) => !!ep || "LA EPS es requerido ❌",
+      (ep) => (ep && ep.length <= 50) || " EPS solo puede tener 50 caracteres",
+    ],
+
     valid2: true,
     tipoContrato: ["TERMINO FIJO", "TERMINO INDEFINIDO"],
     tiempoLaborado: "",
@@ -594,7 +621,7 @@ export default {
     trabajadores: [],
     trabajador: [],
     busqueda: "",
-    user:""
+    user: "",
   }),
   computed: {
     buscar() {
@@ -736,6 +763,8 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             tipo: "Asociado",
+            arl: this.arl,
+            eps: this.eps,
             fechaNacimiento: this.fechaNacimiento,
             fechaInicio: this.fechaInicio,
             fechaVacaciones: this.fechaVacaciones,

@@ -72,6 +72,20 @@
                                   ></v-select>
 
                                   <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
+
+                                   <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
                                     v-model="nombre"
                                     :rules="nombreRules"
                                     label="Nombre y Apellidos"
@@ -518,6 +532,20 @@ export default {
     tiempoLaborado: "",
     areaTrabajo: "",
 
+    valid00: true,
+    arl: "",
+    arlRules: [
+      (ar) => !!ar || "ARL es requerida ❌",
+      (ar) => (ar && ar.length <= 50) || " ARL solo puede tener 50 caracteres",
+    ],
+
+    valid01: true,
+    eps: "",
+    epsRules: [
+      (ep) => !!ep || "LA EPS es requerido ❌",
+      (ep) => (ep && ep.length <= 50) || " EPS solo puede tener 50 caracteres",
+    ],
+
     valid3: true,
     salario: "",
     salarioRules: [
@@ -751,6 +779,8 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             tipo: "Temporal",
+            arl:this.arl,
+            eps:this.eps,
             barrio: this.barrio,
             telefono: this.telefono,
             fechaNacimiento: this.fechaNacimiento,

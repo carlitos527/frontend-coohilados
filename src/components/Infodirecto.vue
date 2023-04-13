@@ -461,7 +461,7 @@ export default {
       fechaN: "",
       fechaI: "",
       fechaF: "",
-      email:""
+      email: "",
     },
     id: "",
     usuario: "",
@@ -528,6 +528,8 @@ export default {
       this.detalleDirecto = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
+        arl: this.$store.state.datos.arl,
+        eps: this.$store.state.datos.eps,
         nombre: this.$store.state.datos.nombre,
         tipoContrato: this.$store.state.datos.tipoContrato,
         salario: this.$store.state.datos.salario,
@@ -553,6 +555,8 @@ export default {
           {
             tipoDocumento: this.detalleDirecto.tipoDocumento,
             documento: this.detalleDirecto.documento,
+            arl: this.$store.state.datos.arl,
+            eps: this.$store.state.datos.eps,
             sexo: this.detalleDirecto.sexo,
             nombre: this.detalleDirecto.nombre,
             fechaNacimiento: this.detalleDirecto.fechaNacimiento,

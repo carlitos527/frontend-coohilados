@@ -1,10 +1,6 @@
 import home from "../components/Home.vue"
 import login from "../components/Login.vue"
 
-
-import bitacora from "../components/Bitacora.vue"
-import setup from "../components/setup.vue"
-
 import agregartemporal from "../components/AgregarTemporales.vue"
 import infotemporal from "../components/Infotemporal.vue"
 
@@ -32,10 +28,6 @@ export const routes =[
 
     {path:"/Home", component:home},
     {path:"/", component:login},
-    
-    
-    {path:"/Bitacora", component:bitacora}, 
-    {path:"/setup", component:setup},
 
     {path: "/AgregarTemporales", component:agregartemporal},
     {path: "/Infotemporal", component:infotemporal},

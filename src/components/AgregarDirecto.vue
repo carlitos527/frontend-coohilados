@@ -40,9 +40,7 @@
                               class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
-                              v-if="
-                                usuario.rol == 'Editor de Datos'
-                              "
+                              v-if="usuario.rol == 'Editor de Datos'"
                             >
                               Nuevo Trabajador
                             </v-btn>
@@ -74,6 +72,20 @@
                                     label="Sexo"
                                     required
                                   ></v-select>
+
+                                  <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
 
                                   <v-text-field
                                     v-model="nombre"
@@ -316,11 +328,7 @@
                           usuario.rol != 'Visualizador'
                         "
                       >
-                        <div
-                          v-show="item.estado == 3"
-                          class="boton"
-                         
-                        >
+                        <div v-show="item.estado == 3" class="boton">
                           <v-btn
                             color="green"
                             icon
@@ -334,11 +342,7 @@
                             </div>
                           </v-btn>
                         </div>
-                        <div
-                          v-show="item.estado == 1"
-                          class="boton"
-                         
-                        >
+                        <div v-show="item.estado == 1" class="boton">
                           <v-btn
                             color="red"
                             icon
@@ -352,11 +356,7 @@
                             </div>
                           </v-btn>
                         </div>
-                        <div
-                          v-show="item.estado == 2"
-                          class="boton"
-                          
-                        >
+                        <div v-show="item.estado == 2" class="boton">
                           <v-btn
                             color="orange"
                             icon
@@ -390,7 +390,8 @@
                         class="boton"
                         v-if="
                           usuario.rol == 'Editor de Datos' ||
-                          usuario.rol == 'Actualizador'"
+                          usuario.rol == 'Actualizador'
+                        "
                       >
                         <v-btn
                           color="primary"
@@ -519,6 +520,21 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
+
+    valid00: true,
+    arl: "",
+    arlRules: [
+      (ar) => !!ar || "ARL es requerida ❌",
+      (ar) => (ar && ar.length <= 50) || " ARL solo puede tener 50 caracteres",
+    ],
+
+    valid01: true,
+    eps: "",
+    epsRules: [
+      (ep) => !!ep || "LA EPS es requerido ❌",
+      (ep) => (ep && ep.length <= 50) || " EPS solo puede tener 50 caracteres",
+    ],
+
     valid2: true,
 
     tipoContrato: [
@@ -617,7 +633,7 @@ export default {
     town: [],
     directos: [],
     busqueda: "",
-    usuario:""
+    usuario: "",
   }),
   computed: {
     buscar() {
@@ -772,6 +788,8 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             tipo: "Directo",
+            arl: this.arl,
+            eps: this.eps,
             fechaNacimiento: this.fechaNacimiento,
             fechaInicio: this.fechaInicio,
             fechaFin: this.fechaFin,

@@ -495,6 +495,8 @@ export default {
       this.detalleTemporal = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
+        arl:this.$store.state.datos.arl,
+        eps:this.$store.state.datos.eps,
         nombre: this.$store.state.datos.nombre,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
@@ -520,6 +522,8 @@ export default {
             tipoDocumento: this.detalleTemporal.tipoDocumento,
             documento: this.detalleTemporal.documento,
             sexo: this.detalleTemporal.sexo,
+            arl: this.$store.state.datos.arl,
+            eps: this.$store.state.datos.eps,
             nombre: this.detalleTemporal.nombre,
             fechaNacimiento: this.detalleTemporal.fechaN,
             fechaInicio: this.detalleTemporal.fechaI,
