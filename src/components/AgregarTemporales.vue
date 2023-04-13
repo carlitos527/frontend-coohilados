@@ -737,6 +737,7 @@ export default {
       }
     },
     agregar() {
+      this.loading = true;
       console.log(this.tipo);
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log("id ciudad: " + this.city);

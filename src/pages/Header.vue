@@ -18,7 +18,7 @@
       </v-row>
 
       <v-btn class="white--text mx-6" icon v-if="token != undefined" @click="cerrarSesion()">
-        <v-icon>mdi-account-off</v-icon>
+        <v-icon>mdi-account-off</v-icon><h6>Cerrar sesión</h6>
       </v-btn>
       <v-menu left bottom> </v-menu>
     </v-app-bar>
