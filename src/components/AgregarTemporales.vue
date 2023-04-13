@@ -921,12 +921,13 @@ export default {
       } else {
         return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
       }
-      
     },
-    fecha(r) {
-      let d = new Date(r);
+    fecha(item) {
+      /* let d = new Date(r);
       let f = d.toISOString();
-      return f.split("T")[0].replace(/-/g, "/");
+      return f.split("T")[0].replace(/-/g, "/"); */
+      let fecha = moment(item).format('D, MMM, YYYY')
+      return fecha
     },
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));

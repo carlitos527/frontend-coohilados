@@ -426,6 +426,11 @@
                         {{ fecha(item.fechaNacimiento) }}
                       </span>
                     </template>
+                    <template v-slot:[`item.tiempoLaborado`]="{ item }">
+                      <span>
+                        {{ moment(item.fechaInicio) }}
+                      </span>
+                    </template>
                     <template v-slot:[`item.fechaInicio`]="{ item }">
                       <span>
                         {{ fecha(item.fechaInicio) }}
@@ -462,6 +467,7 @@
 <script>
 import logo from "../assets/imagenBase64.js";
 import axios from "axios";
+import moment from "moment";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -918,10 +924,22 @@ export default {
           console.log(err);
         });
     },
-    fecha(r) {
-      let d = new Date(r);
-      let f = d.toISOString();
-      return f.split("T")[0].replace(/-/g, "/");
+    moment(item){
+      let fecha = Date.now();
+      let fecha2= moment(fecha);
+      let fecha1 = moment(item);
+      let diffAnos = fecha2.diff(fecha1, 'years')
+      let diffMeses = fecha2.diff(fecha1, 'months')
+      let diffDias = fecha2.diff(fecha1, 'days')
+      if (diffAnos <= 1) {
+        return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
+      } else {
+        return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
+      }
+    },
+    fecha(item) {
+      let fecha = moment(item).format('D, MMM, YYYY')
+      return fecha
     },
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
