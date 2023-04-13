@@ -466,7 +466,6 @@ export default {
         .then((response) => {
           this.loadingTable=false;
           this.temporales = response.data.temporal;
-          console.log(this.temporales);
         })
         .catch((err) => {
           this.loadingTable=false;
@@ -630,6 +629,7 @@ export default {
           let array = [];
           for (let i = 0; i < res.data.temporal.length; i++) {
             const user = res.data.temporal[i];
+
             array.push([
               `${user.tipoDocumento}`,
               `${user.documento}`,
