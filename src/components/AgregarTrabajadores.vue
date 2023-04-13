@@ -247,7 +247,7 @@
                   <v-data-table
                     :headers="headers"
                     :items="trabajadores"
-                    :search="busqueda"
+                    
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
                   >
@@ -406,7 +406,7 @@
                     </template>
                     <template v-slot:[`item.tiempoLaborado`]="{ item }">
                       <span>
-                        {{ antiguedad(item.fechaInicio) }}
+                        {{ moment(item.fechaInicio) }}
                       </span>
                     </template>
                     <template v-slot:[`item.fechaNacimiento`]="{ item }">
@@ -450,6 +450,7 @@
 <script>
 import axios from "axios";
 import logo from "../assets/imagenBase64.js";
+import moment from "moment";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -624,23 +625,26 @@ export default {
     close() {
       this.dialog = false;
     },
-    antiguedad(item) {
+    moment(item){
       let fecha = Date.now();
-      let fechaActual = new Date(fecha);
-      let fechaInicial = new Date(item);
-      let antiguedad = fechaActual.getFullYear() - fechaInicial.getFullYear();
-      if (antiguedad <= 1) {
-        return `${antiguedad} año`;
+      let fecha2= moment(fecha);
+      let fecha1 = moment(item);
+      let diffAnos = fecha2.diff(fecha1, 'years')
+      let diffMeses = fecha2.diff(fecha1, 'months')
+      let diffDias = fecha2.diff(fecha1, 'days')
+      if (diffAnos <= 1) {
+        return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
       } else {
-        return `${antiguedad} años`;
+        return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
       }
     },
     traerTrabajador() {
       axios
         .get("https://back-coohilados.vercel.app/api/servicio")
         .then((response) => {
-          console.log(response);
+          /* console.log(response.data.trabajador); */
           this.trabajadores = response.data.trabajador;
+          console.log(this.trabajadores);
         })
         .catch((err) => {
           console.log(err);
@@ -863,10 +867,9 @@ export default {
           console.log(err);
         });
     },
-    fecha(r) {
-      let d = new Date(r);
-      let f = d.toISOString();
-      return f.split("T")[0].replace(/-/g, "/");
+    fecha(item) {
+      let fecha = moment(item).format('D, MMM, YYYY')
+      return fecha
     },
   },
   created() {
