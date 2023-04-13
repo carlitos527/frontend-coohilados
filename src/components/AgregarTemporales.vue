@@ -409,6 +409,11 @@
                         <span class="blue--text"> Vacaciones </span>
                       </div>
                     </template>
+                    <template v-slot:[`item.tiempoLaborado`]="{ item }">
+                      <span>
+                        {{ moment(item.fechaInicio) }}
+                      </span>
+                    </template>
                     <template v-slot:[`item.fechaNacimiento`]="{ item }">
                       <span>
                         {{ fecha(item.fechaNacimiento) }}
@@ -422,6 +427,7 @@
                     <template v-slot:[`item.fechaFin`]="{ item }">
                       <span>
                         {{ fecha(item.fechaFin) }}
+
                       </span>
                     </template>
                   </v-data-table>
@@ -450,6 +456,7 @@
 <script>
 import logo from "../assets/imagenBase64.js";
 import axios from "axios";
+import moment from "moment";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -871,6 +878,20 @@ export default {
           console.log(err);
         });
     },
+    moment(item){
+      let fecha = Date.now();
+      let fecha2= moment(fecha);
+      let fecha1 = moment(item);
+      let diffAnos = fecha2.diff(fecha1, 'years')
+      let diffMeses = fecha2.diff(fecha1, 'months')
+      let diffDias = fecha2.diff(fecha1, 'days')
+      if (diffAnos <= 1) {
+        return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
+      } else {
+        return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
+      }
+      
+    },
     fecha(r) {
       let d = new Date(r);
       let f = d.toISOString();
@@ -882,9 +903,11 @@ export default {
   },
   created() {
     this.traer();
+    this.moment();
     this.traerDepartamentos();
     this.traerTemporal();
     this.traerAreaTrabajo();
+    
   },
 };
 </script>

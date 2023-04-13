@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row class="justify-center" align="center" style="height:90vh">
       <v-col>
         <v-card class="mx-auto" elevation="14" style="max-width: 800px">

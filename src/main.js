@@ -15,7 +15,6 @@ Vue.use(VueRouter)
 Vue.use(VueSweetalert2);
 Vue.config.productionTip = false
 
-
 library.add(fas)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
