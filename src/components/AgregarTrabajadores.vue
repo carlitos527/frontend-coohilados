@@ -259,9 +259,11 @@
                   <v-data-table
                     :headers="headers"
                     :items="trabajadores"
-                    
+                    :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
+                    :loading="loadingTable" 
+                    loading-text="Cargando... Espere por favor"
                   >
                     <template>
                       <v-toolbar flat>
@@ -470,6 +472,7 @@ export default {
   name: "PagesAgregarTrabajadores",
   data: () => ({
     loading: false,
+    loadingTable:false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -666,14 +669,17 @@ export default {
       }
     },
     traerTrabajador() {
+      this.loadingTable=true;
       axios
         .get("https://back-coohilados.vercel.app/api/servicio")
         .then((response) => {
+          this.loadingTable=false;
           /* console.log(response.data.trabajador); */
           this.trabajadores = response.data.trabajador;
           console.log(this.trabajadores);
         })
         .catch((err) => {
+          this.loadingTable=false;
           console.log(err);
         });
     },

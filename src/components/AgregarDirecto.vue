@@ -266,6 +266,8 @@
                     :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
+                    :loading="loadingTable" 
+                    loading-text="Cargando... Espere por favor"
                   >
                     <template>
                       <v-toolbar flat>
@@ -475,6 +477,7 @@ export default {
   name: "PagesAgregarDirecto",
   data: () => ({
     loading: false,
+    loadingTable:false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -664,13 +667,16 @@ export default {
       this.dialog = false;
     },
     traerDirecto() {
+      this.loadingTable=true;
       axios
         .get("https://back-coohilados.vercel.app/api/trabajadorDirecto")
         .then((response) => {
+          this.loadingTable=false;
           this.directos = response.data.trabajador2;
           console.log(this.directos);
         })
         .catch((err) => {
+          this.loadingTable=false;
           console.log(err);
         });
     },
