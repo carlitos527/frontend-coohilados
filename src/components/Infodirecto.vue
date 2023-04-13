@@ -66,6 +66,22 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        v-model="detalleDirecto.arl"
+                        label="ARL"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.eps"
+                        label="EPS"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                         v-model="detalleDirecto.nombre"
                         label="Nombre"
                         v-if="usuario.rol == 'Editor de Datos'"
@@ -449,6 +465,8 @@ export default {
       tipoDocumento: "",
       documento: "",
       nombre: "",
+      arl:"",
+      eps:"",
       tipoContrato: "",
       areaTrabajo: "",
       salario: "",

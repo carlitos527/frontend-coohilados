@@ -34,6 +34,14 @@
                 <h2>Documento:</h2>
                 <h4>{{ this.$store.state.datos.documento }}</h4>
               </v-col>
+               <v-col cols="12" sm="6" md="6">
+                <h2>Arl:</h2>
+                <h4>{{ this.$store.state.datos.arl }}</h4>
+              </v-col>
+               <v-col cols="12" sm="6" md="6">
+                <h2>Eps:</h2>
+                <h4>{{ this.$store.state.datos.arl }}</h4>
+              </v-col>
               <v-col cols="12" sm="6" md="6">
                 <h2>Nombre:</h2>
                 <h4>{{ this.$store.state.datos.nombre }}</h4>

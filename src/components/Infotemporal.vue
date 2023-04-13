@@ -66,6 +66,21 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.arl"
+                        label="ARL"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.eps"
+                        label="EPS"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleTemporal.sexo"
                         :items="sexoArray"
@@ -423,6 +438,8 @@ export default {
       nombre: "",
       areaTrabajo: "",
       salario: "",
+      arl: "",
+      eps: "",
       barrio: "",
       city: "",
       telefono: "",
@@ -495,8 +512,8 @@ export default {
       this.detalleTemporal = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
-        arl:this.$store.state.datos.arl,
-        eps:this.$store.state.datos.eps,
+        arl: this.$store.state.datos.arl,
+        eps: this.$store.state.datos.eps,
         nombre: this.$store.state.datos.nombre,
         salario: this.$store.state.datos.salario,
         barrio: this.$store.state.datos.barrio,
