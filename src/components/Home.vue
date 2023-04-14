@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row style="height: 90vh;">
+    <v-row  style="height: 90vh;">
       <v-col cols="12">
         <section
           style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">
@@ -11,12 +11,12 @@
             {{ `Área: ${user.area}` }} <br />
             {{ `Rol: ${user.rol}` }}
           </h3>
-          <h3 v-if="user.rol == 'Administrador'"> usted puede editar todos los usuarios </h3>
-          <h3 v-if="user.rol == 'Actualizador'"> usted puede editar vusualizar todos los trabajadores, anexar anotaciones
+          <h3 v-if="user.rol == 'Administrador'"> "Usted puede editar todos los usuarios" </h3>
+          <h3 v-if="user.rol == 'Actualizador'"> "Usted vusualizar todos los trabajadores y anexar anotaciones"
             y imprimir reportes</h3>
-          <h3 v-if="user.rol == 'Editor de Datos'"> usted puede editar todos los Trabajadores, imprimir reportes,
+          <h3 v-if="user.rol == 'Editor de Datos'"> Usted puede editar todos los Trabajadores, imprimir reportes,
             vusualizar y editar </h3>
-          <h3 v-if="user.rol == 'Visualizador'"> usted puede Visualizar todos los trabajadores e imprimir reportes </h3>
+          <h3 v-if="user.rol == 'Visualizador'"> Usted puede Visualizar todos los trabajadores e imprimir reportes </h3>
         </section>
       </v-col>
       <v-row class="justify-center" align="center" :key="rol">
@@ -146,6 +146,8 @@ export default {
 .boton {
   position: relative;
 }
+
+
 
 .texto {
   position: absolute;

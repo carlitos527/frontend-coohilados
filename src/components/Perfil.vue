@@ -1,5 +1,5 @@
 <template>
-  <v-container style="height:100%">
+  <v-container style="height: 100%">
     <v-row>
       <v-col cols="12">
         <v-card class="mx-5 my-5" max-width="10000" tile>
@@ -10,17 +10,36 @@
               </v-avatar>
               <v-dialog v-model="dialogAvatar" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon color="red lighten-2" dark v-bind="attrs" v-on="on">
+                  <v-btn
+                    icon
+                    color="red lighten-2"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
                     <v-icon>mdi-pencil</v-icon>
                   </v-btn>
                 </template>
                 <v-card>
                   <v-card-title>Avatares</v-card-title>
                   <v-row align="center" justify="center">
-                    <div v-for="value in ava" :key="value.avatar" class="text-center mb-5">
+                    <div
+                      v-for="value in ava"
+                      :key="value.avatar"
+                      class="text-center mb-5"
+                    >
                       <v-col cols="4">
-                        <a href="#" style="text-decoration: none" @click="avatar(value.url)">
-                          <v-avatar class="profile" color="grey" size="165" tile>
+                        <a
+                          href="#"
+                          style="text-decoration: none"
+                          @click="avatar(value.url)"
+                        >
+                          <v-avatar
+                            class="profile"
+                            color="grey"
+                            size="165"
+                            tile
+                          >
                             <v-img :src="value.url"></v-img>
                           </v-avatar>
                         </a>
@@ -29,13 +48,23 @@
                     <v-col cols="4">
                       <v-avatar class="profile" color="grey" size="165" tile>
                         <div class="text-center img">
-                          <v-img width="320" height="320"
-                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+                          <v-img
+                            width="320"
+                            height="320"
+                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                          >
                           </v-img>
                           <div class="boton">
-                            <v-file-input accept="image/png, image/jpeg, image/bmp" placeholder="Pick an avatar"
-                              prepend-icon="mdi-camera" label="Avatar" hide-input v-model="foto" @change="subir()"
-                              class="boton-avatar">
+                            <v-file-input
+                              accept="image/png, image/jpeg, image/bmp"
+                              placeholder="Pick an avatar"
+                              prepend-icon="mdi-camera"
+                              label="Avatar"
+                              hide-input
+                              v-model="foto"
+                              @change="subir()"
+                              class="boton-avatar"
+                            >
                             </v-file-input>
                           </div>
                         </div>
@@ -78,16 +107,27 @@
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.documento" :rules="documentoRules"
-                          label="Documento"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.documento"
+                          :rules="documentoRules"
+                          label="Documento"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.nombre" :rules="nombreRules" label="Nombres"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.nombre"
+                          :rules="nombreRules"
+                          label="Nombres"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="detalleUsuario.email" label="E-mail" :rules="emailRules"></v-text-field>
+                        <v-text-field
+                          v-model="detalleUsuario.email"
+                          label="E-mail"
+                          :rules="emailRules"
+                        ></v-text-field>
                       </v-col>
 
                       <!-- editar contraseña -->
@@ -104,30 +144,68 @@
                             <v-card-text>
                               <v-row>
                                 <v-col cols="12">
-                                  <v-form ref="form" v-model="valid" lazy-validation>
-                                    <v-text-field v-model="passwordActual" :rules="passwordActualRules"
-                                      label="Contraseña actual" outlined dense
-                                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
-                                      required @click:append="show1 = !show1"></v-text-field>
-                                    <v-text-field v-model="nuevaPassword" :rules="nuevaPasswordRules"
-                                      label="Nueva contraseña" outlined dense
-                                      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
-                                      required @click:append="show2 = !show2"></v-text-field>
-                                    <v-text-field v-model="confirmarPassword" :rules="[
-                                      rules.required,
-                                      rules.max,
-                                      compararPasswords,
-                                    ]" label="Confirmar contraseña" outlined dense
-                                      :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :type="show3 ? 'text' : 'password'"
-                                      required @click:append="show3 = !show3"></v-text-field>
-                                    <v-btn :disabled="!valid" color="green" @click="cambiarPassword">Cambiar
-                                      contraseña</v-btn>
+                                  <v-form
+                                    ref="form"
+                                    v-model="valid"
+                                    lazy-validation
+                                  >
+                                    <v-text-field
+                                      v-model="passwordActual"
+                                      :rules="passwordActualRules"
+                                      label="Contraseña actual"
+                                      outlined
+                                      dense
+                                      :append-icon="
+                                        show1 ? 'mdi-eye' : 'mdi-eye-off'
+                                      "
+                                      :type="show1 ? 'text' : 'password'"
+                                      required
+                                      @click:append="show1 = !show1"
+                                    ></v-text-field>
+                                    <v-text-field
+                                      v-model="nuevaPassword"
+                                      :rules="nuevaPasswordRules"
+                                      label="Nueva contraseña"
+                                      outlined
+                                      dense
+                                      :append-icon="
+                                        show2 ? 'mdi-eye' : 'mdi-eye-off'
+                                      "
+                                      :type="show2 ? 'text' : 'password'"
+                                      required
+                                      @click:append="show2 = !show2"
+                                    ></v-text-field>
+                                    <v-text-field
+                                      v-model="confirmarPassword"
+                                      :rules="[
+                                        rules.required,
+                                        rules.max,
+                                        compararPasswords,
+                                      ]"
+                                      label="Confirmar contraseña"
+                                      outlined
+                                      dense
+                                      :append-icon="
+                                        show3 ? 'mdi-eye' : 'mdi-eye-off'
+                                      "
+                                      :type="show3 ? 'text' : 'password'"
+                                      required
+                                      @click:append="show3 = !show3"
+                                    ></v-text-field>
+                                    <v-btn
+                                      :disabled="!valid"
+                                      color="green"
+                                      @click="cambiarPassword"
+                                      >Cambiar contraseña</v-btn
+                                    >
                                   </v-form>
                                 </v-col>
                               </v-row>
                             </v-card-text>
                             <v-card-actions>
-                              <v-btn color="red" @click="dialog = false">cerrar</v-btn>
+                              <v-btn color="red" @click="dialog = false"
+                                >cerrar</v-btn
+                              >
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -135,10 +213,23 @@
                     </v-row>
 
                     <v-card-actions>
-                      <v-btn rounded outlined color="black" class="mb-2 red accent-3" text to="/Home">
+                      <v-btn
+                        rounded
+                        outlined
+                        color="black"
+                        class="mb-2 red accent-3"
+                        text
+                        to="/Home"
+                      >
                         Regresar
                       </v-btn>
-                      <v-btn rounded outlined color="black" class="mb-2 green accent-3" @click="editarItem()">
+                      <v-btn
+                        rounded
+                        outlined
+                        color="black"
+                        class="mb-2 green accent-3"
+                        @click="editarItem()"
+                      >
                         Guardar
                       </v-btn>
                     </v-card-actions>
@@ -153,8 +244,13 @@
     <v-row class="align-center">
       <v-col>
         <v-overlay :value="loading">
-          <v-progress-circular v-show="loading == true" :size="70" :width="7" color="black"
-            indeterminate></v-progress-circular>
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
         </v-overlay>
       </v-col>
     </v-row>
@@ -224,11 +320,23 @@ export default {
     },
     id: "",
     ava: [
-      { avatar: "1", url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_1_t62rqo.jpg" },
-      { avatar: "2", url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.20_PM_f6gpxe.jpg" },
-      { avatar: "3", url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_2_om7kcb.jpg" },
-      { avatar: "4", url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_s8o37e.jpg" }
-    ]
+      {
+        avatar: "1",
+        url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_1_t62rqo.jpg",
+      },
+      {
+        avatar: "2",
+        url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.20_PM_f6gpxe.jpg",
+      },
+      {
+        avatar: "3",
+        url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_2_om7kcb.jpg",
+      },
+      {
+        avatar: "4",
+        url: "https://res.cloudinary.com/imagen/image/upload/v1681245979/Coohilados/WhatsApp_Image_2023-04-11_at_3.36.18_PM_s8o37e.jpg",
+      },
+    ],
   }),
   methods: {
     compararPasswords() {
@@ -242,17 +350,18 @@ export default {
       this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/usuario/${this.id}`, {
-          foto: url
+          foto: url,
         })
         .then((response) => {
           this.dialogAvatar = false;
           this.loading = false;
           console.log(response);
-          this.user.foto = response.data.usuario.foto
+          this.user.foto = response.data.usuario.foto;
 
           this.$swal({
             icon: "success",
-            title: "Se editó la foto correctamente, por favor vuelva a iniciar sesión",
+            title:
+              "Se editó la foto correctamente, por favor vuelva a iniciar sesión",
           });
         })
         .catch((error) => {
@@ -279,10 +388,12 @@ export default {
           console.log(response.data);
           this.loading = false;
           this.dialogAvatar = false;
-          this.user.foto = response.data.url; /* hacer esto con un state y un commit */
+          this.user.foto =
+            response.data.url; /* hacer esto con un state y un commit */
           this.$swal({
             icon: "success",
-            title: "Se editó la foto correctamente, por favor vuelva a iniciar sesión",
+            title:
+              "Se editó la foto correctamente, por favor vuelva a iniciar sesión",
           });
         })
         .catch((error) => {
