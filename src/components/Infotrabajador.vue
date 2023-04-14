@@ -66,8 +66,16 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        v-model="detalleTrabajador.pension"
+                        label="PENSIÓN"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                         v-model="detalleTrabajador.rh"
-                        label="rh"
+                        label="RH"
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
@@ -461,7 +469,8 @@ export default {
       tipoDocumento: "",
       documento: "",
       nombre: "",
-      rh:"",
+      pension: "",
+      rh: "",
       arl: "",
       eps: "",
       areaTrabajo: "",
@@ -542,6 +551,7 @@ export default {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
+        pension: this.$store.state.datos.pension,
         rh: this.$store.state.datos.rh,
         arl: this.$store.state.datos.arl,
         eps: this.$store.state.datos.eps,

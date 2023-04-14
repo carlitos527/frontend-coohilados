@@ -74,6 +74,15 @@
                       ></v-text-field>
                     </v-col>
 
+                     <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.pension"
+                        label="PENSIÓN"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.arl"
@@ -447,6 +456,7 @@ export default {
       nombre: "",
       areaTrabajo: "",
       salario: "",
+      pension:"",
       rh:"",
       arl: "",
       eps: "",
@@ -522,6 +532,7 @@ export default {
       this.detalleTemporal = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
+        pension: this.$store.state.datos.pension,
         rh: this.$store.state.datos.rh,
         arl: this.$store.state.datos.arl,
         eps: this.$store.state.datos.eps,
@@ -550,6 +561,7 @@ export default {
             tipoDocumento: this.detalleTemporal.tipoDocumento,
             documento: this.detalleTemporal.documento,
             sexo: this.detalleTemporal.sexo,
+            pension: this.detalleTemporal.pension,
             rh: this.$store.state.datos.rh,
             arl: this.$store.state.datos.arl,
             eps: this.$store.state.datos.eps,

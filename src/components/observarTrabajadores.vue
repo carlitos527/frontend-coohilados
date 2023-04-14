@@ -34,6 +34,10 @@
                 <h2>Documento:</h2>
                 <h4>{{ this.$store.state.datos.documento }}</h4>
               </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Pensión:</h2>
+                <h4>{{ this.$store.state.datos.pension }}</h4>
+              </v-col>
                <v-col cols="12" sm="6" md="6">
                 <h2>Arl:</h2>
                 <h4>{{ this.$store.state.datos.arl }}</h4>
@@ -110,7 +114,8 @@
                 <h2>Cargo:</h2>
                 <h4>{{ this.$store.state.datos.rol }}</h4>
               </v-col>
-              <v-col v-if="this.$store.state.usuario.rol == 'Editor de Datos' || this.$store.state.usuario.rol =='Actualizador'">
+              <v-row>
+                <v-col v-if="this.$store.state.usuario.rol == 'Editor de Datos' || this.$store.state.usuario.rol =='Actualizador'">
                 <v-data-table :headers="headers" :items="this.$store.state.datos.anotacion" class="elevation-1">
                   <template v-slot:top>
                     <v-toolbar flat>
@@ -122,6 +127,7 @@
                   </template>
                 </v-data-table>
               </v-col>
+              </v-row>
             </v-row>
           </v-card-text>
           <v-card-actions>
