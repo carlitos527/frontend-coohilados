@@ -23,7 +23,32 @@
                     >
                     </v-text-field>
                     <v-spacer></v-spacer>
-
+                    <template>
+                      <div class="text-center">
+                        <v-dialog max-width="1600px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon dark class="mr-2 green" v-bind="attrs" v-on="on">
+                              <font-awesome-icon style="font-size: 28px;" :icon="['fas', 'cake-candles']" />
+                            </v-btn>
+                          </template>
+                          <v-card>
+                            <v-card-title>CUMPLEAÑEROS</v-card-title>
+                            <v-card-text>
+                              <v-autocomplete auto-select-first chips deletable-chips dense small-chips solo-inverted
+                                label="Meses del año" :items="meses" v-model="mes" @change="cumpleanos">
+                              </v-autocomplete>
+                              <v-data-table :headers="headerCumple" :items="happy" no-data-text="No hay cumpleañeros en este mes">
+                                <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                                  <span>
+                                    {{ fecha(item.fechaNacimiento) }}
+                                  </span>
+                                </template>
+                              </v-data-table>
+                            </v-card-text>
+                          </v-card>
+                        </v-dialog>
+                      </div>
+                    </template>
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
                     >
@@ -270,18 +295,12 @@
                   </v-toolbar>
                 </v-template>
 
-                <!--   informacion de todos los tranbajadores -->
+                <!--   informacion de todos los trabajadores -->
 
                 <template>
-                  <v-data-table
-                    :headers="headers"
-                    :items="temporales"
-                    :search="busqueda"
-                    sort-by="nombre"
-                    class="elevation-1 amber lighten-3"
-                    :loading="loadingTable"
-                    loading-text="Cargando... Espere por favor"
-                  >
+                  <v-data-table :headers="headers" :items="temporales" :search="busqueda" sort-by="nombre"
+                    class="elevation-1 amber lighten-3" :loading="loadingTable"
+                    loading-text="Cargando... Espere por favor">
                     <template>
                       <v-toolbar flat>
                         <v-card>
@@ -660,6 +679,26 @@ export default {
     temporales: [],
     busqueda: "",
     usuario: "",
+    meses: [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    mes: "",
+    headerCumple: [
+      { text: "Nombre", value: "nombre" },
+      { text: "fecha de nacimiento", value: "fechaNacimiento" }
+    ],
+    happy: []
   }),
   computed: {
     buscar() {
@@ -692,7 +731,6 @@ export default {
         .then((response) => {
           this.loadingTable = false;
           this.temporales = response.data.temporal;
-          this.cumpleaños();
         })
         .catch((err) => {
           this.loadingTable = false;
@@ -964,15 +1002,53 @@ export default {
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
     },
-    cumpleaños() {
-      for (let i = 0; i < this.temporales.length; i++) {
-        const element = this.temporales[i];
-        let fecha = moment(element.fechaNacimiento).format("D, MMMM");
-        console.log(fecha);
+    cumpleanos() {
+      let numeroMes = "";
+      switch (this.mes) {
+        case "Enero":
+          numeroMes = 0;
+          break;
+        case "Febrero":
+          numeroMes = 1;
+          break;
+        case "Marzo":
+          numeroMes = 2;
+          break;
+        case "Abril":
+          numeroMes = 3;
+          break;
+        case "Mayo":
+          numeroMes = 4;
+          break;
+        case "Junio":
+          numeroMes = 5;
+          break;
+        case "Julio":
+          numeroMes = 6;
+          break;
+        case "Agosto":
+          numeroMes = 7;
+          break;
+        case "Septiembre":
+          numeroMes = 8;
+          break;
+        case "Octubre":
+          numeroMes = 9;
+          break;
+        case "Noviembre":
+          numeroMes = 10;
+          break;
+        case "Diciembre":
+          numeroMes = 11;
+          break;
+
       }
-      let fechaActual = moment(new Date()).format("D, MMMM");
-      console.log("fechaActual: " + fechaActual);
-    },
+      let cumpleaneros = this.temporales.filter(persona =>{
+        let fechaTrabajador = moment(persona.fechaNacimiento).get('month');
+        return fechaTrabajador==numeroMes
+      })
+      this.happy=cumpleaneros
+    }
   },
   created() {
     this.traer();
