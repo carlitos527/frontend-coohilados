@@ -72,168 +72,180 @@
                     <!-- editar contraseña -->
                     <v-row>
                       <v-col>
-
-                    
-
-                    <v-row align="center" justify="center">
-                      <v-dialog v-model="dialog" persistent max-width="600px">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-btn color="orange" dark v-bind="attrs" v-on="on">
-                            Editar contraseña
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-card-title> Editar contraseña </v-card-title>
-                          <v-card-text>
-                            <v-row>
-                              <v-col cols="12">
-                                <v-form
-                                  ref="form"
-                                  v-model="valid"
-                                  lazy-validation
+                        <v-row align="center" justify="center">
+                          <v-dialog
+                            v-model="dialog"
+                            persistent
+                            max-width="600px"
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-btn
+                                color="orange"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                              >
+                                Editar contraseña
+                              </v-btn>
+                            </template>
+                            <v-card>
+                              <v-card-title> Editar contraseña </v-card-title>
+                              <v-card-text>
+                                <v-row>
+                                  <v-col cols="12">
+                                    <v-form
+                                      ref="form"
+                                      v-model="valid"
+                                      lazy-validation
+                                    >
+                                      <v-text-field
+                                        v-model="passwordActual"
+                                        :rules="passwordActualRules"
+                                        label="Contraseña actual"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show1 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show1 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show1 = !show1"
+                                      ></v-text-field>
+                                      <v-text-field
+                                        v-model="nuevaPassword"
+                                        :rules="nuevaPasswordRules"
+                                        label="Nueva contraseña"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show2 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show2 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show2 = !show2"
+                                      ></v-text-field>
+                                      <v-text-field
+                                        v-model="confirmarPassword"
+                                        :rules="[
+                                          rules.required,
+                                          rules.max,
+                                          compararPasswords,
+                                        ]"
+                                        label="Confirmar contraseña"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show3 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show3 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show3 = !show3"
+                                      ></v-text-field>
+                                      <v-btn
+                                        :disabled="!valid"
+                                        color="green"
+                                        @click="cambiarPassword"
+                                        >Cambiar contraseña</v-btn
+                                      >
+                                    </v-form>
+                                  </v-col>
+                                </v-row>
+                              </v-card-text>
+                              <v-card-actions>
+                                <v-btn color="red" @click="dialog = false"
+                                  >cerrar</v-btn
                                 >
-                                  <v-text-field
-                                    v-model="passwordActual"
-                                    :rules="passwordActualRules"
-                                    label="Contraseña actual"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show1 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show1 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show1 = !show1"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-model="nuevaPassword"
-                                    :rules="nuevaPasswordRules"
-                                    label="Nueva contraseña"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show2 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show2 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show2 = !show2"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-model="confirmarPassword"
-                                    :rules="[
-                                      rules.required,
-                                      rules.max,
-                                      compararPasswords,
-                                    ]"
-                                    label="Confirmar contraseña"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show3 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show3 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show3 = !show3"
-                                  ></v-text-field>
-                                  <v-btn
-                                    :disabled="!valid"
-                                    color="green"
-                                    @click="cambiarPassword"
-                                    >Cambiar contraseña</v-btn
-                                  >
-                                </v-form>
-                              </v-col>
-                            </v-row>
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-btn color="red" @click="dialog = false"
-                              >cerrar</v-btn
-                            >
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-row>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                          
+                        </v-row>
+                      </v-col>
+                      <v-col>
+                        <!-- resetear contraseña -->
 
-                    <!-- resetear contraseña -->
-
-                    <v-row align="center" justify="center">
-                      <v-dialog v-model="dialog" persistent max-width="600px">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-btn color="dark" dark v-bind="attrs" v-on="on">
-                            resetear Contraseña
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-card-title> Editar contraseña </v-card-title>
-                          <v-card-text>
-                            <v-row>
-                              <v-col cols="12">
-                                <v-form
-                                  ref="form"
-                                  v-model="valid"
-                                  lazy-validation
+                        <v-row align="center" justify="center">
+                          <v-dialog
+                            v-model="dialog"
+                            persistent
+                            max-width="600px"
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-btn color="dark" dark v-bind="attrs" v-on="on">
+                                resetear Contraseña
+                              </v-btn>
+                            </template>
+                            <v-card>
+                              <v-card-title> Editar contraseña </v-card-title>
+                              <v-card-text>
+                                <v-row>
+                                  <v-col cols="12">
+                                    <v-form
+                                      ref="form"
+                                      v-model="valid"
+                                      lazy-validation
+                                    >
+                                      <v-text-field
+                                        v-model="passwordActual"
+                                        :rules="passwordActualRules"
+                                        label="Contraseña actual"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show1 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show1 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show1 = !show1"
+                                      ></v-text-field>
+                                      <v-text-field
+                                        v-model="nuevaPassword"
+                                        :rules="nuevaPasswordRules"
+                                        label="Nueva contraseña"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show2 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show2 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show2 = !show2"
+                                      ></v-text-field>
+                                      <v-text-field
+                                        v-model="confirmarPassword"
+                                        :rules="[
+                                          rules.required,
+                                          rules.max,
+                                          compararPasswords,
+                                        ]"
+                                        label="Confirmar contraseña"
+                                        outlined
+                                        dense
+                                        :append-icon="
+                                          show3 ? 'mdi-eye' : 'mdi-eye-off'
+                                        "
+                                        :type="show3 ? 'text' : 'password'"
+                                        required
+                                        @click:append="show3 = !show3"
+                                      ></v-text-field>
+                                      <v-btn
+                                        :disabled="!valid"
+                                        color="green"
+                                        @click="cambiarPassword"
+                                        >Cambiar contraseña</v-btn
+                                      >
+                                    </v-form>
+                                  </v-col>
+                                </v-row>
+                              </v-card-text>
+                              <v-card-actions>
+                                <v-btn color="red" @click="dialog = false"
+                                  >cerrar</v-btn
                                 >
-                                  <v-text-field
-                                    v-model="passwordActual"
-                                    :rules="passwordActualRules"
-                                    label="Contraseña actual"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show1 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show1 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show1 = !show1"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-model="nuevaPassword"
-                                    :rules="nuevaPasswordRules"
-                                    label="Nueva contraseña"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show2 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show2 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show2 = !show2"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-model="confirmarPassword"
-                                    :rules="[
-                                      rules.required,
-                                      rules.max,
-                                      compararPasswords,
-                                    ]"
-                                    label="Confirmar contraseña"
-                                    outlined
-                                    dense
-                                    :append-icon="
-                                      show3 ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    :type="show3 ? 'text' : 'password'"
-                                    required
-                                    @click:append="show3 = !show3"
-                                  ></v-text-field>
-                                  <v-btn
-                                    :disabled="!valid"
-                                    color="green"
-                                    @click="cambiarPassword"
-                                    >Cambiar contraseña</v-btn
-                                  >
-                                </v-form>
-                              </v-col>
-                            </v-row>
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-btn color="red" @click="dialog = false"
-                              >cerrar</v-btn
-                            >
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-row>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </v-row>
                       </v-col>
                     </v-row>
                   </v-row>
