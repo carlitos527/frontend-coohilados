@@ -8,11 +8,7 @@
               <h2>Ingresar</h2>
             </v-toolbar-title>
           </v-toolbar>
-          <h4 class="text-center">
-            <router-link to="/Agregarusuario" color="black">
-              Crea un usuario!
-            </router-link>
-          </h4>
+          
           <v-form ref="form" class="pa-4 pt-6">
             <v-text-field v-model="email" label="Usuario" type="text" outlined required hint="Correo Corporativo">
             </v-text-field>
