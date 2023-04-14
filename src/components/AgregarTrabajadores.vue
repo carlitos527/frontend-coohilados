@@ -23,6 +23,34 @@
                     >
                     </v-text-field>
                     <v-spacer></v-spacer>
+
+                    <template>
+                      <div class="text-center">
+                        <v-dialog max-width="1600px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon dark class="mr-2 green" v-bind="attrs" v-on="on">
+                              <font-awesome-icon style="font-size: 28px;" :icon="['fas', 'cake-candles']" />
+                            </v-btn>
+                          </template>
+                          <v-card>
+                            <v-card-title>CUMPLEAÑEROS</v-card-title>
+                            <v-card-text>
+                              <v-autocomplete auto-select-first chips deletable-chips dense small-chips solo-inverted
+                                label="Meses del año" :items="meses" v-model="mes" @change="cumpleanos">
+                              </v-autocomplete>
+                              <v-data-table :headers="headerCumple" :items="happy" no-data-text="No hay cumpleañeros en este mes">
+                                <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                                  <span>
+                                    {{ fecha(item.fechaNacimiento) }}
+                                  </span>
+                                </template>
+                              </v-data-table>
+                            </v-card-text>
+                          </v-card>
+                        </v-dialog>
+                      </div>
+                    </template>
+
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
                     >
@@ -626,6 +654,26 @@ export default {
     trabajador: [],
     busqueda: "",
     user: "",
+    meses: [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    mes: "",
+    headerCumple: [
+      { text: "Nombre", value: "nombre" },
+      { text: "fecha de nacimiento", value: "fechaNacimiento" }
+    ],
+    happy: []
   }),
   computed: {
     buscar() {
@@ -906,6 +954,53 @@ export default {
       let fecha = moment(item).format('D, MMM, YYYY')
       return fecha
     },
+    cumpleanos() {
+      let numeroMes = "";
+      switch (this.mes) {
+        case "Enero":
+          numeroMes = 0;
+          break;
+        case "Febrero":
+          numeroMes = 1;
+          break;
+        case "Marzo":
+          numeroMes = 2;
+          break;
+        case "Abril":
+          numeroMes = 3;
+          break;
+        case "Mayo":
+          numeroMes = 4;
+          break;
+        case "Junio":
+          numeroMes = 5;
+          break;
+        case "Julio":
+          numeroMes = 6;
+          break;
+        case "Agosto":
+          numeroMes = 7;
+          break;
+        case "Septiembre":
+          numeroMes = 8;
+          break;
+        case "Octubre":
+          numeroMes = 9;
+          break;
+        case "Noviembre":
+          numeroMes = 10;
+          break;
+        case "Diciembre":
+          numeroMes = 11;
+          break;
+
+      }
+      let cumpleaneros = this.trabajadores.filter(persona =>{
+        let fechaTrabajador = moment(persona.fechaNacimiento).get('month');
+        return fechaTrabajador==numeroMes
+      })
+      this.happy=cumpleaneros
+    }
   },
   created() {
     this.traer();
