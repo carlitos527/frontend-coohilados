@@ -535,7 +535,7 @@ export default {
 
     valid90: true,
 
-    tipoDocumento: ["C.C", "C.E"],
+    tipoDocumento: ["C.C", "C.E", "T.I","Nuip","NIT"],
     valid: true,
     documento: "",
     documentoRules: [

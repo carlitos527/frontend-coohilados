@@ -529,7 +529,7 @@ export default {
       (n) => (n && n.length <= 50) || " nombre solo puede tener 50 caracteres",
     ],
 
-    tipoDocumento: ["C.C", "C.E"],
+    tipoDocumento: ["C.C", "C.E", "T.I","Nuip","NIT"],
     valid: true,
     documento: "",
     documentoRules: [
