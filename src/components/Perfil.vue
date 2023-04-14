@@ -106,14 +106,20 @@
                                 <v-col cols="12">
                                   <v-form ref="form" v-model="valid" lazy-validation>
                                     <v-text-field v-model="passwordActual" :rules="passwordActualRules"
-                                      label="Contraseña actual" outlined dense></v-text-field>
+                                      label="Contraseña actual" outlined dense
+                                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
+                                      required @click:append="show1 = !show1"></v-text-field>
                                     <v-text-field v-model="nuevaPassword" :rules="nuevaPasswordRules"
-                                      label="Nueva contraseña" outlined dense></v-text-field>
+                                      label="Nueva contraseña" outlined dense
+                                      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
+                                      required @click:append="show2 = !show2"></v-text-field>
                                     <v-text-field v-model="confirmarPassword" :rules="[
                                       rules.required,
                                       rules.max,
                                       compararPasswords,
-                                    ]" label="Confirmar contraseña" outlined dense></v-text-field>
+                                    ]" label="Confirmar contraseña" outlined dense
+                                      :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :type="show3 ? 'text' : 'password'"
+                                      required @click:append="show3 = !show3"></v-text-field>
                                     <v-btn :disabled="!valid" color="green" @click="cambiarPassword">Cambiar
                                       contraseña</v-btn>
                                   </v-form>
@@ -155,7 +161,6 @@
   </v-container>
 </template>
 
-  
 <script>
 import axios from "axios";
 export default {
@@ -163,6 +168,9 @@ export default {
 
   data: () => ({
     foto: [],
+    show1: false,
+    show2: false,
+    show3: false,
     valid: true,
     loading: false,
     user: "",

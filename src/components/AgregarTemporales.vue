@@ -466,6 +466,7 @@ export default {
         .then((response) => {
           this.loadingTable=false;
           this.temporales = response.data.temporal;
+          this.cumpleaños();
         })
         .catch((err) => {
           this.loadingTable=false;
@@ -735,14 +736,21 @@ export default {
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
     },
+    cumpleaños(){
+      for (let i = 0; i < this.temporales.length; i++) {
+        const element = this.temporales[i];
+        let fecha = moment(element.fechaNacimiento).format("D, MMMM")
+        console.log(fecha);
+      }
+      let fechaActual = moment( new Date()).format('D, MMMM')
+      console.log("fechaActual: "+fechaActual);
+    }
   },
   created() {
     this.traer();
-    this.moment();
     this.traerDepartamentos();
     this.traerTemporal();
     this.traerAreaTrabajo();
-
   },
 };
 </script>
