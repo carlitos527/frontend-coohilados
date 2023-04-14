@@ -74,6 +74,13 @@
                                     required
                                   ></v-select>
 
+                                   <v-text-field
+                                    v-model="rh"
+                                    :rules="rhRules"
+                                    label="RH"
+                                    required
+                                  ></v-text-field>
+
                                   <v-text-field
                                     v-model="arl"
                                     :rules="arlRules"
@@ -529,6 +536,13 @@ export default {
     tiempoLaborado: "",
     areaTrabajo: "",
 
+    valid07: true,
+    rh: "",
+    rhRules: [
+      (ar) => !!ar || "RH es requerido ❌",
+      (ar) => (ar && ar.length <= 50) || " RH solo puede tener 5 caracteres",
+    ],
+
     valid00: true,
     arl: "",
     arlRules: [
@@ -779,6 +793,7 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             tipo: "Temporal",
+            rh: this.rh,
             arl: this.arl,
             eps: this.eps,
             barrio: this.barrio,

@@ -74,6 +74,13 @@
                                   ></v-select>
 
                                   <v-text-field
+                                    v-model="rh"
+                                    :rules="rhRules"
+                                    label="RH"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
                                     v-model="arl"
                                     :rules="arlRules"
                                     label="ARL"
@@ -266,7 +273,7 @@
                     :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
-                    :loading="loadingTable" 
+                    :loading="loadingTable"
                     loading-text="Cargando... Espere por favor"
                   >
                     <template>
@@ -477,7 +484,7 @@ export default {
   name: "PagesAgregarDirecto",
   data: () => ({
     loading: false,
-    loadingTable:false,
+    loadingTable: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -529,6 +536,13 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
+
+    valid07: true,
+    rh: "",
+    rhRules: [
+      (ar) => !!ar || "RH es requerido ❌",
+      (ar) => (ar && ar.length <= 50) || " RH solo puede tener 5 caracteres",
+    ],
 
     valid00: true,
     arl: "",
@@ -667,16 +681,16 @@ export default {
       this.dialog = false;
     },
     traerDirecto() {
-      this.loadingTable=true;
+      this.loadingTable = true;
       axios
         .get("https://back-coohilados.vercel.app/api/trabajadorDirecto")
         .then((response) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           this.directos = response.data.trabajador2;
           console.log(this.directos);
         })
         .catch((err) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           console.log(err);
         });
     },
@@ -800,6 +814,7 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             tipo: "Directo",
+            rh: this.rh,
             arl: this.arl,
             eps: this.eps,
             fechaNacimiento: this.fechaNacimiento,
@@ -930,13 +945,13 @@ export default {
           console.log(err);
         });
     },
-    moment(item){
+    moment(item) {
       let fecha = Date.now();
-      let fecha2= moment(fecha);
+      let fecha2 = moment(fecha);
       let fecha1 = moment(item);
-      let diffAnos = fecha2.diff(fecha1, 'years')
-      let diffMeses = fecha2.diff(fecha1, 'months')
-      let diffDias = fecha2.diff(fecha1, 'days')
+      let diffAnos = fecha2.diff(fecha1, "years");
+      let diffMeses = fecha2.diff(fecha1, "months");
+      let diffDias = fecha2.diff(fecha1, "days");
       if (diffAnos <= 1) {
         return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
       } else {
@@ -944,8 +959,8 @@ export default {
       }
     },
     fecha(item) {
-      let fecha = moment(item).format('D, MMM, YYYY')
-      return fecha
+      let fecha = moment(item).format("D, MMM, YYYY");
+      return fecha;
     },
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
