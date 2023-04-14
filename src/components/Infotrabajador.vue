@@ -66,6 +66,14 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        v-model="detalleTrabajador.rh"
+                        label="rh"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                         v-model="detalleTrabajador.arl"
                         label="ARL"
                         v-if="usuario.rol == 'Editor de Datos'"
@@ -453,6 +461,7 @@ export default {
       tipoDocumento: "",
       documento: "",
       nombre: "",
+      rh:"",
       arl: "",
       eps: "",
       areaTrabajo: "",
@@ -533,6 +542,7 @@ export default {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
         nombre: this.$store.state.datos.nombre,
+        rh: this.$store.state.datos.rh,
         arl: this.$store.state.datos.arl,
         eps: this.$store.state.datos.eps,
         tipoContrato: this.$store.state.datos.tipoContrato,
@@ -558,6 +568,7 @@ export default {
           tipoDocumento: this.detalleTrabajador.tipoDocumento,
           documento: this.detalleTrabajador.documento,
           sexo: this.detalleTrabajador.sexo,
+          rh: this.$store.state.datos.rh,
           arl: this.$store.state.datos.arl,
           eps: this.$store.state.datos.eps,
           nombre: this.detalleTrabajador.nombre,

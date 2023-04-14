@@ -66,6 +66,14 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        v-model="detalleDirecto.rh"
+                        label="RH"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                         v-model="detalleDirecto.arl"
                         label="ARL"
                         v-if="usuario.rol == 'Editor de Datos'"
@@ -465,6 +473,7 @@ export default {
       tipoDocumento: "",
       documento: "",
       nombre: "",
+      rh:"",
       arl:"",
       eps:"",
       tipoContrato: "",
@@ -546,6 +555,7 @@ export default {
       this.detalleDirecto = {
         tipoDocumento: this.$store.state.datos.tipoDocumento,
         documento: this.$store.state.datos.documento,
+        rh: this.$store.state.datos.rh,
         arl: this.$store.state.datos.arl,
         eps: this.$store.state.datos.eps,
         nombre: this.$store.state.datos.nombre,
@@ -573,6 +583,7 @@ export default {
           {
             tipoDocumento: this.detalleDirecto.tipoDocumento,
             documento: this.detalleDirecto.documento,
+            rh: this.$store.state.datos.rh,
             arl: this.$store.state.datos.arl,
             eps: this.$store.state.datos.eps,
             sexo: this.detalleDirecto.sexo,
