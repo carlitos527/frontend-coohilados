@@ -74,14 +74,14 @@
                                     required
                                   ></v-select>
 
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="pension"
                                     :rules="pensionRules"
                                     label="PENSIÓN"
                                     required
                                   ></v-text-field>
 
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="rh"
                                     :rules="rhRules"
                                     label="RH"
@@ -543,19 +543,19 @@ export default {
     tiempoLaborado: "",
     areaTrabajo: "",
 
-     valid098: true,
+    valid098: true,
     pension: "",
     pensionRules: [
       (pn) => !!pn || "PENSIÓN es requerido ❌",
-      (pn) => (pn && ar.length <= 10) || " PENSIÓN solo puede tener 5 caracteres",
+      (pn) =>
+        (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
     ],
-
 
     valid07: true,
     rh: "",
     rhRules: [
-      (ar) => !!ar || "RH es requerido ❌",
-      (ar) => (ar && ar.length <= 50) || " RH solo puede tener 5 caracteres",
+      (r) => !!r || "RH es requerido ❌",
+      (r) => (r && r.length <= 15) || " RH solo puede tener 15 caracteres",
     ],
 
     valid00: true,

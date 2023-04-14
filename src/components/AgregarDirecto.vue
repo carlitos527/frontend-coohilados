@@ -548,15 +548,15 @@ export default {
     pension: "",
     pensionRules: [
       (pn) => !!pn || "PENSIÓN es requerido ❌",
-      (pn) => (pn && ar.length <= 10) || " PENSIÓN solo puede tener 5 caracteres",
+      (pn) => (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
     ],
 
 
     valid07: true,
     rh: "",
     rhRules: [
-      (ar) => !!ar || "RH es requerido ❌",
-      (ar) => (ar && ar.length <= 50) || " RH solo puede tener 5 caracteres",
+      (r) => !!r || "RH es requerido ❌",
+      (r) => (r && r.length <= 50) || " RH solo puede tener 5 caracteres",
     ],
 
     valid00: true,

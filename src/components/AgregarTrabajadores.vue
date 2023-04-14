@@ -72,14 +72,14 @@
                                     required
                                   ></v-select>
 
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="pension"
                                     :rules="pensionRules"
                                     label="PENSIÓN"
                                     required
                                   ></v-text-field>
 
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="rh"
                                     :rules="rhRules"
                                     label="RH"
@@ -276,7 +276,7 @@
                     :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
-                    :loading="loadingTable" 
+                    :loading="loadingTable"
                     loading-text="Cargando... Espere por favor"
                   >
                     <template>
@@ -486,7 +486,7 @@ export default {
   name: "PagesAgregarTrabajadores",
   data: () => ({
     loading: false,
-    loadingTable:false,
+    loadingTable: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -538,19 +538,19 @@ export default {
     ],
     sexo: ["M", "F"],
 
-     valid098: true,
+    valid098: true,
     pension: "",
     pensionRules: [
       (pn) => !!pn || "PENSIÓN es requerido ❌",
-      (pn) => (pn && ar.length <= 10) || " PENSIÓN solo puede tener 5 caracteres",
+      (pn) =>
+        (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
     ],
-
 
     valid07: true,
     rh: "",
     rhRules: [
-      (ar) => !!ar || "RH es requerido ❌",
-      (ar) => (ar && ar.length <= 50) || " RH solo puede tener 5 caracteres",
+      (r) => !!r || "RH es requerido ❌",
+      (r) => (r && r.length <= 50) || " RH solo puede tener 5 caracteres",
     ],
 
     valid00: true,
@@ -684,13 +684,13 @@ export default {
     close() {
       this.dialog = false;
     },
-    moment(item){
+    moment(item) {
       let fecha = Date.now();
-      let fecha2= moment(fecha);
+      let fecha2 = moment(fecha);
       let fecha1 = moment(item);
-      let diffAnos = fecha2.diff(fecha1, 'years')
-      let diffMeses = fecha2.diff(fecha1, 'months')
-      let diffDias = fecha2.diff(fecha1, 'days')
+      let diffAnos = fecha2.diff(fecha1, "years");
+      let diffMeses = fecha2.diff(fecha1, "months");
+      let diffDias = fecha2.diff(fecha1, "days");
       if (diffAnos <= 1) {
         return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
       } else {
@@ -698,17 +698,17 @@ export default {
       }
     },
     traerTrabajador() {
-      this.loadingTable=true;
+      this.loadingTable = true;
       axios
         .get("https://back-coohilados.vercel.app/api/servicio")
         .then((response) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           /* console.log(response.data.trabajador); */
           this.trabajadores = response.data.trabajador;
           console.log(this.trabajadores);
         })
         .catch((err) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           console.log(err);
         });
     },
@@ -934,8 +934,8 @@ export default {
         });
     },
     fecha(item) {
-      let fecha = moment(item).format('D, MMM, YYYY')
-      return fecha
+      let fecha = moment(item).format("D, MMM, YYYY");
+      return fecha;
     },
   },
   created() {
