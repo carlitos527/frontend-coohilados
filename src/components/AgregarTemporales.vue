@@ -3,7 +3,9 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <v-img src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096">
+          <v-img
+            src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
+          >
             <v-row>
               <v-col class="text-center">
                 <v-template>
@@ -12,102 +14,239 @@
                       <h1>TEMPORALES</h1>
                     </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-text-field v-model="busqueda" append-icon="mdi-magnify" label="buscar" single-line hide-details>
+                    <v-text-field
+                      v-model="busqueda"
+                      append-icon="mdi-magnify"
+                      label="buscar"
+                      single-line
+                      hide-details
+                    >
                     </v-text-field>
                     <v-spacer></v-spacer>
 
-                    <v-btn class="warning mb-2 mr-2" @click="pdf">Imprimir</v-btn>
+                    <v-btn class="warning mb-2 mr-2" @click="pdf"
+                      >Imprimir</v-btn
+                    >
 
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1600px" v-model="dialog" persistent>
+                        <v-dialog
+                          max-width="1600px"
+                          v-model="dialog"
+                          persistent
+                        >
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn dark class="mb-2 red darken-4" v-bind="attrs" v-on="on"
-                              v-if="usuario.rol == 'Editor de Datos'">
+                            <v-btn
+                              dark
+                              class="mb-2 red darken-4"
+                              v-bind="attrs"
+                              v-on="on"
+                              v-if="usuario.rol == 'Editor de Datos'"
+                            >
                               Nuevo Trabajador
                             </v-btn>
                           </template>
                           <v-card>
-                            <v-card-title class="text-h5">Ingrese nuevo Trabajador Temporal</v-card-title>
+                            <v-card-title class="text-h5"
+                              >Ingrese nuevo Trabajador Temporal</v-card-title
+                            >
                             <v-card-text>
                               <v-row>
                                 <v-col>
-                                  <v-select v-model="tipoDocumento" :items="tipoDocumento" label="Tipo de Documento"
-                                    required></v-select>
+                                  <v-select
+                                    v-model="tipoDocumento"
+                                    :items="tipoDocumento"
+                                    label="Tipo de Documento"
+                                    required
+                                  ></v-select>
 
-                                  <v-text-field v-model="documento" :rules="documentoRules" label="Documento"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="documento"
+                                    :rules="documentoRules"
+                                    label="Documento"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select v-model="sexo" :items="sexo" label="Sexo" required></v-select>
+                                  <v-select
+                                    v-model="sexo"
+                                    :items="sexo"
+                                    label="Sexo"
+                                    required
+                                  ></v-select>
 
-                                  <v-text-field v-model="arl" :rules="arlRules" label="ARL" required></v-text-field>
+                                  <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="eps" :rules="epsRules" label="EPS" required></v-text-field>
+                                  <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="nombre" :rules="nombreRules" label="Nombre y Apellidos"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="nombre"
+                                    :rules="nombreRules"
+                                    label="Nombre y Apellidos"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu2"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaNacimiento" label="Escoja la Fecha de Nacimiento"
-                                        prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaNacimiento"
+                                        label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="fechaNacimiento" @input="menu2 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaNacimiento"
+                                      @input="menu2 = false"
+                                    ></v-date-picker>
                                   </v-menu>
 
-                                  <v-text-field v-model="barrio" :rules="barrioRules" label="dirección"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="barrio"
+                                    :rules="barrioRules"
+                                    label="dirección"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select :items="cities" v-model="departamento" label="Departamento de Nacimiento"
-                                    @change="traerCiudades()"></v-select>
-                                  <v-select :items="town" v-model="city" item-text="Ciudad" item-value="_id"
-                                    label="Ciudad De Nacimiento" @change="prueba()"></v-select>
+                                  <v-select
+                                    :items="cities"
+                                    v-model="departamento"
+                                    label="Departamento de Nacimiento"
+                                    @change="traerCiudades()"
+                                  ></v-select>
+                                  <v-select
+                                    :items="town"
+                                    v-model="city"
+                                    item-text="Ciudad"
+                                    item-value="_id"
+                                    label="Ciudad De Nacimiento"
+                                    @change="prueba()"
+                                  ></v-select>
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="6">
-                                  <v-text-field v-model="telefono" :rules="telefonoRules" label="Telefono"
-                                    required></v-text-field>
-                                  <v-text-field v-model="email" :rules="emailRules" label="E-mail"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="telefono"
+                                    :rules="telefonoRules"
+                                    label="Telefono"
+                                    required
+                                  ></v-text-field>
+                                  <v-text-field
+                                    v-model="email"
+                                    :rules="emailRules"
+                                    label="E-mail"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select v-model="tipoContrato" :items="tipoContrato" required
-                                    label="Escoja Tipo de contrato del trabajador"></v-select>
+                                  <v-select
+                                    v-model="tipoContrato"
+                                    :items="tipoContrato"
+                                    required
+                                    label="Escoja Tipo de contrato del trabajador"
+                                  ></v-select>
 
-                                  <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu3"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaInicio" label="Escoja la Fecha de Inicio del contrato"
-                                        prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaInicio"
+                                        label="Escoja la Fecha de Inicio del contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="fechaInicio" @input="menu3 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaInicio"
+                                      @input="menu3 = false"
+                                    ></v-date-picker>
                                   </v-menu>
-                                  <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu4"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaFin"
-                                        label="Escoja la Fecha de finalización del contrato" prepend-icon="mdi-calendar"
-                                        readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaFin"
+                                        label="Escoja la Fecha de finalización del contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="fechaFin" @input="menu4 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaFin"
+                                      @input="menu4 = false"
+                                    ></v-date-picker>
                                   </v-menu>
 
-                                  <v-text-field v-model="salario" :rules="salarioRules" label="Salario"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="salario"
+                                    :rules="salarioRules"
+                                    label="Salario"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select :items="area" v-model="areaTrabajo" label="Área de trabajo" item-text="nombre"
-                                    item-value="_id"></v-select>
+                                  <v-select
+                                    :items="area"
+                                    v-model="areaTrabajo"
+                                    label="Área de trabajo"
+                                    item-text="nombre"
+                                    item-value="_id"
+                                  ></v-select>
 
-                                  <v-select v-model="rol" :items="rolArray" :rules="rolRules" required
-                                    label="Escoja el cargo del trabajador"></v-select>
+                                  <v-select
+                                    v-model="rol"
+                                    :items="rolArray"
+                                    :rules="rolRules"
+                                    required
+                                    label="Escoja el cargo del trabajador"
+                                  ></v-select>
                                 </v-col>
                               </v-row>
                             </v-card-text>
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="agregar()">Guardar</v-btn>
+                              <v-btn color="blue darken-1" text @click="close()"
+                                >Cancel</v-btn
+                              >
+                              <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="agregar()"
+                                >Guardar</v-btn
+                              >
                               <v-spacer></v-spacer>
                             </v-card-actions>
                           </v-card>
@@ -120,24 +259,45 @@
                 <!--   informacion de todos los tranbajadores -->
 
                 <template>
-                  <v-data-table :headers="headers" :items="temporales" :search="busqueda" sort-by="nombre"
-                    class="elevation-1 amber lighten-3" :loading="loadingTable" loading-text="Cargando... Espere por favor">
+                  <v-data-table
+                    :headers="headers"
+                    :items="temporales"
+                    :search="busqueda"
+                    sort-by="nombre"
+                    class="elevation-1 amber lighten-3"
+                    :loading="loadingTable"
+                    loading-text="Cargando... Espere por favor"
+                  >
                     <template>
                       <v-toolbar flat>
                         <v-card>
                           <v-card-title> </v-card-title>
                           <v-card-text>
-                            <v-container v-for="item in temporales" :key="item._id">
+                            <v-container
+                              v-for="item in temporales"
+                              :key="item._id"
+                            >
                               <v-row>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="nombre" label="Nombre">{{ item.nombre }}</v-text-field>
+                                  <v-text-field
+                                    v-model="nombre"
+                                    label="Nombre"
+                                    >{{ item.nombre }}</v-text-field
+                                  >
                                 </v-col>
                                 <v-col>
-                                  <v-text-field v-model="tipoDocumento" label="Tipo de Documento">{{ item.tipoDocumento }}
+                                  <v-text-field
+                                    v-model="tipoDocumento"
+                                    label="Tipo de Documento"
+                                    >{{ item.tipoDocumento }}
                                   </v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="documento" label="Documento">{{ item.documento }}</v-text-field>
+                                  <v-text-field
+                                    v-model="documento"
+                                    label="Documento"
+                                    >{{ item.documento }}</v-text-field
+                                  >
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="4">
@@ -147,7 +307,11 @@
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="estado" label="Estado">{{ item.estado }}</v-text-field>
+                                  <v-text-field
+                                    v-model="estado"
+                                    label="Estado"
+                                    >{{ item.estado }}</v-text-field
+                                  >
                                 </v-col>
                               </v-row>
                             </v-container>
@@ -159,12 +323,20 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-if="
-                        usuario.rol != 'Actualizador' &&
-                        usuario.rol != 'Visualizador'
-                      ">
+                      <div
+                        v-if="
+                          usuario.rol != 'Actualizador' &&
+                          usuario.rol != 'Visualizador'
+                        "
+                      >
                         <div v-show="item.estado == 2" class="boton">
-                          <v-btn color="green" icon dark class="mb-2" @click="cambiarEstado(item)">
+                          <v-btn
+                            color="green"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
                             <font-awesome-icon icon="fa-solid fa-check" />
                             <div class="texto">
                               <h5>activar</h5>
@@ -172,7 +344,13 @@
                           </v-btn>
                         </div>
                         <div v-show="item.estado == 1" class="boton">
-                          <v-btn color="red" icon dark class="mb-2" @click="cambiarEstado(item)">
+                          <v-btn
+                            color="red"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
                             <font-awesome-icon icon="fa-solid fa-ban" />
                             <div class="texto">
                               <h5>inhabilitar</h5>
@@ -195,18 +373,33 @@
                         </v-btn>
                       </div> -->
                       <div class="boton">
-                        <v-btn color="green" icon dark class="mb-2" @click="detalleTemporal(item)">
+                        <v-btn
+                          color="green"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="detalleTemporal(item)"
+                        >
                           <font-awesome-icon icon="fa-solid fa-eye" />
                           <div class="texto">
                             <h5>ver</h5>
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton" v-if="
-                        usuario.rol == 'Editor de Datos' ||
-                        usuario.rol == 'Actualizador'
-                      ">
-                        <v-btn color="primary" icon dark class="mb-2" @click="editarTemporal(item)">
+                      <article
+                        class="boton"
+                        v-if="
+                          usuario.rol == 'Editor de Datos' ||
+                          usuario.rol == 'Actualizador'
+                        "
+                      >
+                        <v-btn
+                          color="primary"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="editarTemporal(item)"
+                        >
                           <font-awesome-icon icon="fa-solid fa-pencil" />
                           <div class="texto">
                             <h5>editar</h5>
@@ -245,7 +438,6 @@
                     <template v-slot:[`item.fechaFin`]="{ item }">
                       <span>
                         {{ fecha(item.fechaFin) }}
-
                       </span>
                     </template>
                   </v-data-table>
@@ -258,8 +450,13 @@
       <v-row class="align-center">
         <v-col>
           <v-overlay :value="loading">
-            <v-progress-circular v-show="loading == true" :size="70" :width="7" color="black"
-              indeterminate></v-progress-circular>
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
           </v-overlay>
         </v-col>
       </v-row>
@@ -277,7 +474,7 @@ export default {
   name: "PagesAgregarTemporales",
   data: () => ({
     loading: false,
-    loadingTable:false,
+    loadingTable: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -433,7 +630,7 @@ export default {
     town: [],
     temporales: [],
     busqueda: "",
-    usuario: ""
+    usuario: "",
   }),
   computed: {
     buscar() {
@@ -460,16 +657,16 @@ export default {
       this.dialog = false;
     },
     traerTemporal() {
-      this.loadingTable=true;
+      this.loadingTable = true;
       axios
         .get("https://back-coohilados.vercel.app/api/ayudaTemporal")
         .then((response) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           this.temporales = response.data.temporal;
           this.cumpleaños();
         })
         .catch((err) => {
-          this.loadingTable=false;
+          this.loadingTable = false;
           console.log(err);
         });
     },
@@ -717,9 +914,9 @@ export default {
       let fecha = Date.now();
       let fecha2 = moment(fecha);
       let fecha1 = moment(item);
-      let diffAnos = fecha2.diff(fecha1, 'years')
-      let diffMeses = fecha2.diff(fecha1, 'months')
-      let diffDias = fecha2.diff(fecha1, 'days')
+      let diffAnos = fecha2.diff(fecha1, "years");
+      let diffMeses = fecha2.diff(fecha1, "months");
+      let diffDias = fecha2.diff(fecha1, "days");
       if (diffAnos <= 1) {
         return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
       } else {
@@ -730,21 +927,21 @@ export default {
       /* let d = new Date(r);
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/"); */
-      let fecha = moment(item).format('D, MMM, YYYY')
-      return fecha
+      let fecha = moment(item).format("D, MMM, YYYY");
+      return fecha;
     },
     traer() {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
     },
-    cumpleaños(){
+    cumpleaños() {
       for (let i = 0; i < this.temporales.length; i++) {
         const element = this.temporales[i];
-        let fecha = moment(element.fechaNacimiento).format("D, MMMM")
+        let fecha = moment(element.fechaNacimiento).format("D, MMMM");
         console.log(fecha);
       }
-      let fechaActual = moment( new Date()).format('D, MMMM')
-      console.log("fechaActual: "+fechaActual);
-    }
+      let fechaActual = moment(new Date()).format("D, MMMM");
+      console.log("fechaActual: " + fechaActual);
+    },
   },
   created() {
     this.traer();

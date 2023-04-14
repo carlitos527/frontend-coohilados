@@ -129,7 +129,7 @@
                                   <v-select
                                     :items="cities"
                                     v-model="departamento"
-                                    label="Departamento De Nacimineto"
+                                    label="Departamento De Nacimiento"
                                     @change="traerCiudades()"
                                   ></v-select>
                                   <v-select
