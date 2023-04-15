@@ -553,6 +553,9 @@ export default {
       this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
+      console.log("fecha de nacimiento: "+this.detalleTemporal.fechaN);
+      console.log("fecha de inicio: "+this.detalleTemporal.fechaI);
+      console.log("fecha de fin: "+this.detalleTemporal.fechaF);
       this.loading = true;
       axios
         .put(

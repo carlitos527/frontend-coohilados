@@ -480,6 +480,11 @@
                         {{ fecha(item.fechaVacaciones) }}
                       </span>
                     </template>
+                    <template v-slot:[`item.salario`]="{ item }">
+                      <span>
+                        {{ valores(item.salario) }}
+                      </span>
+                    </template>
                   </v-data-table>
                 </template>
               </v-col>
@@ -736,14 +741,15 @@ export default {
       let fecha = Date.now();
       let fecha2 = moment(fecha);
       let fecha1 = moment(item);
-      let diffAnos = fecha2.diff(fecha1, "years");
+      /* let diffAnos = fecha2.diff(fecha1, "years"); */
       let diffMeses = fecha2.diff(fecha1, "months");
-      let diffDias = fecha2.diff(fecha1, "days");
-      if (diffAnos <= 1) {
+      /* let diffDias = fecha2.diff(fecha1, "days"); */
+      /* if (diffAnos <= 1) {
         return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
       } else {
         return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
-      }
+      } */
+      return `${diffMeses} meses`
     },
     traerTrabajador() {
       this.loadingTable = true;
@@ -982,7 +988,10 @@ export default {
         });
     },
     fecha(item) {
-      let fecha = moment(item).format("D, MMM, YYYY");
+      let d = new Date(item);
+      let f = d.toISOString();
+      let date = f.split("T")[0].replace(/-/g, "/");
+      let fecha = moment(date).format("D, MMM, YYYY");
       return fecha;
     },
     cumpleanos() {
@@ -1031,7 +1040,20 @@ export default {
         return fechaTrabajador==numeroMes
       })
       this.happy=cumpleaneros
-    }
+    },
+    valores(valor) {
+      const plata = valor;
+      const currency = (number) => {
+        return new Intl.NumberFormat('en-US',
+          {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0
+          }
+        ).format(number);
+      };
+      return currency(plata)
+    },
   },
   created() {
     this.traer();
