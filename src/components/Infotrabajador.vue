@@ -409,7 +409,7 @@ export default {
       .toISOString()
       .substr(0, 10),
 
-    fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    fechaVacaciones: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
 
@@ -505,7 +505,7 @@ export default {
       this.detalleTrabajador.fechaI = this.fechaInicio;
     },
     cambioF() {
-      this.detalleTrabajador.fechaF = this.fechaFin;
+      this.detalleTrabajador.fechaF = this.fechaVacaciones;
     },
     traerAreaTrabajo() {
       axios
@@ -566,7 +566,7 @@ export default {
         city: this.$store.state.datos.ciudad,
         fechaN: this.$store.state.datos.fechaNacimiento,
         fechaI: this.$store.state.datos.fechaInicio,
-        fechaF: this.$store.state.datos.fechaFin,
+        fechaF: this.$store.state.datos.fechaVacaciones,
       };
       this.anotacion = this.$store.state.datos.anotacion;
       this.note = this.$store.state.datos.anotacion;
