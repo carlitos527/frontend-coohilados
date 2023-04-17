@@ -183,7 +183,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="fechaFin"
-                          label="Escoja la Fecha de finalización de contrato"
+                          label="Escoja la Fecha de posibles vacaciones del Asociado"
                           prepend-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"

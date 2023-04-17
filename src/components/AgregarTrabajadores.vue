@@ -239,7 +239,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-text-field
                                         v-model="fechaVacaciones"
-                                        label="Escoja la Fecha de Vaciones del Asociado"
+                                        label="Escoja la  posible Fecha de Vaciones del Asociado"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         v-bind="attrs"
