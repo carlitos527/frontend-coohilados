@@ -18,6 +18,7 @@
                         :rules="documentoRules"
                         label="Documento"
                         required
+                        hint="Ingrese Solo números sin puntos ni comas"
                       ></v-text-field>
 
                       <v-text-field

@@ -91,6 +91,7 @@
                                     :rules="documentoRules"
                                     label="Documento"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
                                   <v-select
@@ -189,6 +190,7 @@
                                     :rules="telefonoRules"
                                     label="Telefono"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
                                   <v-text-field
@@ -257,6 +259,7 @@
                                     :rules="salarioRules"
                                     label="Salario"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
                                   <v-select

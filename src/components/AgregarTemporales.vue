@@ -90,6 +90,7 @@
                                     :rules="documentoRules"
                                     label="Documento"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
                                   <v-select
@@ -187,6 +188,7 @@
                                     :rules="telefonoRules"
                                     label="Telefono"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
                                   <v-text-field
                                     v-model="email"
@@ -218,6 +220,7 @@
                                         readonly
                                         v-bind="attrs"
                                         v-on="on"
+                                        hint="Ingrese Solo números sin puntos ni comas"
                                       ></v-text-field>
                                     </template>
                                     <v-date-picker
@@ -254,6 +257,7 @@
                                     :rules="salarioRules"
                                     label="Salario"
                                     required
+                                    hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
                                   <v-select
