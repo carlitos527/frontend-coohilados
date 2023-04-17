@@ -182,7 +182,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="fechaFin"
+                          v-model="fechaVacaciones"
                           label="Escoja la Fecha de posibles vacaciones del Asociado"
                           prepend-icon="mdi-calendar"
                           readonly
@@ -191,7 +191,7 @@
                         ></v-text-field>
                       </template>
                       <v-date-picker
-                        v-model="fechaFin"
+                        v-model="fechaVacaciones"
                         @input="menu4 = false"
                       ></v-date-picker>
                     </v-menu>
@@ -585,7 +585,7 @@ export default {
           fechaNacimiento: this.detalleTrabajador.fechaNacimiento,
           tipoContrato: this.detalleTrabajador.tipoContrato,
           fechaInicio: this.detalleTrabajador.fechaInicio,
-          fechaFin: this.detalleTrabajador.fechaFin,
+          fechaVacaciones: this.detalleTrabajador.fechaVacaciones,
           areaTrabajo: this.detalleTrabajador.areaTrabajo,
           salario: this.detalleTrabajador.salario,
           barrio: this.detalleTrabajador.barrio,
