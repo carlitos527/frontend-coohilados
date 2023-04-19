@@ -27,18 +27,96 @@
                       <div class="text-center">
                         <v-dialog max-width="1600px">
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon dark class="mr-2 green" v-bind="attrs" v-on="on">
-                              <font-awesome-icon style="font-size: 28px;" :icon="['fas', 'cake-candles']" />
+                            <v-btn
+                              icon
+                              dark
+                              class="mr-2 green"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <font-awesome-icon
+                                style="font-size: 28px"
+                                :icon="['fas', 'cake-candles']"
+                              />
                             </v-btn>
                           </template>
                           <v-card>
                             <v-card-title>CUMPLEAÑEROS</v-card-title>
                             <v-card-text>
-                              <v-autocomplete auto-select-first chips deletable-chips dense small-chips solo-inverted
-                                label="Meses del año" :items="meses" v-model="mes" @change="cumpleanos">
+                              <v-autocomplete
+                                auto-select-first
+                                chips
+                                deletable-chips
+                                dense
+                                small-chips
+                                solo-inverted
+                                label="Meses del año"
+                                :items="meses"
+                                v-model="mes"
+                                @change="cumpleanos"
+                              >
                               </v-autocomplete>
-                              <v-data-table :headers="headerCumple" :items="happy" no-data-text="No hay cumpleañeros en este mes">
-                                <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                              <v-data-table
+                                :headers="headerCumple"
+                                :items="happy"
+                                no-data-text="No hay cumpleañeros en este mes"
+                              >
+                                <template
+                                  v-slot:[`item.fechaNacimiento`]="{ item }"
+                                >
+                                  <span>
+                                    {{ fecha(item.fechaNacimiento) }}
+                                  </span>
+                                </template>
+                              </v-data-table>
+                            </v-card-text>
+                          </v-card>
+                        </v-dialog>
+                      </div>
+                    </template>
+
+                    <template>
+                      <div class="text-center">
+                        <v-dialog max-width="1600px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                              icon
+                              dark
+                              class="mr-2 blue"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <font-awesome-icon
+                                style="font-size: 28px"
+                                :icon="['fas', 'person-walking-luggage']"
+                              />
+                            </v-btn>
+                          </template>
+
+                          <v-card>
+                            <v-card-title>PERSONAS QUE ESTAN APUNTO DE PENSIÓN</v-card-title>
+                            <v-card-text>
+                              <v-autocomplete
+                                auto-select-first
+                                chips
+                                deletable-chips
+                                dense
+                                small-chips
+                                solo-inverted
+                                label="Meses del año"
+                                :items="meses"
+                                v-model="mes"
+                                @change="pensionados"
+                              >
+                              </v-autocomplete>
+                              <v-data-table
+                                :headers="headerPension"
+                                :items="pension"
+                                no-data-text="No hay Pensionados este año"
+                              >
+                                <template
+                                  v-slot:[`item.fechaNacimiento`]="{ item }"
+                                >
                                   <span>
                                     {{ fecha(item.fechaNacimiento) }}
                                   </span>
@@ -570,7 +648,7 @@ export default {
 
     valid90: true,
 
-    tipoDocumento: ["C.C", "C.E", "T.I","Nuip","NIT"],
+    tipoDocumento: ["C.C", "C.E", "T.I", "Nuip", "NIT"],
     valid: true,
     documento: "",
     documentoRules: [
@@ -579,13 +657,13 @@ export default {
     ],
     sexo: ["M", "F"],
 
-     valid098: true,
+    valid098: true,
     pension: "",
     pensionRules: [
       (pn) => !!pn || "PENSIÓN es requerido ❌",
-      (pn) => (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
+      (pn) =>
+        (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
     ],
-
 
     valid07: true,
     rh: "",
@@ -719,14 +797,20 @@ export default {
       "Septiembre",
       "Octubre",
       "Noviembre",
-      "Diciembre"
+      "Diciembre",
     ],
     mes: "",
     headerCumple: [
       { text: "Nombre", value: "nombre" },
-      { text: "fecha de nacimiento", value: "fechaNacimiento" }
+      { text: "fecha de nacimiento", value: "fechaNacimiento" },
     ],
-    happy: []
+    happy: [],
+
+    headerPension: [
+      { text: "Nombre", value: "nombre" },
+      { text: "fecha de nacimiento", value: "fechaNacimiento" },
+    ],
+    pension: [],
   }),
   computed: {
     buscar() {
@@ -1028,7 +1112,7 @@ export default {
       } else {
         return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
       } */
-      return `${diffMeses} meses`
+      return `${diffMeses} meses`;
     },
     fecha(item) {
       let d = new Date(item);
@@ -1080,12 +1164,12 @@ export default {
           numeroMes = 11;
           break;
       }
-      let cumpleaneros = this.directos.filter(persona =>{
-        let fechaTrabajador = moment(persona.fechaNacimiento).get('month');
-        return fechaTrabajador==numeroMes
-      })
-      this.happy=cumpleaneros
-      
+      let cumpleaneros = this.directos.filter((persona) => {
+        let fechaTrabajador = moment(persona.fechaNacimiento).get("month");
+        return fechaTrabajador == numeroMes;
+      });
+      this.happy = cumpleaneros;
+
       /* for (let i = 0; i < this.directos.length; i++) {
         const element = this.directos[i];
         let mesTrabajador = (moment(element.fechaNacimiento).get('month'))
@@ -1098,18 +1182,63 @@ export default {
         }
       } */
     },
+
+    pensionados() {
+      let numeroMes = "";
+      switch (this.mes) {
+        case "Enero":
+          numeroMes = 0;
+          break;
+        case "Febrero":
+          numeroMes = 1;
+          break;
+        case "Marzo":
+          numeroMes = 2;
+          break;
+        case "Abril":
+          numeroMes = 3;
+          break;
+        case "Mayo":
+          numeroMes = 4;
+          break;
+        case "Junio":
+          numeroMes = 5;
+          break;
+        case "Julio":
+          numeroMes = 6;
+          break;
+        case "Agosto":
+          numeroMes = 7;
+          break;
+        case "Septiembre":
+          numeroMes = 8;
+          break;
+        case "Octubre":
+          numeroMes = 9;
+          break;
+        case "Noviembre":
+          numeroMes = 10;
+          break;
+        case "Diciembre":
+          numeroMes = 11;
+          break;
+      }
+      let pensionados = this.directos.filter((persona) => {
+        let fechaTrabajador = moment(persona.fechaNacimiento).get("month");
+        return fechaTrabajador == numeroMes;
+      });
+      this.pension = pensionados;
+    },
     valores(valor) {
       const plata = valor;
       const currency = (number) => {
-        return new Intl.NumberFormat('en-US',
-          {
-            style: 'currency',
-            currency: 'COP',
-            minimumFractionDigits: 0
-          }
-        ).format(number);
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "COP",
+          minimumFractionDigits: 0,
+        }).format(number);
       };
-      return currency(plata)
+      return currency(plata);
     },
   },
 
