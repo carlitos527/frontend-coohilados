@@ -8,7 +8,7 @@
               <v-avatar class="profile mx-5 mt-2" color="grey" size="165" tile>
                 <v-img :src="user.foto"></v-img>
               </v-avatar>
-              <v-dialog v-model="dialogAvatar" width="500">
+              <v-dialog v-model="dialogAvatar" width="600">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
@@ -21,7 +21,7 @@
                   </v-btn>
                 </template>
                 <v-card>
-                  <v-card-title>Avatares</v-card-title>
+                  <v-card-title><p> Avatares <br> Tamaño:650x650 Píxeles. <br> Peso: 150KB Máx. <br> Formato: JPG,PNG,GIF</p></v-card-title>
                   <v-row align="center" justify="center">
                     <div
                       v-for="value in ava"
@@ -84,15 +84,15 @@
                     </h3>
                     <h3 v-if="user.estado == 1">
                       Estado:
-                      <p label="Estado" style="color: green">🟢</p>
+                      <p label="Estado" style="color: green">Activo</p>
                     </h3>
                     <h3 v-if="user.estado == 2">
                       Estado:
-                      <p label="Estado" style="color: red">🔴</p>
+                      <p label="Estado" style="color: red">Inactivo</p>
                     </h3>
                     <h3 v-if="user.estado == 3">
                       Estado:
-                      <p label="Estado" style="color: orange">🟠</p>
+                      <p label="Estado" style="color: orange">Vacaciones</p>
                     </h3>
                   </v-col>
                   <v-card-title justify-right>

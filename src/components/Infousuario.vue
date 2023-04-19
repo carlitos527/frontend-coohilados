@@ -19,15 +19,15 @@
                 <v-col cols="12" sm="6" md="4">
                   <h3 v-if="$store.state.usuario.estado == 1">
                     Estado:
-                    <p label="Estado" style="color: green">🟢</p>
+                    <p label="Estado" style="color: green">Activo</p>
                   </h3>
                   <h3 v-if="$store.state.usuario.estado == 2">
                     Estado:
-                    <p label="Estado" style="color: red">🔴</p>
+                    <p label="Estado" style="color: red">Inactivo</p>
                   </h3>
                   <h3 v-if="$store.state.usuario.estado == 3">
                     Estado:
-                    <p label="Estado" style="color: orange">🟠</p>
+                    <p label="Estado" style="color: orange">Vacaciones</p>
                   </h3>
                 </v-col>
               </v-row>
@@ -38,6 +38,18 @@
             <v-card-text>
               <template>
                 <v-container>
+                  <v-row>
+                    <v-col>
+                      <!-- resetear contraseña -->
+                      <v-spacer></v-spacer>
+
+                      <v-row >
+                        <v-btn class="brown" @click="resetearPassword">
+                          resetear Contraseña
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-row>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -68,17 +80,6 @@
                         @change="cargo(detalleUsuario.area)"
                       ></v-select>
                     </v-col>
-                    <v-row>
-                      <v-col>
-                        <!-- resetear contraseña -->
-
-                        <v-row align="center" justify="center">
-                          <v-btn class="brown" @click="resetearPassword">
-                            resetear Contraseña
-                          </v-btn>
-                        </v-row>
-                      </v-col>
-                    </v-row>
                   </v-row>
                 </v-container>
               </template>
@@ -140,7 +141,7 @@ export default {
     area: ["CONSEJO O GERENCIA", "TALENTO HUMANO", "SISTEMAS", "SST"],
     rol: ["Actualizador", "Administrador", "Editor de Datos", "Visualizador"],
     usuarios: [],
-    
+
     detalleUsuario: {
       documento: "",
       nombre: "",
@@ -180,7 +181,7 @@ export default {
         cargos: this.$store.state.datos.rol,
       };
     },
-    
+
     resetearPassword() {
       this.loading = true;
       axios
