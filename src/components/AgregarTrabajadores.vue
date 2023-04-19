@@ -1094,7 +1094,7 @@ export default {
         case "Enero":
           numeroMes = 0;
           break;
-        case "Febrero":
+                       case "Febrero":
           numeroMes = 1;
           break;
         case "Marzo":
