@@ -96,7 +96,7 @@
                           </template>
 
                           <v-card>
-                            <v-card-title>PERSONAS QUE ESTAN APUNTO DE PENSIÓN</v-card-title>
+                            <v-card-title>PERSONAS QUE ESTAN PROXIMAS A PENSIONARSE</v-card-title>
                             <v-card-text>
                               <v-autocomplete
                                 auto-select-first

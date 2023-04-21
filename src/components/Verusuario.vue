@@ -16,15 +16,16 @@
                 hide-details
               >
               </v-text-field> 
-               <v-spacer></v-spacer>
-
-              <h4 class="text-center">
-                <router-link to="/Agregarusuario" color="black">
-                  Crea un usuario!
+               <v-spacer></v-spacer>           
+                <router-link to="/Agregarusuario" color="black"  max-width="1600px">
+                
+                <v-btn class="mr-2 green"><h5>agg</h5> <br>
+                  <h1><font-awesome-icon :icon="['fas', 'address-card']" /></h1>
+                  </v-btn>
                 </router-link>
-              </h4>
+             
               <v-spacer></v-spacer>
-              <v-btn color="deep-purple lighten-2" text to="/Home">
+              <v-btn class="mr-2 red" color="deep-purple lighten-2" text to="/Home">
                 Regresar
               </v-btn>
               <template>
