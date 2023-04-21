@@ -199,7 +199,7 @@ export default {
 
           this.$swal({
             icon: "success",
-            title: `👌, por favor digite su correo y copia esta contraseña ⌨ '${response.data.password}'`,
+            title: `👌, copia esta contraseña ⌨ '${response.data.password}'`,
           });
         })
         .catch((error) => {

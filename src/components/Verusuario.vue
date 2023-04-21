@@ -219,9 +219,19 @@ export default {
     rol: "",
     usuarios: [],
     busqueda: "",
-    user:""
+    user:"",
+    super:""
   }),
   methods: {
+    validar(){
+      for (let i = 0; i < this.usuarios.length; i++) {
+        const element = this.usuarios[i];
+        if(element.rol =="Super Administrador"){
+          console.log("soy super puta");
+          this.super = element.rol
+        }
+      }
+    },
     traer() {
       this.user = JSON.parse(localStorage.getItem("usuario"));
     },
@@ -272,6 +282,7 @@ export default {
         .get("https://back-coohilados.vercel.app/api/usuario")
         .then((response) => {
           this.usuarios = response.data.usuario;
+          this.validar();
         })
         .catch((err) => {
           console.log(err);
