@@ -4,7 +4,9 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <v-img src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096">
+          <v-img
+            src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
+          >
             <v-row>
               <v-col class="text-center">
                 <v-template>
@@ -13,7 +15,13 @@
                       <h1>DIRECTOS</h1>
                     </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-text-field v-model="busqueda" append-icon="mdi-magnify" label="buscar" single-line hide-details>
+                    <v-text-field
+                      v-model="busqueda"
+                      append-icon="mdi-magnify"
+                      label="buscar"
+                      single-line
+                      hide-details
+                    >
                     </v-text-field>
                     <v-spacer></v-spacer>
 
@@ -21,19 +29,43 @@
                       <div class="text-center">
                         <v-dialog max-width="1600px">
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon dark class="mr-2 green" v-bind="attrs" v-on="on">
-                              <font-awesome-icon style="font-size: 28px" :icon="['fas', 'cake-candles']" />
+                            <v-btn
+                              icon
+                              dark
+                              class="mr-2 green"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <font-awesome-icon
+                                style="font-size: 28px"
+                                :icon="['fas', 'cake-candles']"
+                              />
                             </v-btn>
                           </template>
                           <v-card>
                             <v-card-title>CUMPLEAÑEROS</v-card-title>
                             <v-card-text>
-                              <v-autocomplete auto-select-first chips deletable-chips dense small-chips solo-inverted
-                                label="Meses del año" :items="meses" v-model="mes" @change="cumpleanos">
+                              <v-autocomplete
+                                auto-select-first
+                                chips
+                                deletable-chips
+                                dense
+                                small-chips
+                                solo-inverted
+                                label="Meses del año"
+                                :items="meses"
+                                v-model="mes"
+                                @change="cumpleanos"
+                              >
                               </v-autocomplete>
-                              <v-data-table :headers="headerCumple" :items="happy"
-                                no-data-text="No hay cumpleañeros en este mes">
-                                <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                              <v-data-table
+                                :headers="headerCumple"
+                                :items="happy"
+                                no-data-text="No hay cumpleañeros en este mes"
+                              >
+                                <template
+                                  v-slot:[`item.fechaNacimiento`]="{ item }"
+                                >
                                   <span>
                                     {{ fecha(item.fechaNacimiento) }}
                                   </span>
@@ -45,28 +77,61 @@
                       </div>
                     </template>
 
+                    <!-- pension -->
+
                     <template>
                       <div class="text-center">
                         <v-dialog max-width="1600px">
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon dark class="mr-2 blue" v-bind="attrs" v-on="on">
-                              <font-awesome-icon style="font-size: 28px" :icon="['fas', 'person-walking-luggage']" />
+                            <v-btn
+                              icon
+                              dark
+                              class="mr-2 blue"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <font-awesome-icon
+                                style="font-size: 28px"
+                                :icon="['fas', 'person-walking-luggage']"
+                              />
                             </v-btn>
                           </template>
 
                           <v-card>
-                            <v-card-title>PERSONAS QUE ESTAN APUNTO DE PENSIÓN</v-card-title>
+                            <v-card-title
+                              >PERSONAS QUE ESTAN APUNTO DE
+                              PENSIÓN</v-card-title
+                            >
                             <v-card-text>
                               <h4>Hombre: {{ edadPension.hombre }}</h4>
                               <h4>Mujer: {{ edadPension.mujer }}</h4>
-                              <v-text-field v-model="hombre" label="Pension hombre" required
-                                hint="Ingrese solo números" type="Number">
+                              <v-text-field
+                                v-model="hombre"
+                                label="Pension hombre"
+                                required
+                                hint="Ingrese solo números"
+                                type="Number"
+                              >
                               </v-text-field>
-                              <v-text-field v-model="mujer" label="Pension mujer" required
-                                hint="Ingrese solo números" type="Number">
+                              <v-text-field
+                                v-model="mujer"
+                                label="Pension mujer"
+                                required
+                                hint="Ingrese solo números"
+                                type="Number"
+                              >
                               </v-text-field>
-                              <v-btn class="my-5" color="orange" @click="actualizarPensiones">Cambiar edad de pensión</v-btn>
-                              <v-data-table :headers="headerPension" :items="pensionados" sort-by="fechaPension">
+                              <v-btn
+                                class="my-5"
+                                color="orange"
+                                @click="actualizarPensiones"
+                                >Cambiar edad de pensión</v-btn
+                              >
+                              <v-data-table
+                                :headers="headerPension"
+                                :items="pensionados"
+                                sort-by="fechaPension"
+                              >
                               </v-data-table>
                             </v-card-text>
                           </v-card>
@@ -74,105 +139,248 @@
                       </div>
                     </template>
 
-                    <v-btn class="warning mb-2 mr-2" @click="pdf">Imprimir</v-btn>
+                    <v-btn class="warning mb-2 mr-2" @click="pdf"
+                      >Imprimir</v-btn
+                    >
 
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1600px" v-model="dialog" persistent>
+                        <v-dialog
+                          max-width="1600px"
+                          v-model="dialog"
+                          persistent
+                        >
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn dark class="mb-2 red darken-4" v-bind="attrs" v-on="on"
-                              v-if="usuario.rol == 'Editor de Datos'">
+                            <v-btn
+                              dark
+                              class="mb-2 red darken-4"
+                              v-bind="attrs"
+                              v-on="on"
+                              v-if="usuario.rol == 'Editor de Datos'"
+                            >
                               Nuevo Trabajador
                             </v-btn>
                           </template>
                           <v-card>
-                            <v-card-title class="text-h5">Ingrese nuevo Trabajador Directos</v-card-title>
+                            <v-card-title class="text-h5"
+                              >Ingrese nuevo Trabajador Directos</v-card-title
+                            >
                             <v-card-text>
                               <v-row>
                                 <v-col>
-                                  <v-select v-model="tipoDocumento" :items="tipoDocumento" label="Tipo de Documento"
-                                    required></v-select>
+                                  <v-select
+                                    v-model="tipoDocumento"
+                                    :items="tipoDocumento"
+                                    label="Tipo de Documento"
+                                    required
+                                  ></v-select>
 
-                                  <v-text-field v-model="documento" :rules="documentoRules" label="Documento" required
-                                    hint="Ingrese Solo números sin puntos ni comas"></v-text-field>
+                                  <v-text-field
+                                    v-model="documento"
+                                    :rules="documentoRules"
+                                    label="Documento"
+                                    required
+                                    hint="Ingrese Solo números sin puntos ni comas"
+                                  ></v-text-field>
 
-                                  <v-select v-model="sexo" :items="sexo" label="Sexo" required></v-select>
+                                  <v-select
+                                    v-model="sexo"
+                                    :items="sexo"
+                                    label="Sexo"
+                                    required
+                                  ></v-select>
 
-                                  <v-text-field v-model="pension" :rules="pensionRules" label="PENSIÓN"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="pension"
+                                    :rules="pensionRules"
+                                    label="PENSIÓN"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="rh" :rules="rhRules" label="RH" required></v-text-field>
+                                  <v-text-field
+                                    v-model="rh"
+                                    :rules="rhRules"
+                                    label="RH"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="arl" :rules="arlRules" label="ARL" required></v-text-field>
+                                  <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="eps" :rules="epsRules" label="EPS" required></v-text-field>
+                                  <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="nombre" :rules="nombreRules" label="Nombre y Apellidos"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="nombre"
+                                    :rules="nombreRules"
+                                    label="Nombre y Apellidos"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu2"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaNacimiento" label="Escoja la Fecha de Nacimiento"
-                                        prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaNacimiento"
+                                        label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
 
-                                    <v-date-picker v-model="fechaNacimiento" @input="menu2 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaNacimiento"
+                                      @input="menu2 = false"
+                                    ></v-date-picker>
                                   </v-menu>
 
-                                  <v-text-field v-model="barrio" :rules="barrioRules" label="Dirección"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="barrio"
+                                    :rules="barrioRules"
+                                    label="Dirección"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select :items="cities" v-model="departamento" label="Departamento De Nacimiento"
-                                    @change="traerCiudades()"></v-select>
-                                  <v-select :items="town" v-model="city" item-text="Ciudad" item-value="_id"
-                                    label="Ciudad De Nacimineto" @change="prueba()"></v-select>
+                                  <v-select
+                                    :items="cities"
+                                    v-model="departamento"
+                                    label="Departamento De Nacimiento"
+                                    @change="traerCiudades()"
+                                  ></v-select>
+                                  <v-select
+                                    :items="town"
+                                    v-model="city"
+                                    item-text="Ciudad"
+                                    item-value="_id"
+                                    label="Ciudad De Nacimineto"
+                                    @change="prueba()"
+                                  ></v-select>
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="6">
-                                  <v-text-field v-model="telefono" :rules="telefonoRules" label="Telefono" required
-                                    hint="Ingrese Solo números sin puntos ni comas"></v-text-field>
+                                  <v-text-field
+                                    v-model="telefono"
+                                    :rules="telefonoRules"
+                                    label="Telefono"
+                                    required
+                                    hint="Ingrese Solo números sin puntos ni comas"
+                                  ></v-text-field>
 
-                                  <v-text-field v-model="email" :rules="emailRules" label="E-mail"
-                                    required></v-text-field>
+                                  <v-text-field
+                                    v-model="email"
+                                    :rules="emailRules"
+                                    label="E-mail"
+                                    required
+                                  ></v-text-field>
 
-                                  <v-select v-model="tipoContrato" :items="tipoContrato" required
-                                    label="Escoja Tipo de contrato del trabajador"></v-select>
+                                  <v-select
+                                    v-model="tipoContrato"
+                                    :items="tipoContrato"
+                                    required
+                                    label="Escoja Tipo de contrato del trabajador"
+                                  ></v-select>
 
-                                  <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu3"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaInicio" label="Escoja la Fecha de inicio del contrato"
-                                        prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaInicio"
+                                        label="Escoja la Fecha de inicio del contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="fechaInicio" @input="menu3 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaInicio"
+                                      @input="menu3 = false"
+                                    ></v-date-picker>
                                   </v-menu>
-                                  <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40"
-                                    transition="scale-transition" offset-y min-width="auto">
+                                  <v-menu
+                                    v-model="menu4"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
                                     <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field v-model="fechaFin"
-                                        label="Escoja la Fecha de finalización del contrato" prepend-icon="mdi-calendar"
-                                        readonly v-bind="attrs" v-on="on"></v-text-field>
+                                      <v-text-field
+                                        v-model="fechaFin"
+                                        label="Escoja la Fecha de finalización del contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="fechaFin" @input="menu4 = false"></v-date-picker>
+                                    <v-date-picker
+                                      v-model="fechaFin"
+                                      @input="menu4 = false"
+                                    ></v-date-picker>
                                   </v-menu>
 
-                                  <v-text-field v-model="salario" :rules="salarioRules" label="Salario" required
-                                    hint="Ingrese Solo números sin puntos ni comas"></v-text-field>
+                                  <v-text-field
+                                    v-model="salario"
+                                    :rules="salarioRules"
+                                    label="Salario"
+                                    required
+                                    hint="Ingrese Solo números sin puntos ni comas"
+                                  ></v-text-field>
 
-                                  <v-select :items="area" v-model="areaTrabajo" label="Área de trabajo" item-text="nombre"
-                                    item-value="_id"></v-select>
+                                  <v-select
+                                    :items="area"
+                                    v-model="areaTrabajo"
+                                    label="Área de trabajo"
+                                    item-text="nombre"
+                                    item-value="_id"
+                                  ></v-select>
 
-                                  <v-select v-model="rol" :items="rol" :rules="rolRules" required
-                                    label="Escoja el cargo del trabajador"></v-select>
+                                  <v-select
+                                    v-model="rol"
+                                    :items="rol"
+                                    :rules="rolRules"
+                                    required
+                                    label="Escoja el cargo del trabajador"
+                                  ></v-select>
                                 </v-col>
                               </v-row>
                             </v-card-text>
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="agregar()">Guardar</v-btn>
+                              <v-btn color="blue darken-1" text @click="close()"
+                                >Cancel</v-btn
+                              >
+                              <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="agregar()"
+                                >Guardar</v-btn
+                              >
 
                               <v-spacer></v-spacer>
                             </v-card-actions>
@@ -185,25 +393,45 @@
 
                 <!--   informacion de todos los tranbajadores -->
                 <template>
-                  <v-data-table :headers="headers" :items="directos" :search="busqueda" sort-by="nombre"
-                    class="elevation-1 amber lighten-3" :loading="loadingTable"
-                    loading-text="Cargando... Espere por favor">
+                  <v-data-table
+                    :headers="headers"
+                    :items="directos"
+                    :search="busqueda"
+                    sort-by="nombre"
+                    class="elevation-1 amber lighten-3"
+                    :loading="loadingTable"
+                    loading-text="Cargando... Espere por favor"
+                  >
                     <template>
                       <v-toolbar flat>
                         <v-card>
                           <v-card-title> </v-card-title>
                           <v-card-text>
-                            <v-container v-for="item in directos" :key="item._id">
+                            <v-container
+                              v-for="item in directos"
+                              :key="item._id"
+                            >
                               <v-row>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="nombre" label="Nombre">{{ item.nombre }}</v-text-field>
+                                  <v-text-field
+                                    v-model="nombre"
+                                    label="Nombre"
+                                    >{{ item.nombre }}</v-text-field
+                                  >
                                 </v-col>
                                 <v-col>
-                                  <v-text-field v-model="tipoDocumento" label="Tipo de Documento">{{ item.tipoDocumento }}
+                                  <v-text-field
+                                    v-model="tipoDocumento"
+                                    label="Tipo de Documento"
+                                    >{{ item.tipoDocumento }}
                                   </v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="documento" label="Documento">{{ item.documento }}</v-text-field>
+                                  <v-text-field
+                                    v-model="documento"
+                                    label="Documento"
+                                    >{{ item.documento }}</v-text-field
+                                  >
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="4">
@@ -213,7 +441,11 @@
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="estado" label="Estado">{{ item.estado }}</v-text-field>
+                                  <v-text-field
+                                    v-model="estado"
+                                    label="Estado"
+                                    >{{ item.estado }}</v-text-field
+                                  >
                                 </v-col>
                               </v-row>
                             </v-container>
@@ -225,12 +457,20 @@
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-if="
-                        usuario.rol != 'Actualizador' &&
-                        usuario.rol != 'Visualizador'
-                      ">
+                      <div
+                        v-if="
+                          usuario.rol != 'Actualizador' &&
+                          usuario.rol != 'Visualizador'
+                        "
+                      >
                         <div v-show="item.estado == 3" class="boton">
-                          <v-btn color="green" icon dark class="mb-2" @click="cambiarEstado(item)">
+                          <v-btn
+                            color="green"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
                             <font-awesome-icon icon="fa-solid fa-check" />
                             <div class="texto">
                               <h5>activar</h5>
@@ -238,7 +478,13 @@
                           </v-btn>
                         </div>
                         <div v-show="item.estado == 1" class="boton">
-                          <v-btn color="red" icon dark class="mb-2" @click="cambiarEstado(item)">
+                          <v-btn
+                            color="red"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
                             <font-awesome-icon icon="fa-solid fa-ban" />
                             <div class="texto">
                               <h5>inhabilitar</h5>
@@ -246,7 +492,13 @@
                           </v-btn>
                         </div>
                         <div v-show="item.estado == 2" class="boton">
-                          <v-btn color="orange" icon dark class="mb-2" @click="cambiarEstado(item)">
+                          <v-btn
+                            color="orange"
+                            icon
+                            dark
+                            class="mb-2"
+                            @click="cambiarEstado(item)"
+                          >
                             <font-awesome-icon icon="fa-solid fa-plane" />
                             <div class="texto">
                               <h5>vacaciones</h5>
@@ -256,18 +508,33 @@
                       </div>
 
                       <div class="boton">
-                        <v-btn color="green" icon dark class="mb-2" @click="detalleDirecto(item)">
+                        <v-btn
+                          color="green"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="detalleDirecto(item)"
+                        >
                           <font-awesome-icon icon="fa-solid fa-eye" />
                           <div class="texto">
                             <h5>ver</h5>
                           </div>
                         </v-btn>
                       </div>
-                      <article class="boton" v-if="
-                        usuario.rol == 'Editor de Datos' ||
-                        usuario.rol == 'Actualizador'
-                      ">
-                        <v-btn color="primary" icon dark class="mb-2" @click="editarDirecto(item)">
+                      <article
+                        class="boton"
+                        v-if="
+                          usuario.rol == 'Editor de Datos' ||
+                          usuario.rol == 'Actualizador'
+                        "
+                      >
+                        <v-btn
+                          color="primary"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="editarDirecto(item)"
+                        >
                           <font-awesome-icon icon="fa-solid fa-pencil" />
                           <div class="texto">
                             <h5>editar</h5>
@@ -324,8 +591,13 @@
       <v-row class="align-center">
         <v-col>
           <v-overlay :value="loading">
-            <v-progress-circular v-show="loading == true" :size="70" :width="7" color="black"
-              indeterminate></v-progress-circular>
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
           </v-overlay>
         </v-col>
       </v-row>
@@ -549,12 +821,12 @@ export default {
       { text: "fecha de pension", value: "fechaPension" },
     ],
     pensionados: [],
-    edadPension:{
-      hombre:"",
-      mujer:""
+    edadPension: {
+      hombre: "",
+      mujer: "",
     },
-    mujer:"",
-    hombre:""
+    mujer: "",
+    hombre: "",
   }),
   computed: {
     buscar() {
@@ -567,95 +839,83 @@ export default {
     },
   },
   methods: {
-    pensiones(){
-      axios.get('https://back-coohilados.vercel.app/api/pension/ver')
-      .then((res)=>{
-        this.edadPension = {
-          hombre:res.data.pension[0].hombre,
-          mujer:res.data.pension[0].mujer
-        }
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-    },
-    calcularPension(){
-      let year = Number(moment(Date.now()).format('YYYY'));
-
-      let fechaPensionMujer = (persona)=>{
-        let fechaActual = moment(Date.now());
-        let fechaNacimiento = moment(persona.fechaNacimiento)
-        let anos = fechaActual.diff(fechaNacimiento,'years')
-        let diferencia =this.edadPension.mujer - anos
-        let anoPension = year + diferencia
-        return {...persona, fechaPension:anoPension}
-      }
-      let generoFemenino = this.directos.filter((persona)=>{
-        return persona.sexo=="F"
-      }).map(fechaPensionMujer)
-
-      let fechaPensionHombre = (persona)=>{
-        let fechaActual = moment(Date.now());
-        let fechaNacimiento = moment(persona.fechaNacimiento)
-        let anos = fechaActual.diff(fechaNacimiento,'years')
-        let diferencia =this.edadPension.hombre - anos
-        let anoPension = year + diferencia
-        return {...persona, fechaPension:anoPension}
-      }
-      let acumuladorPensionados = (acumulador,persona)=>{
-        return [...acumulador,persona]
-      }
-      this.pensionados = this.directos.filter((persona)=>{
-        return persona.sexo=="M"
-      }).map(fechaPensionHombre).reduce(acumuladorPensionados , generoFemenino)
-
-      /* for (let i = 0; i < generoMasculino.length; i++) {
-        const persona = generoMasculino[i];
-        let fechaActual = moment(Date.now());
-        let fechaNacimiento = moment(persona.fechaNacimiento)
-        let anos = fechaActual.diff(fechaNacimiento,'years')
-        anos
-        let diferencia =this.edadPension.hombre - anos
-        let anoPension = year + diferencia
-        anoPension
-        this.pensionados.push({
-          nombre:persona.nombre,
-          fechaPension:anoPension
+    pensiones() {
+      axios
+        .get("https://back-coohilados.vercel.app/api/pension/ver")
+        .then((res) => {
+          this.edadPension = {
+            hombre: res.data.pension[0].hombre,
+            mujer: res.data.pension[0].mujer,
+          };
         })
-      } */
-      /* for (let i = 0; i < generoFemenino.length; i++) {
-        const persona = generoFemenino[i];
-        let fechaActual = moment(Date.now());
-        let fechaNacimiento = moment(persona.fechaNacimiento)
-        let anos = fechaActual.diff(fechaNacimiento,'years')
-        anos
-        let diferencia =this.edadPension.mujer - anos
-        let anoPension = year + diferencia
-      } */
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    actualizarPensiones(){
-      this.loading=true;
-      axios.put(`https://back-coohilados.vercel.app/api/pension/modificar/6441477614e5473f23bef0f2`,{
-        hombre:this.hombre,
-        mujer:this.mujer
-      })
-      .then((res)=>{
-        this.pensiones();
-        this.traerDirecto();
-        this.loading=false;
-        this.$swal({
+    calcularPension() {
+      let year = Number(moment(Date.now()).format("YYYY"));
+
+      let fechaPensionMujer = (persona) => {
+        let fechaActual = moment(Date.now());
+        let fechaNacimiento = moment(persona.fechaNacimiento);
+        let anos = fechaActual.diff(fechaNacimiento, "years");
+        let diferencia = this.edadPension.mujer - anos;
+        let anoPension = year + diferencia;
+        return { ...persona, fechaPension: anoPension };
+      };
+      let generoFemenino = this.directos
+        .filter((persona) => {
+          return persona.sexo == "F";
+        })
+        .map(fechaPensionMujer);
+
+      let fechaPensionHombre = (persona) => {
+        let fechaActual = moment(Date.now());
+        let fechaNacimiento = moment(persona.fechaNacimiento);
+        let anos = fechaActual.diff(fechaNacimiento, "years");
+        let diferencia = this.edadPension.hombre - anos;
+        let anoPension = year + diferencia;
+        return { ...persona, fechaPension: anoPension };
+      };
+      let acumuladorPensionados = (acumulador, persona) => {
+        return [...acumulador, persona];
+      };
+      this.pensionados = this.directos
+        .filter((persona) => {
+          return persona.sexo == "M";
+        })
+        .map(fechaPensionHombre)
+        .reduce(acumuladorPensionados, generoFemenino);
+
+      
+    },
+    actualizarPensiones() {
+      this.loading = true;
+      axios
+        .put(
+          `https://back-coohilados.vercel.app/api/pension/modificar/6441477614e5473f23bef0f2`,
+          {
+            hombre: this.hombre,
+            mujer: this.mujer,
+          }
+        )
+        .then((res) => {
+          this.pensiones();
+          this.traerDirecto();
+          this.loading = false;
+          this.$swal({
             icon: "success",
             title: "Se cambio la fecha de pensión correctamente",
           });
-      })
-      .catch((err)=>{
-        console.log(err);
-        this.loading=false;
-        this.$swal({
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          this.$swal({
             icon: "error",
             title: "No se pudo actualizar la edad de pensión",
           });
-      })
+        });
     },
     editarDirecto(item) {
       this.$router.push("/infodirecto");

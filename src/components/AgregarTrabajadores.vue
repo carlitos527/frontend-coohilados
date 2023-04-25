@@ -76,10 +76,10 @@
                       </div>
                     </template>
 
-                    <template>
-                      <div class="text-center" >
+                    <!-- pension -->
+                     <template>
+                      <div class="text-center">
                         <v-dialog max-width="1600px">
-                          
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               icon
@@ -96,41 +96,47 @@
                           </template>
 
                           <v-card>
-                            <v-card-title>PERSONAS QUE ESTAN PROXIMAS A PENSIONARSE</v-card-title>
+                            <v-card-title
+                              >PERSONAS QUE ESTAN APUNTO DE
+                              PENSIÓN</v-card-title
+                            >
                             <v-card-text>
-                              <v-autocomplete
-                                auto-select-first
-                                chips
-                                deletable-chips
-                                dense
-                                small-chips
-                                solo-inverted
-                                label="Meses del año"
-                                :items="meses"
-                                v-model="mes"
-                                @change="pensionados"
+                              <h4>Hombre: {{ edadPension.hombre }}</h4>
+                              <h4>Mujer: {{ edadPension.mujer }}</h4>
+                              <v-text-field
+                                v-model="hombre"
+                                label="Pension hombre"
+                                required
+                                hint="Ingrese solo números"
+                                type="Number"
                               >
-                              </v-autocomplete>
+                              </v-text-field>
+                              <v-text-field
+                                v-model="mujer"
+                                label="Pension mujer"
+                                required
+                                hint="Ingrese solo números"
+                                type="Number"
+                              >
+                              </v-text-field>
+                              <v-btn
+                                class="my-5"
+                                color="orange"
+                                @click="actualizarPensiones"
+                                >Cambiar edad de pensión</v-btn
+                              >
                               <v-data-table
                                 :headers="headerPension"
-                                :items="pension"
-                                no-data-text="No hay Pensionados este año"
+                                :items="pensionados"
+                                sort-by="fechaPension"
                               >
-                                <template
-                                  v-slot:[`item.fechaNacimiento`]="{ item }"
-                                >
-                                  <span>
-                                    {{ fecha(item.fechaNacimiento) }}
-                                  </span>
-                                </template>
                               </v-data-table>
                             </v-card-text>
-                           
                           </v-card>
-                          
                         </v-dialog>
                       </div>
                     </template>
+                    
 
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
@@ -771,6 +777,7 @@ export default {
     trabajadores: [],
     trabajador: [],
     busqueda: "",
+    usuarios:"",
     user: "",
     meses: [
       "Enero",
@@ -795,9 +802,15 @@ export default {
 
     headerPension: [
       { text: "Nombre", value: "nombre" },
-      { text: "fecha de nacimiento", value: "fechaNacimiento" },
+      { text: "fecha de pension", value: "fechaPension" },
     ],
-    pension: [],
+    pensionados: [],
+    edadPension: {
+      hombre: "",
+      mujer: "",
+    },
+    mujer: "",
+    hombre: "",
   }),
   computed: {
     buscar() {
@@ -810,8 +823,79 @@ export default {
     },
   },
   methods: {
-    traer() {
-      this.user = JSON.parse(localStorage.getItem("usuario"));
+    pensiones() {
+      axios
+        .get("https://back-coohilados.vercel.app/api/pension/ver")
+        .then((res) => {
+          this.edadPension = {
+            hombre: res.data.pension[0].hombre,
+            mujer: res.data.pension[0].mujer,
+          };
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    calcularPension() {
+      let year = Number(moment(Date.now()).format("YYYY"));
+      let fechaActual = moment(Date.now());
+
+      let fechaPensionMujer = (persona) => {
+        let fechaNacimiento = moment(persona.fechaNacimiento);
+        let anos = fechaActual.diff(fechaNacimiento, "years");
+        let diferencia = this.edadPension.mujer - anos;
+        let anoPension = year + diferencia;
+        return { ...persona, fechaPension: anoPension };
+      };
+
+      let generoFemenino = this.trabajadores.filter((persona) => {
+          return persona.sexo == "F";
+        }).map(fechaPensionMujer);
+
+      let fechaPensionHombre = (persona) => {
+        let fechaNacimiento = moment(persona.fechaNacimiento);
+        let anos = fechaActual.diff(fechaNacimiento, "years");
+        let diferencia = this.edadPension.hombre - anos;
+        let anoPension = year + diferencia;
+        return { ...persona, fechaPension: anoPension };
+      };
+
+      let acumuladorPensionados = (acumulador, persona) => {
+        return [...acumulador, persona];
+      };
+
+      this.pensionados = this.trabajadores.filter((persona) => {
+          return persona.sexo == "M";
+        }).map(fechaPensionHombre).reduce(acumuladorPensionados, generoFemenino);
+
+    },
+    actualizarPensiones() {
+      this.loading = true;
+      axios
+        .put(
+          `https://back-coohilados.vercel.app/api/pension/modificar/6441477614e5473f23bef0f2`,
+          {
+            hombre: this.hombre,
+            mujer: this.mujer,
+          }
+        )
+        .then((res) => {
+          this.pensiones();
+          this.traerTrabajador();
+          this.loading = false;
+          this.$swal({
+            icon: "success",
+            title: "Se cambio la fecha de pensión correctamente",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "No se pudo actualizar la edad de pensión",
+          });
+        });
     },
     editarTrabajador(item) {
       this.$router.push("/infotrabajador");
@@ -827,23 +911,8 @@ export default {
     close() {
       this.dialog = false;
     },
-
     close1() {
       this.dialog = false;
-    },
-    moment(item) {
-      let fecha = Date.now();
-      let fecha2 = moment(fecha);
-      let fecha1 = moment(item);
-      /* let diffAnos = fecha2.diff(fecha1, "years"); */
-      let diffMeses = fecha2.diff(fecha1, "months");
-      /* let diffDias = fecha2.diff(fecha1, "days"); */
-      /* if (diffAnos <= 1) {
-        return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
-      } else {
-        return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
-      } */
-      return `${diffMeses} meses`;
     },
     traerTrabajador() {
       this.loadingTable = true;
@@ -853,7 +922,7 @@ export default {
           this.loadingTable = false;
           /* console.log(response.data.trabajador); */
           this.trabajadores = response.data.trabajador;
-          console.log(this.trabajadores);
+          this.calcularPension();
         })
         .catch((err) => {
           this.loadingTable = false;
@@ -1081,6 +1150,21 @@ export default {
           console.log(err);
         });
     },
+ moment(item) {
+      let fecha = Date.now();
+      let fecha2 = moment(fecha);
+      let fecha1 = moment(item);
+      /* let diffAnos = fecha2.diff(fecha1, "years"); */
+      let diffMeses = fecha2.diff(fecha1, "months");
+      /* let diffDias = fecha2.diff(fecha1, "days"); */
+      /* if (diffAnos <= 1) {
+        return `${diffAnos} año ${diffMeses} meses ${diffDias} días`;
+      } else {
+        return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
+      } */
+      return `${diffMeses} meses`;
+    },
+
     fecha(item) {
       let d = new Date(item);
       let f = d.toISOString();
@@ -1088,13 +1172,17 @@ export default {
       let fecha = moment(date).format("D, MMM, YYYY");
       return fecha;
     },
+
+    traer() {
+      this.user = JSON.parse(localStorage.getItem("usuario"));
+    },
     cumpleanos() {
       let numeroMes = "";
       switch (this.mes) {
         case "Enero":
           numeroMes = 0;
           break;
-                       case "Febrero":
+        case "Febrero":
           numeroMes = 1;
           break;
         case "Marzo":
@@ -1135,7 +1223,7 @@ export default {
       this.happy = cumpleaneros;
     },
 
-    pensionados() {
+    /* pensionados() {
       let numeroMes = "";
       switch (this.mes) {
         case "Enero":
@@ -1180,7 +1268,7 @@ export default {
         return fechaTrabajador == numeroMes;
       });
       this.pension = pensionados;
-    },
+    }, */
 
     valores(valor) {
       const plata = valor;
@@ -1196,9 +1284,10 @@ export default {
   },
   created() {
     this.traer();
-    this.traerTrabajador();
     this.traerAreaTrabajo();
     this.traerDepartamentos();
+    this.traerTrabajador();
+    this.pensiones();
   },
 };
 </script>
