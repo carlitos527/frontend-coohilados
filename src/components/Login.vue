@@ -1,24 +1,64 @@
 <template>
   <v-container fluid>
-    <v-row class="justify-center" align="center" style="height:90vh">
+    <v-row class="justify-center" align="center" style="height: 90vh">
       <v-col>
-        <v-card class="mx-auto" elevation="14" style="max-width: 800px">
-          <v-toolbar center flat dark class="green lighten-2">
-            <v-toolbar-title class="mx-auto font-italic mb-2">
-              <h2>Ingresar</h2>
+        <v-card
+          class="mx-auto"
+          elevation="14"
+          color="#004C1C"
+          style="max-width: 600px"
+        >
+          <v-toolbar center flat dark color="#004C1C">
+            <v-toolbar-title class="mx-auto mb-0">
+              <h2>!BIENVENIDO¡</h2>
             </v-toolbar-title>
           </v-toolbar>
-          
+          <v-row align="center">
+            <v-col> </v-col>
+            <v-col cols="9" class="justify-center">
+              <v-avatar class="profile mx-15" size="165" tile>
+                <v-img
+                  src="https://static-00.iconduck.com/assets.00/user-login-icon-487x512-xx4t1c61.png"
+                ></v-img>
+              </v-avatar>
+            </v-col>
+          </v-row>
+
           <v-form ref="form" class="pa-4 pt-6">
-            <v-text-field v-model="email" label="Usuario" type="text" outlined required hint="Correo Corporativo">
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="Usuario"
+              type="text"
+              outlined
+              required
+              hint="Correo Corporativo"
+              class="white"
+            >
             </v-text-field>
-            <v-text-field v-model="password" :counter="20" label="Password"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" outlined required
-              @click:append="show1 = !show1">
+            <v-text-field
+              v-model="password"
+              :rules="loginRules"
+              :counter="20"
+              label="Password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
+              outlined
+              required
+              hint="Digite su contraseña"
+              class="white"
+              @click:append="show1 = !show1"
+            >
             </v-text-field>
             <v-card-action>
               <v-flex class="text-center">
-                <v-btn rounded class="ma-2" outlined color="green" @click="login()">
+                <v-btn
+                  rounded
+                  class="ma-2"
+                  outlined
+                  color="white"
+                  @click="login()"
+                >
                   Ingresar
                 </v-btn>
               </v-flex>
@@ -30,8 +70,13 @@
     <v-row class="align-center">
       <v-col>
         <v-overlay :value="loading">
-          <v-progress-circular v-show="loading == true" :size="70" :width="7" color="black"
-            indeterminate></v-progress-circular>
+          <v-progress-circular
+            v-show="loading == true"
+            :size="70"
+            :width="7"
+            color="black"
+            indeterminate
+          ></v-progress-circular>
         </v-overlay>
       </v-col>
     </v-row>
@@ -47,7 +92,23 @@ export default {
     password: "",
     loading: false,
     show1: false,
-    tiempo: 60
+    tiempo: 60,
+
+    valid7: true,
+    
+    emailRules: [
+      (e) => !!e || " Email es requerido ❌",
+      (e) =>
+        (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
+    ],
+
+     valid7: true,
+    
+    loginRules: [
+      (e) => !!e || " La contraseña es  requerido ❌",
+      (e) =>
+        (e && e.length <= 20) || " La contraseña  Solo puede tener 20 caracteres",
+    ],
   }),
   methods: {
     login() {
@@ -66,7 +127,6 @@ export default {
           this.$swal({
             icon: "success",
             title: "Inicio de sesión exitoso",
-
           });
           this.expirarSesion();
         })
@@ -75,16 +135,17 @@ export default {
           this.loading = false;
           this.$swal({
             icon: "error",
-            title: "Error al iniciar sesión, el usuario probablemente no existe",
+            title:
+              "Error al iniciar sesión, el usuario probablemente no existe",
           });
         });
     },
     expirarSesion() {
       let i = setInterval(() => {
         window.onmousemove = () => {
-          this.tiempo = 60
-        }
-        this.tiempo--
+          this.tiempo = 60;
+        };
+        this.tiempo--;
         console.log(this.tiempo);
         if (this.tiempo == 30) {
           this.$swal({
@@ -93,26 +154,26 @@ export default {
           });
         }
         if (this.tiempo == -1) {
-          this.$store.state.token = undefined
+          this.$store.state.token = undefined;
           this.$router.push("/");
           localStorage.removeItem("token");
-          localStorage.removeItem("usuario")
+          localStorage.removeItem("usuario");
           this.$swal({
             icon: "info",
             title: "Su sesión a expirado",
           });
-          clearInterval(i)
+          clearInterval(i);
         }
-      }, 1200)
+      }, 1200);
     },
-    entrar(){
-      if(JSON.parse(localStorage.getItem("usuario"))){
-        this.$router.push('/home')
+    entrar() {
+      if (JSON.parse(localStorage.getItem("usuario"))) {
+        this.$router.push("/home");
       }
-    }
+    },
   },
   created() {
     this.entrar();
-  }
+  },
 };
 </script>

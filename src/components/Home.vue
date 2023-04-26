@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row  style="height: 90vh;">
+    <v-row class="lime lighten-3" style="height: 90vh;">
       <v-col cols="12">
         <section
           style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">

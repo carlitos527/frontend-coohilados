@@ -25,7 +25,7 @@
                 </router-link>
              
               <v-spacer></v-spacer>
-              <v-btn class="mr-2 red" color="deep-purple lighten-2" text to="/Home">
+              <v-btn class="mr-2 red" color="white" text to="/Home">
                 Regresar
               </v-btn>
               <template>

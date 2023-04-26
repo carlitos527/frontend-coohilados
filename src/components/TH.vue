@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-container fluid >
-      <v-row class="justify-center" align="center" style="height:90vh">
+      <v-row class=" lime lighten-3 justify-center" align="center" style="height:90vh">
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
@@ -74,7 +74,7 @@
                 <v-col cols="3">
                   <v-btn
                     color="#41B44C"
-                    class="white"
+                    class="black"
                     outlined
                     rounded
                     text
