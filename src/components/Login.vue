@@ -160,7 +160,7 @@ export default {
           localStorage.removeItem("usuario");
           this.$swal({
             icon: "info",
-            title: "Su sesión a expirado",
+            title: "Su sesión expiro",
           });
           clearInterval(i);
         }
