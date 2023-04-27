@@ -636,7 +636,7 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Fecha de Nacimiento", value: "fechaNacimiento" },
-      { text: "DirecciÓn", value: "barrio" },
+      { text: "Dirección", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Contrato", value: "fechaInicio" },
       { text: "Fin Contrato", value: "fechaFin" },

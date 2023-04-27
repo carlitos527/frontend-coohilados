@@ -634,7 +634,7 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
-      { text: "DirecciÓn", value: "barrio" },
+      { text: "Dirección", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Contrato", value: "fechaInicio" },
       { text: "Vacaciones del Trabajador", value: "fechaVacaciones" },
