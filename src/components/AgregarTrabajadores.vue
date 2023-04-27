@@ -636,7 +636,7 @@ export default {
       { text: "Cumpleaños", value: "fechaNacimiento" },
       { text: "Direccion", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
-      { text: "Inicio Cotrato", value: "fechaInicio" },
+      { text: "Inicio Contrato", value: "fechaInicio" },
       { text: "Vacaciones del Trabajador", value: "fechaVacaciones" },
       { text: "Antiguedad", value: "tiempoLaborado" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },

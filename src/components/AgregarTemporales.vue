@@ -541,7 +541,7 @@ export default {
       { text: "Cumpleaños", value: "fechaNacimiento" },
       { text: "tipo de Contrato", value: "tipoContrato" },
       { text: "Inicio Cotrato", value: "fechaInicio" },
-      { text: "Fin Cotrato", value: "fechaFin" },
+      { text: "Fin Contrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },

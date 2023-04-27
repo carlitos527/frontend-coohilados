@@ -638,7 +638,7 @@ export default {
       { text: "Fecha de Nacimiento", value: "fechaNacimiento" },
       { text: "Direccion", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
-      { text: "Inicio Cotrato", value: "fechaInicio" },
+      { text: "Inicio Contrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
