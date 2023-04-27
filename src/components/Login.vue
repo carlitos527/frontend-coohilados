@@ -99,7 +99,7 @@ export default {
     emailRules: [
       (e) => !!e || " Email es requerido ❌",
       (e) =>
-        (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
+        (e && e.length <= 40) || " EL Email Solo puede tener 40 caracteres",
     ],
 
      valid7: true,
