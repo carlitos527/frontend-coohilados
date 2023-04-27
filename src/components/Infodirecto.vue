@@ -114,12 +114,12 @@
 
                     <v-menu
                       v-model="menu2"
+                      v-if="usuario.rol == 'Editor de Datos'"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -129,14 +129,14 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
 
                       <v-date-picker
                         v-model="fechaNacimiento"
-                        @input="menu2 = false"
                         v-if="usuario.rol == 'Editor de Datos'"
+                        @input="menu2 = false"
+                        @change="cambioN"
                       ></v-date-picker>
                     </v-menu>
 
@@ -158,7 +158,10 @@
                       min-width="auto"
                       v-if="usuario.rol == 'Editor de Datos'"
                     >
-                      <template v-slot:activator="{ on, attrs }">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
                           v-model="fechaInicio"
                           label="Escoja la Fecha de inicio de contrato"
@@ -166,15 +169,15 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaInicio"
                         @input="menu3 = false"
-                        v-if="usuario.rol == 'Editor de Datos'"
+                        @change="cambioI"
                       ></v-date-picker>
                     </v-menu>
+                    
                     <v-menu
                       v-model="menu4"
                       :close-on-content-click="false"
@@ -182,9 +185,11 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
                     >
-                      <template v-slot:activator="{ on, attrs }">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
                           v-model="fechaFin"
                           label="Escoja la Fecha de finalización de contrato"
@@ -192,15 +197,15 @@
                           readonly
                           v-bind="attrs"
                           v-on="on"
-                          v-if="usuario.rol == 'Editor de Datos'"
                         ></v-text-field>
                       </template>
                       <v-date-picker
                         v-model="fechaFin"
                         @input="menu4 = false"
-                        v-if="usuario.rol == 'Editor de Datos'"
+                        @change="cambioF"
                       ></v-date-picker>
                     </v-menu>
+
 
                     <v-col cols="12" sm="6" md="6">
                       <v-select
@@ -586,6 +591,9 @@ export default {
       this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
+      console.log("fecha de nacimiento: "+this.detalleDirecto.fechaN);
+      console.log("fecha de inicio: "+this.detalleDirecto.fechaI);
+      console.log("fecha de fin: "+this.detalleDirecto.fechaF);
       this.loading = true;
       axios
         .put(
@@ -599,10 +607,10 @@ export default {
             eps: this.$store.state.datos.eps,
             sexo: this.detalleDirecto.sexo,
             nombre: this.detalleDirecto.nombre,
-            fechaNacimiento: this.detalleDirecto.fechaNacimiento,
+            fechaNacimiento: this.detalleDirecto.fechaN,
             tipoContrato: this.detalleDirecto.tipoContrato,
-            fechaInicio: this.detalleDirecto.fechaInicio,
-            fechaFin: this.detalleDirecto.fechaFin,
+            fechaInicio: this.detalleDirecto.fechaI,
+            fechaFin: this.detalleDirecto.fechaF,
             areaTrabajo: this.detalleDirecto.areaTrabajo,
             salario: this.detalleDirecto.salario,
             barrio: this.detalleDirecto.barrio,

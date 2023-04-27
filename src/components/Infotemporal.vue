@@ -162,6 +162,7 @@
                         @change="cambioI"
                       ></v-date-picker>
                     </v-menu>
+                    
                     <v-menu
                       v-model="menu4"
                       :close-on-content-click="false"

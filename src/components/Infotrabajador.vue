@@ -114,12 +114,12 @@
 
                     <v-menu
                       v-model="menu2"
+                      v-if="usuario.rol == 'Editor de Datos'"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -134,10 +134,11 @@
 
                       <v-date-picker
                         v-model="fechaNacimiento"
+                        v-if="usuario.rol == 'Editor de Datos'"
                         @input="menu2 = false"
+                        @change="cambioN"
                       ></v-date-picker>
                     </v-menu>
-
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleTrabajador.tipoContrato"
@@ -156,7 +157,10 @@
                       min-width="auto"
                       v-if="usuario.rol == 'Editor de Datos'"
                     >
-                      <template v-slot:activator="{ on, attrs }">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
                           v-model="fechaInicio"
                           label="Escoja la Fecha de inicio de contrato"
@@ -169,8 +173,10 @@
                       <v-date-picker
                         v-model="fechaInicio"
                         @input="menu3 = false"
+                        @change="cambioI"
                       ></v-date-picker>
                     </v-menu>
+                    
                     <v-menu
                       v-model="menu4"
                       :close-on-content-click="false"
@@ -178,12 +184,14 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                      v-if="usuario.rol == 'Editor de Datos'"
                     >
-                      <template v-slot:activator="{ on, attrs }">
+                      <template
+                        v-slot:activator="{ on, attrs }"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      >
                         <v-text-field
-                          v-model="fechaVacaciones"
-                          label="Escoja la Fecha de posibles vacaciones del Asociado"
+                          v-model="fechaFin"
+                          label="Escoja la Fecha de finalización de contrato"
                           prepend-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"
@@ -191,10 +199,12 @@
                         ></v-text-field>
                       </template>
                       <v-date-picker
-                        v-model="fechaVacaciones"
+                        v-model="fechaFin"
                         @input="menu4 = false"
+                        @change="cambioF"
                       ></v-date-picker>
                     </v-menu>
+
 
                     <v-col cols="12" sm="6" md="6">
                       <v-select
@@ -399,6 +409,7 @@ export default {
       .toISOString()
       .substr(0, 10),
     descripcion: "",
+
     fechaNacimiento: new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     )
@@ -409,7 +420,9 @@ export default {
       .toISOString()
       .substr(0, 10),
 
-    fechaVacaciones: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    fechaVacaciones: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
       .toISOString()
       .substr(0, 10),
 
@@ -572,20 +585,24 @@ export default {
       this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
+      console.log("fecha de nacimiento: " + this.detalleTrabajador.fechaN);
+      console.log("fecha de inicio: " + this.detalleTrabajador.fechaI);
+      console.log("fecha de fin: " + this.detalleTrabajador.fechaF);
       this.loading = true;
       axios
         .put(`https://back-coohilados.vercel.app/api/servicio/${this.id}`, {
           tipoDocumento: this.detalleTrabajador.tipoDocumento,
           documento: this.detalleTrabajador.documento,
+          pension: this.detalleTrabajador.pension,
           sexo: this.detalleTrabajador.sexo,
           rh: this.$store.state.datos.rh,
           arl: this.$store.state.datos.arl,
           eps: this.$store.state.datos.eps,
           nombre: this.detalleTrabajador.nombre,
-          fechaNacimiento: this.detalleTrabajador.fechaNacimiento,
+          fechaNacimiento: this.detalleTrabajador.fechaN,
           tipoContrato: this.detalleTrabajador.tipoContrato,
-          fechaInicio: this.detalleTrabajador.fechaInicio,
-          fechaVacaciones: this.detalleTrabajador.fechaVacaciones,
+          fechaInicio: this.detalleTrabajador.fechaI,
+          fechaVacaciones: this.detalleTrabajador.fechaF,
           areaTrabajo: this.detalleTrabajador.areaTrabajo,
           salario: this.detalleTrabajador.salario,
           barrio: this.detalleTrabajador.barrio,
