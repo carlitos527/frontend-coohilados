@@ -15,7 +15,7 @@
           <h3 v-if="user.rol == 'Actualizador'"> "Usted visualizar todos los trabajadores y anexar anotaciones"
             y imprimir reportes</h3>
           <h3 v-if="user.rol == 'Editor de Datos'"> Usted puede editar todos los Trabajadores, imprimir reportes,
-            vusualizar y editar </h3>
+            visualizar y editar </h3>
           <h3 v-if="user.rol == 'Visualizador'"> Usted puede Visualizar todos los trabajadores e imprimir reportes </h3>
         </section>
       </v-col>
