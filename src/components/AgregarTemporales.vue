@@ -543,7 +543,7 @@ export default {
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Contrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
-      { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
+      { text: "Área de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
       { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
