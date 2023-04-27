@@ -10,7 +10,7 @@
         >
           <v-toolbar center flat dark color="#004C1C">
             <v-toolbar-title class="mx-auto mb-0">
-              <h2>!BIENVENIDO¡</h2>
+              <h2>¡BIENVENIDO!</h2>
             </v-toolbar-title>
           </v-toolbar>
           <v-row align="center">
