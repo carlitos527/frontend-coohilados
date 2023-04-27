@@ -639,7 +639,7 @@ export default {
       { text: "Direccion", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Contrato", value: "fechaInicio" },
-      { text: "Fin Cotrato", value: "fechaFin" },
+      { text: "Fin Contrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
