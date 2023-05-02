@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
+        <v-card class="mx-auto my-12 green lighten-3" max-width="900">
           <v-card-title justify-right>
             <v-col cols="12" sm="6" md="6" justify="right">
               <v-card-title>{{ this.$store.state.datos.nombre }}</v-card-title>
@@ -35,18 +35,6 @@
                 <h4>{{ this.$store.state.datos.documento }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <h2>Pensión:</h2>
-                <h4>{{ this.$store.state.datos.pension }}</h4>
-              </v-col>
-               <v-col cols="12" sm="6" md="6">
-                <h2>Arl:</h2>
-                <h4>{{ this.$store.state.datos.arl }}</h4>
-              </v-col>
-               <v-col cols="12" sm="6" md="6">
-                <h2>Eps:</h2>
-                <h4>{{ this.$store.state.datos.arl }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
                 <h2>Nombre:</h2>
                 <h4>{{ this.$store.state.datos.nombre }}</h4>
               </v-col>
@@ -54,39 +42,12 @@
                 <h2>Sexo:</h2>
                 <h4>{{ this.$store.state.datos.sexo }}</h4>
               </v-col>
+
               <v-col cols="12" sm="6" md="6">
                 <h2>Fecha de nacimiento:</h2>
                 <h4>
                   {{ fecha(this.$store.state.datos.fechaNacimiento) }}
                 </h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>Tipo de contrato:</h2>
-                <h4>{{ this.$store.state.datos.tipoContrato }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>Fecha inicio contrato:</h2>
-                <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo == 'Asociado'">
-                <h2>Fecha de vacaciones:</h2>
-                <h4>{{ fecha(this.$store.state.datos.fechaVacaciones) }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo != 'Asociado'">
-                <h2>Fecha fin contrato:</h2>
-                <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6" v-else>
-                <h2>Tiempo laborado en años:</h2>
-                <h4>{{ antiguedad(this.$store.state.datos.fechaInicio) }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>Area de trabajo:</h2>
-                <h4>{{ this.$store.state.datos.areaTrabajo.nombre }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>Salario:</h2>
-                <h4>{{ this.$store.state.datos.salario }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <h2>Barrio:</h2>
@@ -111,9 +72,54 @@
                 <h4>{{ this.$store.state.datos.email }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
+                <h2>Rh:</h2>
+                <h4>{{ this.$store.state.datos.rh }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Pensión:</h2>
+                <h4>{{ this.$store.state.datos.pension }}</h4>
+              </v-col>
+               <v-col cols="12" sm="6" md="6">
+                <h2>Arl:</h2>
+                <h4>{{ this.$store.state.datos.arl }}</h4>
+              </v-col>
+               <v-col cols="12" sm="6" md="6">
+                <h2>Eps:</h2>
+                <h4>{{ this.$store.state.datos.arl }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Tipo de contrato:</h2>
+                <h4>{{ this.$store.state.datos.tipoContrato }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Area de trabajo:</h2>
+                <h4>{{ this.$store.state.datos.areaTrabajo.nombre }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
                 <h2>Cargo:</h2>
                 <h4>{{ this.$store.state.datos.rol }}</h4>
               </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Salario:</h2>
+                <h4>{{ this.$store.state.datos.salario }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <h2>Fecha inicio contrato:</h2>
+                <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo == 'Asociado'">
+                <h2>Fecha de vacaciones:</h2>
+                <h4>{{ fecha(this.$store.state.datos.fechaVacaciones) }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6" v-if="this.$store.state.datos.tipo != 'Asociado'">
+                <h2>Fecha fin contrato:</h2>
+                <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
+              </v-col>
+              <v-col cols="12" sm="6" md="6" v-else>
+                <h2>Tiempo laborado en años:</h2>
+                <h4>{{ antiguedad(this.$store.state.datos.fechaInicio) }}</h4>
+              </v-col>
+              
               <v-row>
                 <v-col v-if="this.$store.state.usuario.rol == 'Editor de Datos' || this.$store.state.usuario.rol =='Actualizador'">
                 <v-data-table :headers="headers" :items="this.$store.state.datos.anotacion" class="elevation-1">

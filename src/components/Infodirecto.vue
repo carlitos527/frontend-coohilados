@@ -64,38 +64,6 @@
                       ></v-text-field>
                     </v-col>
 
-                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.pension"
-                        label="PENSIÓN"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.rh"
-                        label="RH"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.arl"
-                        label="ARL"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.eps"
-                        label="EPS"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleDirecto.nombre"
@@ -140,6 +108,108 @@
                       ></v-date-picker>
                     </v-menu>
 
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.barrio"
+                        label="Direccion"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-select
+                      :items="cities"
+                      v-model="departamento"
+                      label="Departamento"
+                      @change="traerCiudades()"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    ></v-select>
+                    <v-select
+                      :items="town"
+                      v-model="detalleDirecto.city"
+                      item-text="Ciudad"
+                      item-value="_id"
+                      label="Ciudad"
+                      @change="prueba()"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    ></v-select>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.telefono"
+                        label="Telefono"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.email"
+                        label="E-mail"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.rh"
+                        label="RH"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                     <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.pension"
+                        label="PENSIÓN"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.arl"
+                        label="ARL"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.eps"
+                        label="EPS"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+                    
+
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        :items="area"
+                        v-model="detalleDirecto.areaTrabajo"
+                        label="Área de trabajo"
+                        item-text="nombre"
+                        item-value="_id"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-select>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        :items="rolArray"
+                        v-model="detalleDirecto.rol"
+                        label="Cargo"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-select>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleDirecto.salario"
+                        label="Salario"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="detalleDirecto.tipoContrato"
@@ -205,76 +275,6 @@
                         @change="cambioF"
                       ></v-date-picker>
                     </v-menu>
-
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="area"
-                        v-model="detalleDirecto.areaTrabajo"
-                        label="Área de trabajo"
-                        item-text="nombre"
-                        item-value="_id"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="rolArray"
-                        v-model="detalleDirecto.rol"
-                        label="Cargo"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.salario"
-                        label="Salario"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.barrio"
-                        label="Direccion"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-select
-                      :items="cities"
-                      v-model="departamento"
-                      label="Departamento"
-                      @change="traerCiudades()"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    ></v-select>
-                    <v-select
-                      :items="town"
-                      v-model="detalleDirecto.city"
-                      item-text="Ciudad"
-                      item-value="_id"
-                      label="Ciudad"
-                      @change="prueba()"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    ></v-select>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.telefono"
-                        label="Telefono"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.email"
-                        label="E-mail"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col>
                       <v-data-table
