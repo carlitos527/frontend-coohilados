@@ -93,47 +93,19 @@
                                     hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
+                                    <v-text-field
+                                    v-model="nombre"
+                                    :rules="nombreRules"
+                                    label="Nombre y Apellidos"
+                                    required
+                                  ></v-text-field>
+                                  
                                   <v-select
                                     v-model="sexo"
                                     :items="sexo"
                                     label="Sexo"
                                     required
                                   ></v-select>
-
-                                  <v-text-field
-                                    v-model="pension"
-                                    :rules="pensionRules"
-                                    label="PENSIÓN"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="rh"
-                                    :rules="rhRules"
-                                    label="RH"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="arl"
-                                    :rules="arlRules"
-                                    label="ARL"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="eps"
-                                    :rules="epsRules"
-                                    label="EPS"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="nombre"
-                                    :rules="nombreRules"
-                                    label="Nombre y Apellidos"
-                                    required
-                                  ></v-text-field>
 
                                   <v-menu
                                     v-model="menu2"
@@ -197,6 +169,36 @@
                                     required
                                   ></v-text-field>
 
+
+                                  <v-text-field
+                                    v-model="pension"
+                                    :rules="pensionRules"
+                                    label="PENSIÓN"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
+                                    v-model="rh"
+                                    :rules="rhRules"
+                                    label="RH"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
+                                    v-model="arl"
+                                    :rules="arlRules"
+                                    label="ARL"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-text-field
+                                    v-model="eps"
+                                    :rules="epsRules"
+                                    label="EPS"
+                                    required
+                                  ></v-text-field>
+
+                              
                                   <v-select
                                     v-model="tipoContrato"
                                     :items="tipoContrato"
