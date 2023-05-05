@@ -280,11 +280,12 @@
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()"
+                              <v-btn class="red" color="whithe" text @click="close()"
                                 >Cancel</v-btn
                               >
                               <v-btn
-                                color="blue darken-1"
+                              class="green"
+                                color="white"
                                 text
                                 @click="agregar()"
                                 >Guardar</v-btn
