@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="950">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="850">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"
@@ -43,21 +43,27 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    >
                       <v-select
                         v-model="detalleTemporal.tipoDocumento"
                         :items="tDocumento"
                         label="Tipo de Documento"
-                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.documento"
-                        v-if="usuario.rol == 'Editor de Datos'"
                         label="Documento"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.nombre"
@@ -69,11 +75,11 @@
                       <v-select
                         v-model="detalleTemporal.sexo"
                         :items="sexoArray"
-                        v-if="usuario.rol == 'Editor de Datos'"
                         label="Sexo"
+                        v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
-                     
+
                     <v-menu
                       v-model="menu2"
                       v-if="usuario.rol == 'Editor de Datos'"
@@ -101,6 +107,7 @@
                         @change="cambioN"
                       ></v-date-picker>
                     </v-menu>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.barrio"
@@ -108,14 +115,14 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
+
                     <v-select
                       :items="cities"
                       v-model="departamento"
                       label="Departamento"
                       @change="traerCiudades()"
                       v-if="usuario.rol == 'Editor de Datos'"
-                    >
-                    </v-select>
+                    ></v-select>
                     <v-select
                       :items="town"
                       v-model="detalleTemporal.city"
@@ -124,8 +131,8 @@
                       label="Ciudad"
                       @change="prueba()"
                       v-if="usuario.rol == 'Editor de Datos'"
-                    >
-                    </v-select>
+                    ></v-select>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.telefono"
@@ -133,14 +140,14 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-                    <v-col>
+
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.email"
                         label="E-mail"
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-                    <v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -150,13 +157,14 @@
                       ></v-text-field>
                     </v-col>
 
-                     <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.pension"
                         label="PENSIÓN"
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.arl"
@@ -173,7 +181,7 @@
                       ></v-text-field>
                     </v-col>
 
-                     <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="6">
                       <v-select
                         :items="area"
                         v-model="detalleTemporal.areaTrabajo"
@@ -183,6 +191,7 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-select
                         :items="rolArray"
@@ -191,6 +200,7 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-select>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.salario"
@@ -227,7 +237,7 @@
                         @change="cambioI"
                       ></v-date-picker>
                     </v-menu>
-                    
+
                     <v-menu
                       v-model="menu4"
                       :close-on-content-click="false"
@@ -254,85 +264,95 @@
                         @input="menu4 = false"
                         @change="cambioF"
                       ></v-date-picker>
-                    </v-menu>
-                    
-                      <v-data-table
-                        :headers="headers"
-                        :items="anotacion"
-                        class="elevation-1"
-                      >
-                        <template v-slot:top>
-                          <v-toolbar flat>
-                            <v-tolbar-title>Anotaciones</v-tolbar-title>
-                            <v-divider class="mx-4" inset vertical></v-divider>
-                            <v-spacer></v-spacer>
-                            <v-dialog
-                              max-width="1600px"
-                              v-model="dialog"
-                              persistent
-                            >
-                              <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                  dark
-                                  class="mb-2 red darken-4"
-                                  v-bind="attrs"
-                                  v-on="on"
-                                >
-                                  Agregar nueva anotación
-                                </v-btn>
-                              </template>
-                              <v-card>
-                                <v-card-title>Nueva anotación</v-card-title>
-                                <v-card-text>
-                                  <v-menu
-                                    v-model="menuAnotacion"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                  >
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field
-                                        v-model="fechaAnotacion"
-                                        label="Escoja la Fecha de Nacimiento"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="fechaAnotacion"
-                                      @input="menuAnotacion = false"
-                                    ></v-date-picker>
-                                  </v-menu>
-                                  <v-col cols="12">
-                                    <v-textarea v-model="descripcion">
-                                      <template v-slot:label>
-                                        <div>Anotación</div>
-                                      </template>
-                                    </v-textarea>
-                                  </v-col>
-                                </v-card-text>
-                                <v-card-actions>
-                                  <v-btn @click="dialog = false" class="red"
-                                    >Cerrar</v-btn
-                                  >
-                                  <v-btn @click="anota" class="green"
-                                    >Agregar</v-btn
-                                  >
-                                </v-card-actions>
-                              </v-card>
-                            </v-dialog>
-                          </v-toolbar>
-                        </template>
-                        <template v-slot:[`item.fecha`]="{ item }">
-                          <span>{{ fecha(item.fecha) }}</span>
-                        </template>
-                      </v-data-table>
-                    </v-col>
+                    </v-menu> 
                   </v-row>
+                   <template>
+                      <div>
+                        <v-col class="">
+                          <v-data-table
+                            :headers="headers"
+                            :items="anotacion"
+                            class="elevation-1"
+                          >
+                            <template v-slot:top>
+                              <v-toolbar flat>
+                                <v-tolbar-title>Anotaciones</v-tolbar-title>
+                                <v-divider
+                                  class="mx-4"
+                                  inset
+                                  vertical
+                                ></v-divider>
+                                <v-spacer></v-spacer>
+                                <v-dialog
+                                  max-width="1600px"
+                                  v-model="dialog"
+                                  persistent
+                                >
+                                  <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                      dark
+                                      class="mb-2 red darken-4"
+                                      v-bind="attrs"
+                                      v-on="on"
+                                    >
+                                      Agregar nueva anotación
+                                    </v-btn>
+                                  </template>
+                                  <v-card>
+                                    <v-card-title>Nueva anotación</v-card-title>
+                                    <v-card-text>
+                                      <v-menu
+                                        v-model="menuAnotacion"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        transition="scale-transition"
+                                        offset-y
+                                        min-width="auto"
+                                      >
+                                        <template
+                                          v-slot:activator="{ on, attrs }"
+                                        >
+                                          <v-text-field
+                                            v-model="fechaAnotacion"
+                                            label="Escoja la Fecha de Nacimiento"
+                                            prepend-icon="mdi-calendar"
+                                            readonly
+                                            v-bind="attrs"
+                                            v-on="on"
+                                          ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                          v-model="fechaAnotacion"
+                                          @input="menuAnotacion = false"
+                                        ></v-date-picker>
+                                      </v-menu>
+                                      <v-col cols="12">
+                                        <v-textarea v-model="descripcion">
+                                          <template v-slot:label>
+                                            <div>Anotación</div>
+                                          </template>
+                                        </v-textarea>
+                                      </v-col>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                      <v-btn @click="dialog = false" class="red"
+                                        >Cerrar</v-btn
+                                      >
+                                      <v-btn @click="anota" class="green"
+                                        >Agregar</v-btn
+                                      >
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </v-toolbar>
+                            </template>
+                            <template v-slot:[`item.fecha`]="{ item }">
+                              <span>{{ fecha(item.fecha) }}</span>
+                            </template>
+                          </v-data-table>
+                        </v-col>
+                      </div>
+                    </template>
                 </v-container>
               </template>
             </v-card-text>
@@ -458,8 +478,8 @@ export default {
       nombre: "",
       areaTrabajo: "",
       salario: "",
-      pension:"",
-      rh:"",
+      pension: "",
+      rh: "",
       arl: "",
       eps: "",
       barrio: "",
@@ -555,9 +575,9 @@ export default {
       this.note = this.$store.state.datos.anotacion;
     },
     editarItem() {
-      console.log("fecha de nacimiento: "+this.detalleTemporal.fechaN);
-      console.log("fecha de inicio: "+this.detalleTemporal.fechaI);
-      console.log("fecha de fin: "+this.detalleTemporal.fechaF);
+      console.log("fecha de nacimiento: " + this.detalleTemporal.fechaN);
+      console.log("fecha de inicio: " + this.detalleTemporal.fechaI);
+      console.log("fecha de fin: " + this.detalleTemporal.fechaF);
       this.loading = true;
       axios
         .put(

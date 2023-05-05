@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="950">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="850">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"
@@ -274,9 +274,8 @@
                         @input="menu4 = false"
                         @change="cambioF"
                       ></v-date-picker>
-                    </v-menu>
-
-                    <v-col>
+                    </v-menu> 
+                     <v-col>
                       <v-data-table
                         :headers="headers"
                         :items="anotacion"
@@ -354,6 +353,7 @@
                       </v-data-table>
                     </v-col>
                   </v-row>
+                 
                 </v-container>
               </template>
             </v-card-text>
