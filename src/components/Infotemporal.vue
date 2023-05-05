@@ -65,6 +65,82 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="detalleTemporal.sexo"
+                        :items="sexoArray"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                        label="Sexo"
+                      ></v-select>
+                    </v-col>
+                     
+                    <v-menu
+                      v-model="menu2"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="fechaNacimiento"
+                          label="Escoja la Fecha de Nacimiento"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+
+                      <v-date-picker
+                        v-model="fechaNacimiento"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                        @input="menu2 = false"
+                        @change="cambioN"
+                      ></v-date-picker>
+                    </v-menu>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.barrio"
+                        label="Direccion"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+                    <v-select
+                      :items="cities"
+                      v-model="departamento"
+                      label="Departamento"
+                      @change="traerCiudades()"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    >
+                    </v-select>
+                    <v-select
+                      :items="town"
+                      v-model="detalleTemporal.city"
+                      item-text="Ciudad"
+                      item-value="_id"
+                      label="Ciudad"
+                      @change="prueba()"
+                      v-if="usuario.rol == 'Editor de Datos'"
+                    >
+                    </v-select>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.telefono"
+                        label="Telefono"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field
+                        v-model="detalleTemporal.email"
+                        label="E-mail"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -98,41 +174,32 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+
+                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="detalleTemporal.sexo"
-                        :items="sexoArray"
+                        :items="area"
+                        v-model="detalleTemporal.areaTrabajo"
+                        label="Área de trabajo"
+                        item-text="nombre"
+                        item-value="_id"
                         v-if="usuario.rol == 'Editor de Datos'"
-                        label="Sexo"
                       ></v-select>
                     </v-col>
-                    <v-menu
-                      v-model="menu2"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="fechaNacimiento"
-                          label="Escoja la Fecha de Nacimiento"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-
-                      <v-date-picker
-                        v-model="fechaNacimiento"
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        :items="rolArray"
+                        v-model="detalleTemporal.rol"
+                        label="Cargo"
                         v-if="usuario.rol == 'Editor de Datos'"
-                        @input="menu2 = false"
-                        @change="cambioN"
-                      ></v-date-picker>
-                    </v-menu>
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="detalleTemporal.salario"
+                        label="Salario"
+                        v-if="usuario.rol == 'Editor de Datos'"
+                      ></v-text-field>
+                    </v-col>
 
                     <v-menu
                       v-model="menu3"
@@ -190,72 +257,7 @@
                         @change="cambioF"
                       ></v-date-picker>
                     </v-menu>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="area"
-                        v-model="detalleTemporal.areaTrabajo"
-                        label="Área de trabajo"
-                        item-text="nombre"
-                        item-value="_id"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-select
-                        :items="rolArray"
-                        v-model="detalleTemporal.rol"
-                        label="Cargo"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.salario"
-                        label="Salario"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.barrio"
-                        label="Direccion"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-                    <v-select
-                      :items="cities"
-                      v-model="departamento"
-                      label="Departamento"
-                      @change="traerCiudades()"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
-                    </v-select>
-                    <v-select
-                      :items="town"
-                      v-model="detalleTemporal.city"
-                      item-text="Ciudad"
-                      item-value="_id"
-                      label="Ciudad"
-                      @change="prueba()"
-                      v-if="usuario.rol == 'Editor de Datos'"
-                    >
-                    </v-select>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.telefono"
-                        label="Telefono"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-text-field
-                        v-model="detalleTemporal.email"
-                        label="E-mail"
-                        v-if="usuario.rol == 'Editor de Datos'"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
+                    
                       <v-data-table
                         :headers="headers"
                         :items="anotacion"
@@ -427,6 +429,7 @@ export default {
       "LIDER AUXILIAR DE COSTURA",
       "LIDER DE SECCIÓN DE COSTURA",
       "LIDER DE SECCIÓN HILOS",
+      "LIDER DE SECCIÓN TELARES",
       "LIQUIDADOR DE PRODUCCIÓN",
       "MENSAJERO",
       "NOMINA",
