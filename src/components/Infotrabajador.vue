@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="800">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="950">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"

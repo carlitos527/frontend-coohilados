@@ -5,7 +5,7 @@
         <v-img
           src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
         >
-          <v-card class="mx-auto my-12 yellow lighten-4" max-width="900">
+          <v-card class="mx-auto my-12 yellow lighten-4" max-width="950">
             <template slot="progress">
               <v-progress-linear
                 color="deep-purple"
@@ -157,8 +157,6 @@
                         v-if="usuario.rol == 'Editor de Datos'"
                       ></v-text-field>
                     </v-col>
-
-
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.arl"
