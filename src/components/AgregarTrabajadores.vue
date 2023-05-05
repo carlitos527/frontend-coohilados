@@ -239,10 +239,7 @@
                                     label="Ciudad De Nacimiento"
                                     @change="prueba()"
                                   ></v-select>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="6">
-                                  <v-text-field
+                                   <v-text-field
                                     v-model="telefono"
                                     :rules="telefonoRules"
                                     label="Telefono"
@@ -255,6 +252,10 @@
                                     label="E-mail"
                                     required
                                   ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" sm="6" md="6">
+                                 
 
 
                                   <v-text-field
@@ -292,6 +293,30 @@
                                     required
                                     label="Escoja Tipo de contrato del trabajador"
                                   ></v-select>
+
+                                  <v-select
+                                    :items="area"
+                                    v-model="areaTrabajo"
+                                    label="Área de trabajo"
+                                    item-text="nombre"
+                                    item-value="_id"
+                                  ></v-select>
+
+                                  <v-select
+                                    v-model="rol"
+                                    :items="rol"
+                                    :rules="rolRules"
+                                    required
+                                    label="Escoja el cargo del trabajador"
+                                  ></v-select>
+                                  
+                                   <v-text-field
+                                    v-model="salario"
+                                    :rules="salarioRules"
+                                    label="Salario"
+                                    required
+                                    hint="Ingrese Solo números sin puntos ni comas"
+                                  ></v-text-field>
 
                                   <v-menu
                                     v-model="menu3"
@@ -340,29 +365,6 @@
                                     ></v-date-picker>
                                   </v-menu>
 
-                                  <v-text-field
-                                    v-model="salario"
-                                    :rules="salarioRules"
-                                    label="Salario"
-                                    required
-                                    hint="Ingrese Solo números sin puntos ni comas"
-                                  ></v-text-field>
-
-                                  <v-select
-                                    :items="area"
-                                    v-model="areaTrabajo"
-                                    label="Área de trabajo"
-                                    item-text="nombre"
-                                    item-value="_id"
-                                  ></v-select>
-
-                                  <v-select
-                                    v-model="rol"
-                                    :items="rol"
-                                    :rules="rolRules"
-                                    required
-                                    label="Escoja el cargo del trabajador"
-                                  ></v-select>
                                 </v-col>
                               </v-row>
                             </v-card-text>
