@@ -461,6 +461,7 @@ export default {
       "LIDER DE SECCIÓN HILOS",
       "LIDER DE SECCIÓN TELARES",
       "LIQUIDADOR DE PRODUCCIÓN",
+      "MANTENIMIENTO",
       "MANTENIMIENTO- ESPADAS",
       "MENSAJERO",
       "NOMINA",
