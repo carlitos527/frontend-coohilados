@@ -366,11 +366,16 @@
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()"
+                              <v-btn
+                                class="red"
+                                color="black"
+                                text
+                                @click="close()"
                                 >Cancel</v-btn
                               >
                               <v-btn
-                                color="blue darken-1"
+                                class="green"
+                                color="white"
                                 text
                                 @click="agregar()"
                                 >Guardar</v-btn
@@ -766,6 +771,7 @@ export default {
       "LIDER DE SECCIÓN HILOS",
       "LIDER DE SECCIÓN TELARES",
       "LIQUIDADOR DE PRODUCCIÓN",
+      "MANTENIMIENTO- ESPADAS",
       "MENSAJERO",
       "NOMINA",
       "OPERARIO",

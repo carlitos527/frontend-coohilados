@@ -77,7 +77,7 @@
                     </template>
 
                     <!-- pension -->
-                     <template>
+                    <template>
                       <div class="text-center">
                         <v-dialog max-width="1600px">
                           <template v-slot:activator="{ on, attrs }">
@@ -136,7 +136,6 @@
                         </v-dialog>
                       </div>
                     </template>
-                    
 
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
@@ -187,7 +186,7 @@
                                     label="Nombre y Apellidos"
                                     required
                                   ></v-text-field>
-                                    <v-select
+                                  <v-select
                                     v-model="sexo"
                                     :items="sexo"
                                     label="Sexo"
@@ -239,7 +238,7 @@
                                     label="Ciudad De Nacimiento"
                                     @change="prueba()"
                                   ></v-select>
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="telefono"
                                     :rules="telefonoRules"
                                     label="Telefono"
@@ -255,9 +254,6 @@
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="6">
-                                 
-
-
                                   <v-text-field
                                     v-model="pension"
                                     :rules="pensionRules"
@@ -286,7 +282,6 @@
                                     required
                                   ></v-text-field>
 
-                                  
                                   <v-select
                                     v-model="tipoContrato"
                                     :items="tipoContrato"
@@ -309,8 +304,8 @@
                                     required
                                     label="Escoja el cargo del trabajador"
                                   ></v-select>
-                                  
-                                   <v-text-field
+
+                                  <v-text-field
                                     v-model="salario"
                                     :rules="salarioRules"
                                     label="Salario"
@@ -364,18 +359,22 @@
                                       @input="menu4 = false"
                                     ></v-date-picker>
                                   </v-menu>
-
                                 </v-col>
                               </v-row>
                             </v-card-text>
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()"
+                              <v-btn
+                                class="red"
+                                color="white"
+                                text
+                                @click="close()"
                                 >Cancel</v-btn
                               >
                               <v-btn
-                                color="blue darken-1"
+                               class="green"
+                                color="white"
                                 text
                                 @click="agregar()"
                                 >Guardar</v-btn
@@ -756,6 +755,7 @@ export default {
       "LIDER DE SECCIÓN HILOS",
       "LIDER DE SECCIÓN TELARES",
       "LIQUIDADOR DE PRODUCCIÓN",
+      "MANTENIMIENTO- ESPADAS",
       "MENSAJERO",
       "NOMINA",
       "OPERARIO",
@@ -782,7 +782,7 @@ export default {
     trabajadores: [],
     trabajador: [],
     busqueda: "",
-    usuarios:"",
+    usuarios: "",
     user: "",
     meses: [
       "Enero",
@@ -853,9 +853,11 @@ export default {
         return { ...persona, fechaPension: anoPension };
       };
 
-      let generoFemenino = this.trabajadores.filter((persona) => {
+      let generoFemenino = this.trabajadores
+        .filter((persona) => {
           return persona.sexo == "F";
-        }).map(fechaPensionMujer);
+        })
+        .map(fechaPensionMujer);
 
       let fechaPensionHombre = (persona) => {
         let fechaNacimiento = moment(persona.fechaNacimiento);
@@ -869,10 +871,12 @@ export default {
         return [...acumulador, persona];
       };
 
-      this.pensionados = this.trabajadores.filter((persona) => {
+      this.pensionados = this.trabajadores
+        .filter((persona) => {
           return persona.sexo == "M";
-        }).map(fechaPensionHombre).reduce(acumuladorPensionados, generoFemenino);
-
+        })
+        .map(fechaPensionHombre)
+        .reduce(acumuladorPensionados, generoFemenino);
     },
     actualizarPensiones() {
       this.loading = true;
@@ -1155,7 +1159,7 @@ export default {
           console.log(err);
         });
     },
- moment(item) {
+    moment(item) {
       let fecha = Date.now();
       let fecha2 = moment(fecha);
       let fecha1 = moment(item);

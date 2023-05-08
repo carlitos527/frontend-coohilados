@@ -27,18 +27,43 @@
                       <div class="text-center">
                         <v-dialog max-width="1600px">
                           <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon dark class="mr-2 green" v-bind="attrs" v-on="on">
-                              <font-awesome-icon style="font-size: 28px;" :icon="['fas', 'cake-candles']" />
+                            <v-btn
+                              icon
+                              dark
+                              class="mr-2 green"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              <font-awesome-icon
+                                style="font-size: 28px"
+                                :icon="['fas', 'cake-candles']"
+                              />
                             </v-btn>
                           </template>
                           <v-card>
                             <v-card-title>CUMPLEAÑEROS</v-card-title>
                             <v-card-text>
-                              <v-autocomplete auto-select-first chips deletable-chips dense small-chips solo-inverted
-                                label="Meses del año" :items="meses" v-model="mes" @change="cumpleanos">
+                              <v-autocomplete
+                                auto-select-first
+                                chips
+                                deletable-chips
+                                dense
+                                small-chips
+                                solo-inverted
+                                label="Meses del año"
+                                :items="meses"
+                                v-model="mes"
+                                @change="cumpleanos"
+                              >
                               </v-autocomplete>
-                              <v-data-table :headers="headerCumple" :items="happy" no-data-text="No hay cumpleañeros en este mes">
-                                <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                              <v-data-table
+                                :headers="headerCumple"
+                                :items="happy"
+                                no-data-text="No hay cumpleañeros en este mes"
+                              >
+                                <template
+                                  v-slot:[`item.fechaNacimiento`]="{ item }"
+                                >
                                   <span>
                                     {{ fecha(item.fechaNacimiento) }}
                                   </span>
@@ -93,13 +118,13 @@
                                     hint="Ingrese Solo números sin puntos ni comas"
                                   ></v-text-field>
 
-                                    <v-text-field
+                                  <v-text-field
                                     v-model="nombre"
                                     :rules="nombreRules"
                                     label="Nombre y Apellidos"
                                     required
                                   ></v-text-field>
-                                  
+
                                   <v-select
                                     v-model="sexo"
                                     :items="sexo"
@@ -153,7 +178,7 @@
                                     @change="prueba()"
                                   ></v-select>
 
-                                   <v-text-field
+                                  <v-text-field
                                     v-model="telefono"
                                     :rules="telefonoRules"
                                     label="Telefono"
@@ -197,7 +222,6 @@
                                     required
                                   ></v-text-field>
 
-                              
                                   <v-select
                                     v-model="tipoContrato"
                                     :items="tipoContrato"
@@ -205,7 +229,7 @@
                                     label="Escoja Tipo de contrato del trabajador"
                                   ></v-select>
 
-                                   <v-select
+                                  <v-select
                                     :items="area"
                                     v-model="areaTrabajo"
                                     label="Área de trabajo"
@@ -280,11 +304,15 @@
 
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn class="red" color="whithe" text @click="close()"
+                              <v-btn
+                                class="red"
+                                color="black"
+                                text
+                                @click="close()"
                                 >Cancel</v-btn
                               >
                               <v-btn
-                              class="green"
+                                class="green"
                                 color="white"
                                 text
                                 @click="agregar()"
@@ -302,9 +330,15 @@
                 <!--   informacion de todos los trabajadores -->
 
                 <template>
-                  <v-data-table :headers="headers" :items="temporales" :search="busqueda" sort-by="nombre"
-                    class="elevation-1 amber lighten-3" :loading="loadingTable"
-                    loading-text="Cargando... Espere por favor">
+                  <v-data-table
+                    :headers="headers"
+                    :items="temporales"
+                    :search="busqueda"
+                    sort-by="nombre"
+                    class="elevation-1 amber lighten-3"
+                    :loading="loadingTable"
+                    loading-text="Cargando... Espere por favor"
+                  >
                     <template>
                       <v-toolbar flat>
                         <v-card>
@@ -557,7 +591,7 @@ export default {
       (n) => (n && n.length <= 50) || " nombre solo puede tener 50 caracteres",
     ],
 
-    tipoDocumento: ["C.C", "C.E", "T.I","Nuip","NIT"],
+    tipoDocumento: ["C.C", "C.E", "T.I", "Nuip", "NIT"],
     valid: true,
     documento: "",
     documentoRules: [
@@ -663,6 +697,7 @@ export default {
       "LIDER DE SECCIÓN HILOS",
       "LIDER DE SECCIÓN TELARES",
       "LIQUIDADOR DE PRODUCCIÓN",
+      "MANTENIMIENTO- ESPADAS",
       "MENSAJERO",
       "NOMINA",
       "OPERARIO",
@@ -702,14 +737,14 @@ export default {
       "Septiembre",
       "Octubre",
       "Noviembre",
-      "Diciembre"
+      "Diciembre",
     ],
     mes: "",
     headerCumple: [
       { text: "Nombre", value: "nombre" },
-      { text: "fecha de nacimiento", value: "fechaNacimiento" }
+      { text: "fecha de nacimiento", value: "fechaNacimiento" },
     ],
-    happy: []
+    happy: [],
   }),
   computed: {
     buscar() {
@@ -1002,7 +1037,7 @@ export default {
       } else {
         return `${diffAnos} años ${diffMeses} meses ${diffDias} días`;
       } */
-      return `${diffMeses} meses`
+      return `${diffMeses} meses`;
     },
     fecha(item) {
       let d = new Date(item);
@@ -1053,26 +1088,23 @@ export default {
         case "Diciembre":
           numeroMes = 11;
           break;
-
       }
-      let cumpleaneros = this.temporales.filter(persona =>{
-        let fechaTrabajador = moment(persona.fechaNacimiento).get('month');
-        return fechaTrabajador==numeroMes
-      })
-      this.happy=cumpleaneros
+      let cumpleaneros = this.temporales.filter((persona) => {
+        let fechaTrabajador = moment(persona.fechaNacimiento).get("month");
+        return fechaTrabajador == numeroMes;
+      });
+      this.happy = cumpleaneros;
     },
     valores(valor) {
       const plata = valor;
       const currency = (number) => {
-        return new Intl.NumberFormat('en-US',
-          {
-            style: 'currency',
-            currency: 'COP',
-            minimumFractionDigits: 0
-          }
-        ).format(number);
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "COP",
+          minimumFractionDigits: 0,
+        }).format(number);
       };
-      return currency(plata)
+      return currency(plata);
     },
   },
   created() {
