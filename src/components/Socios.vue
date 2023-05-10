@@ -6,8 +6,8 @@
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
               <h1 class="text-left mb-10">
-                ASOCIADOS
-                <font-awesome-icon icon="fa-solid fa-sliders" />
+                ASOCIADO TRABAJADOR 
+                <font-awesome-icon :icon="['fas', 'person-digging']" />
               </h1>
             </div>
             <v-spacer></v-spacer>
@@ -20,7 +20,7 @@
                     outlined
                     rounded
                     text
-                    to="/Socios"
+                    to="/AgregarTrabajadores"
                   >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
@@ -31,11 +31,11 @@
         </v-col>
 
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
+          <v-card class="mx-auto" color="light-blue darken-3" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
-                DIRECTOS
-                <font-awesome-icon icon="fa-solid fa-plug-circle-bolt" />
+                ASOCIADO APORTANTE
+                <font-awesome-icon :icon="['fas', 'sack-dollar']" />
               </h1>
             </div>
             <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
                     outlined
                     rounded
                     text
-                    to="/AgregarDirecto"
+                    to="/Aportante"
                   >
                     <v-icon>mdi-login</v-icon></v-btn
                   >
@@ -58,36 +58,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
-            <div>
-              <h1 class="text-left mb-10">
-                TEMPORALES
-                <v-list-item-icon>
-                  <font-awesome-icon icon="fa-solid fa-handshake" />
-                </v-list-item-icon>
-              </h1>
-            </div>
-            <v-spacer></v-spacer>
-            <v-container>
-              <v-row class="justify-end mt-0">
-                <v-col cols="3">
-                  <v-btn
-                    color="#41B44C"
-                    class="black"
-                    outlined
-                    rounded
-                    text
-                    to="/AgregarTemporales"
-                  >
-                    <v-icon>mdi-login</v-icon></v-btn
-                  >
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
-        </v-col>
-
+        
        
       </v-row>
     </v-container>
@@ -95,7 +66,7 @@
 </template>
 <script>
 export default {
-  name: "pagesTH",
+  name: "pagesSocios",
   data: () => ({}),
 };
 </script>

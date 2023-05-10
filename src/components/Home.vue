@@ -1,9 +1,16 @@
 <template>
   <v-container fluid>
-    <v-row class="lime lighten-3" style="height: 90vh;">
+    <v-row class="lime lighten-3" style="height: 90vh">
       <v-col cols="12">
         <section
-          style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">
+          style="
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
           <h1>
             {{ `${user.nombre}` }}
           </h1>
@@ -11,17 +18,37 @@
             {{ `Área: ${user.area}` }} <br />
             {{ `Rol: ${user.rol}` }}
           </h3>
-          <h3 v-if="user.rol == 'Administrador'"> "Usted puede editar todos los usuarios" </h3>
-          <h3 v-if="user.rol == 'Actualizador'"> "Usted visualizar todos los trabajadores y anexar anotaciones"
-            e imprimir reportes</h3>
-          <h3 v-if="user.rol == 'Editor de Datos'"> Usted puede editar todos los Trabajadores, imprimir reportes,
-            visualizar y editar </h3>
-          <h3 v-if="user.rol == 'Visualizador'"> Usted puede Visualizar todos los trabajadores e imprimir reportes </h3>
+          <h3 v-if="user.rol == 'Administrador'">
+            "Usted puede editar todos los usuarios"
+          </h3>
+          <h3 v-if="user.rol == 'Actualizador'">
+            "Usted visualizar todos los trabajadores y anexar anotaciones" e
+            imprimir reportes
+          </h3>
+          <h3 v-if="user.rol == 'Editor de Datos'">
+            Usted puede editar todos los Trabajadores, imprimir reportes,
+            visualizar y editar
+          </h3>
+          <h3 v-if="user.rol == 'Visualizador'">
+            Usted puede Visualizar todos los trabajadores e imprimir reportes
+          </h3>
         </section>
       </v-col>
       <v-row class="justify-center" align="center" :key="rol">
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="user.rol == 'Visualizador'">
-          <v-card class="pt-0 light-green-accent-4" color="#41B44C" max-width="340" outlined>
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+          v-if="user.rol == 'Visualizador'"
+        >
+          <v-card
+            class="pt-0 light-green-accent-4"
+            color="#41B44C"
+            max-width="340"
+            outlined
+          >
             <div>
               <h2 class="text-left mb-10">
                 CONSEJO Y GERENCIA
@@ -32,7 +59,14 @@
             <v-container>
               <v-row class="justify-end mt-1">
                 <v-col cols="3">
-                  <v-btn color="#41B44C" class="black" outlined rounded text to="/Gerencia">
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="/Gerencia"
+                  >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
                 </v-col>
@@ -40,8 +74,20 @@
             </v-container>
           </v-card>
         </v-col>
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="user.rol == 'Editor de Datos'">
-          <v-card class="pt-0 light-green-accent-4" color="#41B44C" max-width="340" outlined>
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+          v-if="user.rol == 'Editor de Datos'"
+        >
+          <v-card
+            class="pt-0 light-green-accent-4"
+            color="#41B44C"
+            max-width="340"
+            outlined
+          >
             <div>
               <h2 class="text-left mb-10">
                 TALENTO HUMANO
@@ -52,7 +98,14 @@
             <v-container>
               <v-row class="justify-end mt-1">
                 <v-col cols="3">
-                  <v-btn color="#41B44C" class="black" outlined rounded text to="/TH">
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="/TH"
+                  >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
                 </v-col>
@@ -60,8 +113,20 @@
             </v-container>
           </v-card>
         </v-col>
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="user.rol == 'Administrador'">
-          <v-card class="pt-0 light-green-accent-4" color="#41B44C" max-width="340" outlined>
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+          v-if="user.rol == 'Administrador'"
+        >
+          <v-card
+            class="pt-0 light-green-accent-4"
+            color="#41B44C"
+            max-width="340"
+            outlined
+          >
             <div>
               <h1 class="text-left mb-10">
                 SISTEMAS
@@ -72,7 +137,14 @@
             <v-container>
               <v-row class="justify-end mt-1">
                 <v-col cols="3">
-                  <v-btn color="#41B44C" class="black" outlined rounded text to="/Sistemas">
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="/Sistemas"
+                  >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
                 </v-col>
@@ -81,7 +153,14 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-if="user.rol == 'Actualizador'">
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+          v-if="user.rol == 'Actualizador'"
+        >
           <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -94,8 +173,16 @@
             <v-container>
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
-                  <v-btn color="#41B44C" class="black" outlined rounded text to="/Sst">
-                    <v-icon>mdi-login</v-icon></v-btn>
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="/Sst"
+                  >
+                    <v-icon>mdi-login</v-icon></v-btn
+                  >
                 </v-col>
               </v-row>
             </v-container>
@@ -115,8 +202,16 @@
             <v-container>
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
-                  <v-btn color="#41B44C" class="black" outlined rounded text to="Perfil">
-                    <v-icon>mdi-login</v-icon></v-btn>
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="Perfil"
+                  >
+                    <v-icon>mdi-login</v-icon></v-btn
+                  >
                 </v-col>
               </v-row>
             </v-container>
@@ -146,8 +241,6 @@ export default {
 .boton {
   position: relative;
 }
-
-
 
 .texto {
   position: absolute;

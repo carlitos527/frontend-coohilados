@@ -23,6 +23,10 @@ import th from "../components/TH.vue"
 import observarTrabajadores from "../components/observarTrabajadores.vue"
 import perfil from "../components/Perfil.vue"
 
+import socios from "../components/Socios.vue"
+import aportante from "../components/Aportante.vue"
+import infoaportante from "../components/Infoaportante.vue"
+
 
 export const routes =[
 
@@ -52,5 +56,8 @@ export const routes =[
     {path: "/observarTrabajadores", component:observarTrabajadores},
 
     {path: "/Perfil", component:perfil},
-   
+
+    {path: "/Socios", component:socios},
+    {path: "/Aportante", component:aportante},
+    {path: "/Infoaportante", component:infoaportante},
 ]

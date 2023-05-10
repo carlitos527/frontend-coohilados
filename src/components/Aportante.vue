@@ -11,7 +11,7 @@
                 <v-template>
                   <v-toolbar class="amber accent-2">
                     <v-toolbar-title>
-                      <h1>TRABAJADORES</h1>
+                      <h1>APORTANTES</h1>
                     </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-text-field
@@ -76,67 +76,6 @@
                       </div>
                     </template>
 
-                    <!-- pension -->
-                    <template>
-                      <div class="text-center">
-                        <v-dialog max-width="1600px">
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                              icon
-                              dark
-                              class="mr-2 blue"
-                              v-bind="attrs"
-                              v-on="on"
-                            >
-                              <font-awesome-icon
-                                style="font-size: 28px"
-                                :icon="['fas', 'person-walking-luggage']"
-                              />
-                            </v-btn>
-                          </template>
-
-                          <v-card>
-                            <v-card-title
-                              >PERSONAS QUE ESTAN APUNTO DE
-                              PENSIÓN</v-card-title
-                            >
-                            <v-card-text>
-                              <h4>Hombre: {{ edadPension.hombre }}</h4>
-                              <h4>Mujer: {{ edadPension.mujer }}</h4>
-                              <v-text-field
-                                v-model="hombre"
-                                label="Pension hombre"
-                                required
-                                hint="Ingrese solo números"
-                                type="Number"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                v-model="mujer"
-                                label="Pension mujer"
-                                required
-                                hint="Ingrese solo números"
-                                type="Number"
-                              >
-                              </v-text-field>
-                              <v-btn
-                                class="my-5"
-                                color="orange"
-                                @click="actualizarPensiones"
-                                >Cambiar edad de pensión</v-btn
-                              >
-                              <v-data-table
-                                :headers="headerPension"
-                                :items="pensionados"
-                                sort-by="fechaPension"
-                              >
-                              </v-data-table>
-                            </v-card-text>
-                          </v-card>
-                        </v-dialog>
-                      </div>
-                    </template>
-
                     <v-btn class="warning mb-2 mr-2" @click="pdf"
                       >Imprimir</v-btn
                     >
@@ -155,12 +94,12 @@
                               v-on="on"
                               v-if="user.rol == 'Editor de Datos'"
                             >
-                              Nuevo Trabajador
+                              Nuevo Aportante
                             </v-btn>
                           </template>
                           <v-card>
                             <v-card-title class="text-h5"
-                              >Ingrese nuevo Trabajador Asociado</v-card-title
+                              >Ingrese nuevo Asociado Aportante</v-card-title
                             >
                             <v-card-text>
                               <v-row>
@@ -223,7 +162,9 @@
                                     label="dirección"
                                     required
                                   ></v-text-field>
+                                </v-col>
 
+                                <v-col cols="12" sm="6" md="6">
                                   <v-select
                                     :items="cities"
                                     v-model="departamento"
@@ -251,67 +192,14 @@
                                     label="E-mail"
                                     required
                                   ></v-text-field>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="6">
-                                  <v-text-field
-                                    v-model="pension"
-                                    :rules="pensionRules"
-                                    label="PENSIÓN"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="rh"
-                                    :rules="rhRules"
-                                    label="RH"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="arl"
-                                    :rules="arlRules"
-                                    label="ARL"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-text-field
-                                    v-model="eps"
-                                    :rules="epsRules"
-                                    label="EPS"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-select
-                                    v-model="tipoContrato"
-                                    :items="tipoContrato"
-                                    required
-                                    label="Escoja Tipo de contrato del trabajador"
-                                  ></v-select>
-
-                                  <v-select
-                                    :items="area"
-                                    v-model="areaTrabajo"
-                                    label="Área de trabajo"
-                                    item-text="nombre"
-                                    item-value="_id"
-                                  ></v-select>
 
                                   <v-select
                                     v-model="rol"
                                     :items="rol"
                                     :rules="rolRules"
                                     required
-                                    label="Escoja el cargo del trabajador"
+                                    label="Asociado"
                                   ></v-select>
-
-                                  <v-text-field
-                                    v-model="salario"
-                                    :rules="salarioRules"
-                                    label="Salario"
-                                    required
-                                    hint="Ingrese Solo números sin puntos ni comas"
-                                  ></v-text-field>
 
                                   <v-menu
                                     v-model="menu3"
@@ -346,8 +234,8 @@
                                   >
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-text-field
-                                        v-model="fechaVacaciones"
-                                        label="Escoja la  posible Fecha de Vaciones del Asociado"
+                                        v-model="fechaFin"
+                                        label="Escoja la fecha de pensión"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         v-bind="attrs"
@@ -355,7 +243,7 @@
                                       ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                      v-model="fechaVacaciones"
+                                      v-model="fechaFin"
                                       @input="menu4 = false"
                                     ></v-date-picker>
                                   </v-menu>
@@ -373,7 +261,7 @@
                                 >Cancel</v-btn
                               >
                               <v-btn
-                               class="green"
+                                class="green"
                                 color="white"
                                 text
                                 @click="agregar()"
@@ -419,7 +307,7 @@
                                 <v-col>
                                   <v-text-field
                                     v-model="tipoDocumento"
-                                    label="Documento"
+                                    label="tipo Documento"
                                     >{{ item.tipoDocumento }}
                                   </v-text-field>
                                 </v-col>
@@ -460,7 +348,7 @@
                           user.rol != 'Visualizador'
                         "
                       >
-                        <div v-show="item.estado == 3" class="boton">
+                        <div v-show="item.estado == 2" class="boton">
                           <v-btn
                             color="green"
                             icon
@@ -488,7 +376,7 @@
                             </div>
                           </v-btn>
                         </div>
-                        <div v-show="item.estado == 2" class="boton">
+                        <!-- <div v-show="item.estado == 2" class="boton">
                           <v-btn
                             color="orange"
                             icon
@@ -501,7 +389,7 @@
                               <h5>vacaciones</h5>
                             </div>
                           </v-btn>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="boton">
                         <v-btn
@@ -509,7 +397,7 @@
                           icon
                           dark
                           class="mb-2"
-                          @click="detalleTrabajador(item)"
+                          @click="detalleTrabajador1(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-eye" />
                           <div class="texto">
@@ -567,14 +455,9 @@
                         {{ fecha(item.fechaInicio) }}
                       </span>
                     </template>
-                    <template v-slot:[`item.fechaVacaciones`]="{ item }">
+                    <template v-slot:[`item.fechaFin`]="{ item }">
                       <span>
-                        {{ fecha(item.fechaVacaciones) }}
-                      </span>
-                    </template>
-                    <template v-slot:[`item.salario`]="{ item }">
-                      <span>
-                        {{ valores(item.salario) }}
+                        {{ fecha(item.fechaFin) }}
                       </span>
                     </template>
                   </v-data-table>
@@ -608,16 +491,14 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export default {
-  name: "PagesAgregarTrabajadores",
+  name: "PagesAportante",
   data: () => ({
     loading: false,
     loadingTable: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
-    fechaVacaciones: new Date(
-      Date.now() - new Date().getTimezoneOffset() * 60000
-    )
+    fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
     fechaNacimiento: new Date(
@@ -636,13 +517,12 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
+      { text: "E-mail", value: "email" },
       { text: "Dirección", value: "barrio" },
-      { text: "Tipo de contrato", value: "tipoContrato" },
-      { text: "Inicio Contrato", value: "fechaInicio" },
-      { text: "Vacaciones del Trabajador", value: "fechaVacaciones" },
+      { text: "Teléfono", value: "telefono" },
+      { text: "Inicio Aportes", value: "fechaInicio" },
+      { text: "Fin Aportes", value: "fechaFin" },
       { text: "Antiguedad", value: "tiempoLaborado" },
-      { text: "Área de Trabajo", value: "areaTrabajo.nombre" },
-      { text: "Salario", value: "salario" },
       { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
       { text: "Acciones", value: "actions", sortable: false },
@@ -662,47 +542,7 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
-
-    valid098: true,
-    pension: "",
-    pensionRules: [
-      (pn) => !!pn || "PENSIÓN es requerido ❌",
-      (pn) =>
-        (pn && pn.length <= 15) || " PENSIÓN solo puede tener 15 caracteres",
-    ],
-
-    valid07: true,
-    rh: "",
-    rhRules: [
-      (r) => !!r || "RH es requerido ❌",
-      (r) => (r && r.length <= 50) || " RH solo puede tener 5 caracteres",
-    ],
-
-    valid00: true,
-    arl: "",
-    arlRules: [
-      (ar) => !!ar || "ARL es requerida ❌",
-      (ar) => (ar && ar.length <= 50) || " ARL solo puede tener 50 caracteres",
-    ],
-
-    valid01: true,
-    eps: "",
-    epsRules: [
-      (ep) => !!ep || "LA EPS es requerido ❌",
-      (ep) => (ep && ep.length <= 50) || " EPS solo puede tener 50 caracteres",
-    ],
-
-    valid2: true,
-    tipoContrato: ["TERMINO FIJO", "TERMINO INDEFINIDO"],
     tiempoLaborado: "",
-    areaTrabajo: "",
-    valid3: true,
-    salario: "",
-    salarioRules: [
-      (s) => !!s || " El salario es requerido ❌",
-      (s) =>
-        (s && s.length <= 15) || " EL Salario solo puede tener 15 caracteres",
-    ],
     valid5: true,
     barrio: "",
     barrioRules: [
@@ -727,57 +567,7 @@ export default {
         (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
     ],
     valid8: true,
-    rol: [
-      "ASISTENTE AGRICOLA",
-      "ASISTENTE DIRECTOR COMERCIAL",
-      "AUXILIAR ADMINISTRATIVO",
-      "AUXLIAR COMERCIAL",
-      "AUXILIAR CONTABLE",
-      "AUXILIAR CONTABLE II",
-      "AUXILIAR CONTROL DE CALIDAD",
-      "AUXILIAR PRODUCCION",
-      "BODEGUERO",
-      "BODEGUERO P.T",
-      "BODEGUERO M.P",
-      "COMPRADOR ALMACENISTA",
-      "COORDINADOR DE PRODUCCIÓN",
-      "COORDINADOR DE SST",
-      "DIRECTOR COMERCIAL",
-      "DIRECTOR CONTABLE",
-      "GERENTE GENERAL",
-      "INGENIERO DE SISTEMAS",
-      "JEFE DE BODEGA DE PRODUCTOS TERMINADOS",
-      "JEFE DE COMPRAS DE MATERIA PRIMA",
-      "JEFE DE GESTION HUMANA",
-      "JEFE DE MANTENIMIENTO Y TALLER",
-      "LIDER AUXILIAR DE COSTURA",
-      "LIDER DE SECCIÓN DE COSTURA",
-      "LIDER DE SECCIÓN HILOS",
-      "LIDER DE SECCIÓN TELARES",
-      "LIQUIDADOR DE PRODUCCIÓN",
-      "MANTENIMIENTO",
-      "MANTENIMIENTO- ESPADAS",
-      "MENSAJERO",
-      "NOMINA",
-      "OPERARIO",
-      "OPERARIO DE PLANTA",
-      "OPERARIO HILADORAS-HUSOS",
-      "OPERARIO DE PRENSA",
-      "PARQUERO",
-      "RECEPCIONISTA",
-      "RECEPCIONISTA DEL SGC",
-      "SECRETARIO CONSEJO",
-      "SECRETARIA GERENCIA",
-      "SERVICIOS GENERALES",
-      "TECNICO AGRICOLA",
-      "TECNICO MANTENIMIENTO-BARRAS",
-      "TECNICO MANTENIMIENTO-CUADRILLA",
-      "TECNICO MANTENIMIENTO-CUADRILLA-E",
-      "TECNICO ELECTRICISTA",
-      "TECNICO MANTENIMIENTO-EBANISTA",
-      "TECNICO MANTENIMIENTO-FRESADOR",
-      "TECNICO MANTENIMIENTO-TORNERO",
-    ],
+    rol: ["APORTANTE"],
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
     area: [],
     cities: [],
@@ -807,18 +597,6 @@ export default {
       { text: "fecha de nacimiento", value: "fechaNacimiento" },
     ],
     happy: [],
-
-    headerPension: [
-      { text: "Nombre", value: "nombre" },
-      { text: "fecha de pension", value: "fechaPension" },
-    ],
-    pensionados: [],
-    edadPension: {
-      hombre: "",
-      mujer: "",
-    },
-    mujer: "",
-    hombre: "",
   }),
   computed: {
     buscar() {
@@ -831,90 +609,12 @@ export default {
     },
   },
   methods: {
-    pensiones() {
-      axios
-        .get("https://back-coohilados.vercel.app/api/pension/ver")
-        .then((res) => {
-          this.edadPension = {
-            hombre: res.data.pension[0].hombre,
-            mujer: res.data.pension[0].mujer,
-          };
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    calcularPension() {
-      let year = Number(moment(Date.now()).format("YYYY"));
-      let fechaActual = moment(Date.now());
-
-      let fechaPensionMujer = (persona) => {
-        let fechaNacimiento = moment(persona.fechaNacimiento);
-        let anos = fechaActual.diff(fechaNacimiento, "years");
-        let diferencia = this.edadPension.mujer - anos;
-        let anoPension = year + diferencia;
-        return { ...persona, fechaPension: anoPension };
-      };
-
-      let generoFemenino = this.trabajadores
-        .filter((persona) => {
-          return persona.sexo == "F";
-        })
-        .map(fechaPensionMujer);
-
-      let fechaPensionHombre = (persona) => {
-        let fechaNacimiento = moment(persona.fechaNacimiento);
-        let anos = fechaActual.diff(fechaNacimiento, "years");
-        let diferencia = this.edadPension.hombre - anos;
-        let anoPension = year + diferencia;
-        return { ...persona, fechaPension: anoPension };
-      };
-
-      let acumuladorPensionados = (acumulador, persona) => {
-        return [...acumulador, persona];
-      };
-
-      this.pensionados = this.trabajadores
-        .filter((persona) => {
-          return persona.sexo == "M";
-        })
-        .map(fechaPensionHombre)
-        .reduce(acumuladorPensionados, generoFemenino);
-    },
-    actualizarPensiones() {
-      this.loading = true;
-      axios
-        .put(
-          `https://back-coohilados.vercel.app/api/pension/modificar/6441477614e5473f23bef0f2`,
-          {
-            hombre: this.hombre,
-            mujer: this.mujer,
-          }
-        )
-        .then((res) => {
-          this.pensiones();
-          this.traerTrabajador();
-          this.loading = false;
-          this.$swal({
-            icon: "success",
-            title: "Se cambio la fecha de pensión correctamente",
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.loading = false;
-          this.$swal({
-            icon: "error",
-            title: "No se pudo actualizar la edad de pensión",
-          });
-        });
-    },
     editarTrabajador(item) {
-      this.$router.push("/infotrabajador");
+      this.$router.push("/Infoaportante");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
     },
-    detalleTrabajador(item) {
+    detalleTrabajador1(item) {
       console.log(item);
       this.$router.push("/observarTrabajadores");
       this.$store.dispatch("setDatos", item);
@@ -926,33 +626,21 @@ export default {
     close1() {
       this.dialog = false;
     },
-    traerTrabajador() {
+    traerTrabajador1() {
       this.loadingTable = true;
       axios
-        .get("https://back-coohilados.vercel.app/api/servicio")
+        .get("https://back-coohilados.vercel.app/api/aportante")
         .then((response) => {
           this.loadingTable = false;
-          /* console.log(response.data.trabajador); */
-          this.trabajadores = response.data.trabajador;
-          this.calcularPension();
+          console.log(response.data.trabajador3);
+          this.trabajadores = response.data.trabajador3;
         })
         .catch((err) => {
           this.loadingTable = false;
           console.log(err);
         });
     },
-    traerAreaTrabajo() {
-      axios
-        .get("https://back-coohilados.vercel.app/api/areaTrabajo")
-        .then((response) => {
-          // response.data.ciudad.reduce((obj, item) => (obj[item.Departamento] = true, obj), {});
-          this.area = response.data.lugar;
-          console.log(this.area);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+
     traerDepartamentos() {
       axios
         .get("https://back-coohilados.vercel.app/api/ciudad/departamento/get")
@@ -983,19 +671,7 @@ export default {
       if (item.estado == 1) {
         axios
           .put(
-            `https://back-coohilados.vercel.app/api/servicio/desactivar/${item._id}`
-          )
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-      if (item.estado == 3) {
-        axios
-          .put(
-            `https://back-coohilados.vercel.app/api/servicio/activar/${item._id}`
+            `https://back-coohilados.vercel.app/api/aportante/desactivar/${item._id}`
           )
           .then((res) => {
             console.log(res);
@@ -1007,7 +683,7 @@ export default {
       if (item.estado == 2) {
         axios
           .put(
-            `https://back-coohilados.vercel.app/api/servicio/vacaciones/${item._id}`
+            `https://back-coohilados.vercel.app/api/aportante/activar/${item._id}`
           )
           .then((res) => {
             console.log(res);
@@ -1016,31 +692,25 @@ export default {
             console.log(err);
           });
       }
-      this.traerTrabajador();
+      this.traerTrabajador1();
     },
+
     agregar() {
       this.loading = true;
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
       axios
         .post(
-          "https://back-coohilados.vercel.app/api/servicio/agregar",
+          "https://back-coohilados.vercel.app/api/aportante/agregar",
           {
             tipoDocumento: this.tipoDocumento,
             documento: this.documento,
             sexo: this.sexo,
             nombre: this.nombre,
-            tipo: "Asociado",
-            pension: this.pension,
-            rh: this.rh,
-            arl: this.arl,
-            eps: this.eps,
+            tipo: "Asociado aportante",
             fechaNacimiento: this.fechaNacimiento,
             fechaInicio: this.fechaInicio,
-            fechaVacaciones: this.fechaVacaciones,
-            areaTrabajo: this.areaTrabajo,
-            tipoContrato: this.tipoContrato,
-            salario: this.salario,
+            fechaFin: this.fechaFin,
             barrio: this.barrio,
             departamento: this.departamento,
             ciudad: this.city,
@@ -1051,11 +721,11 @@ export default {
           header
         )
         .then((response) => {
-          this.traerTrabajador();
+          this.traerTrabajador1();
           this.dialog = false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
-          this.$router.push("/AgregarTrabajadores");
+          this.$router.push("/Aportante");
           this.loading = false;
           this.$swal({
             icon: "success",
@@ -1074,7 +744,7 @@ export default {
     },
     pdf() {
       axios
-        .get("https://back-coohilados.vercel.app/api/servicio/activo")
+        .get("https://back-coohilados.vercel.app/api/aportante/activo")
         .then((res) => {
           console.log(res.data.trabajador);
           let array = [];
@@ -1123,7 +793,6 @@ export default {
                       { text: "FECHA DE NACIMIENTO", bold: true },
                       { text: "DIRECCIÓN", bold: true },
                       { text: "TELÉFONO", bold: true },
-                      { text: "ÁREA DE TRABAJO", bold: true },
                     ],
                     ...array,
                   ],
@@ -1234,6 +903,7 @@ export default {
       });
       this.happy = cumpleaneros;
     },
+
     valores(valor) {
       const plata = valor;
       const currency = (number) => {
@@ -1248,10 +918,8 @@ export default {
   },
   created() {
     this.traer();
-    this.traerAreaTrabajo();
     this.traerDepartamentos();
-    this.traerTrabajador();
-    this.pensiones();
+    this.traerTrabajador1();
   },
 };
 </script>
