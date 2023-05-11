@@ -95,7 +95,7 @@
                       <h3>{{ this.$store.state.datos.email }}</h3>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                <h2>Fecha inicio contrato:</h2>
+                <h2>Fecha ingreso:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
               </v-col>
 
@@ -105,11 +105,11 @@
                 md="6"
               
               >
-                <h2>Fecha fin contrato:</h2>
+                <h2>Fecha posible finalización:</h2>
                 <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <h2>Tiempo laborado en años:</h2>
+                <h2>Años de Jubilado:</h2>
                 <h4>{{ antiguedad(this.$store.state.datos.fechaInicio) }}</h4>
               </v-col>
 
