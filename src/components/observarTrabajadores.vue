@@ -1,7 +1,11 @@
 <template>
-  <v-container>
+  <v-container fluid>
+    <v-img
+          src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
+        >
     <v-row>
       <v-col>
+        
         <v-card class="mx-auto my-12 green lighten-3" max-width="900">
           <v-card-title justify-right>
             <v-col cols="12" sm="6" md="6" justify="right">
@@ -173,8 +177,10 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+        
       </v-col>
     </v-row>
+    </v-img>
   </v-container>
 </template>
 
