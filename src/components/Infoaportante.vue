@@ -272,7 +272,7 @@
                                   </v-card-text>
                                   <v-card-actions>
                                     <v-btn @click="dialog = false" class="red"
-                                      >Cerrar</v-btn
+                                      >Cancelar</v-btn
                                     >
                                     <v-btn @click="anota" class="green"
                                       >Agregar</v-btn
@@ -293,8 +293,8 @@
               </template>
             </v-card-text>
             <v-card-actions>
-              <v-btn class="lime" color="deep-purple lighten-2" text to="/Aportante">
-                Regresar
+              <v-btn class="red" color="red" text to="/Aportante">
+                Cancelar
               </v-btn>
               <v-btn class="green" color="white" text @click="editarItem()">
                 Guardar
