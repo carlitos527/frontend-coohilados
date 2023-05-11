@@ -95,26 +95,43 @@
                       <h3>{{ this.$store.state.datos.email }}</h3>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                <h2>Fecha ingreso:</h2>
-                <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
-              </v-col>
+                      <h2>Fecha ingreso:</h2>
+                      <h4>{{ fecha(this.$store.state.datos.fechaInicio) }}</h4>
+                    </v-col>
 
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              
-              >
-                <h2>Fecha posible finalización:</h2>
-                <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <h2>Años de Jubilado:</h2>
-                <h4>{{ antiguedad(this.$store.state.datos.fechaInicio) }}</h4>
-              </v-col>
-
-                    
-                    
+                    <v-col cols="12" sm="6" md="6">
+                      <h2>Fecha posible finalización:</h2>
+                      <h4>{{ fecha(this.$store.state.datos.fechaFin) }}</h4>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <h2>Años de Jubilado:</h2>
+                      <h4>
+                        {{ antiguedad(this.$store.state.datos.fechaInicio) }}
+                      </h4>
+                    </v-col>
+                    <v-row>
+                      <v-col
+                        v-if="
+                          this.$store.state.usuario.rol == 'Editor de Datos' ||
+                          this.$store.state.usuario.rol == 'Actualizador'
+                        "
+                      >
+                        <v-data-table
+                          :headers="headers"
+                          :items="this.$store.state.datos.anotacion"
+                          class="elevation-1"
+                        >
+                          <template v-slot:top>
+                            <v-toolbar flat>
+                              <v-toolbar-title>Anotaciones</v-toolbar-title>
+                            </v-toolbar>
+                          </template>
+                          <template v-slot:[`item.fecha`]="{ item }">
+                            <span>{{ fecha(item.fecha) }}</span>
+                          </template>
+                        </v-data-table>
+                      </v-col>
+                    </v-row>
                   </v-row>
                 </v-container>
               </template>
@@ -181,14 +198,13 @@ export default {
           console.log(err);
         });
     },
-   
-   
+
     fecha(r) {
       let d = new Date(r);
       let f = d.toISOString();
       return f.split("T")[0].replace(/-/g, "/");
     },
-     antiguedad(item) {
+    antiguedad(item) {
       let fecha = Date.now();
       let fechaActual = new Date(fecha);
       let fechaInicial = new Date(item);
@@ -206,6 +222,5 @@ export default {
   mounted() {
     this.departamento();
   },
-  
 };
 </script>
