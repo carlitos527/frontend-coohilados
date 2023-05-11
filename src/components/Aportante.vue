@@ -212,7 +212,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-text-field
                                         v-model="fechaInicio"
-                                        label="Escoja la Fecha de inicio de ingreso  del Asociado"
+                                        label="Escoja la Fecha de inicio de ingreso  del Asociado aportante"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         v-bind="attrs"
@@ -235,7 +235,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-text-field
                                         v-model="fechaFin"
-                                        label="Escoja la fecha de pensión"
+                                        label="Escoja la fecha final"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         v-bind="attrs"
