@@ -293,7 +293,7 @@
               </template>
             </v-card-text>
             <v-card-actions>
-              <v-btn class="red" color="red" text to="/Aportante">
+              <v-btn class="red" color="white" text to="/Aportante">
                 Cancelar
               </v-btn>
               <v-btn class="green" color="white" text @click="editarItem()">
