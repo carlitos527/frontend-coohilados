@@ -26,6 +26,7 @@ import perfil from "../components/Perfil.vue"
 import socios from "../components/Socios.vue"
 import aportante from "../components/Aportante.vue"
 import infoaportante from "../components/Infoaportante.vue"
+import veraportante from "../components/verAportante.vue"
 
 
 export const routes =[
@@ -60,4 +61,5 @@ export const routes =[
     {path: "/Socios", component:socios},
     {path: "/Aportante", component:aportante},
     {path: "/Infoaportante", component:infoaportante},
+    {path: "/verAportante", component:veraportante},
 ]

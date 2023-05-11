@@ -122,7 +122,7 @@
                                   <v-text-field
                                     v-model="nombre"
                                     :rules="nombreRules"
-                                    label="Nombre y Apellidos"
+                                    label="Apellidos y Nombre"
                                     required
                                   ></v-text-field>
                                   <v-select
@@ -530,7 +530,7 @@ export default {
     valid4: true,
     nombre: "",
     nombreRules: [
-      (n) => !!n || " Nombre y Apellidos son requerido ❌",
+      (n) => !!n || "Apellidosy Nombres son requerido ❌",
       (n) =>
         (n && n.length <= 50) || " El Nombre solo puede tener 50 caracteres",
     ],
@@ -569,7 +569,6 @@ export default {
     valid8: true,
     rol: ["APORTANTE"],
     rolRules: [(r) => !!r || " El Cargo es requerido ❌"],
-    area: [],
     cities: [],
     town: [],
     trabajadores: [],
@@ -616,9 +615,9 @@ export default {
     },
     detalleTrabajador1(item) {
       console.log(item);
-      this.$router.push("/observarTrabajadores");
+      this.$router.push("/verAportante");
       this.$store.dispatch("setDatos", item);
-      /* console.log("ciudad: "+this.$store.state.datos.ciudad); */
+      console.log("nombre: "+this.$store.state.datos.nombre); 
     },
     close() {
       this.dialog = false;
