@@ -101,7 +101,7 @@
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <h2>Eps:</h2>
-                <h4>{{ this.$store.state.datos.arl }}</h4>
+                <h4>{{ this.$store.state.datos.eps }}</h4>
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <h2>Tipo de contrato:</h2>
