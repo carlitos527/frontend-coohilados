@@ -745,10 +745,10 @@ export default {
       axios
         .get("https://back-coohilados.vercel.app/api/aportante/activo")
         .then((res) => {
-          console.log(res.data.trabajador);
+          console.log(res.data.trabajador3);
           let array = [];
-          for (let i = 0; i < res.data.trabajador.length; i++) {
-            const user = res.data.trabajador[i];
+          for (let i = 0; i < res.data.trabajador3.length; i++) {
+            const user = res.data.trabajador3[i];
             array.push([
               `${user.tipoDocumento}`,
               `${user.documento}`,
@@ -756,7 +756,7 @@ export default {
               `${this.fecha(user.fechaNacimiento)}`,
               `${user.barrio}`,
               `${user.telefono}`,
-              `${user.areaTrabajo.nombre}`,
+              
             ]);
           }
           let docDefinition = {
