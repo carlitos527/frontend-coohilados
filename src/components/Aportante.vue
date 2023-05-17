@@ -774,7 +774,7 @@ export default {
                     fit: [200, 200],
                   },
                   {
-                    text: "INFORME \nVISUALIZACIÓN DE ASOCIADOS ACTIVOS",
+                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES APORTANTES ACTIVOS",
                     style: "header",
                   },
                 ],
@@ -792,6 +792,7 @@ export default {
                       { text: "FECHA DE NACIMIENTO", bold: true },
                       { text: "DIRECCIÓN", bold: true },
                       { text: "TELÉFONO", bold: true },
+                     
                     ],
                     ...array,
                   ],
