@@ -76,9 +76,9 @@
                       </div>
                     </template>
 
-                    <v-btn class="warning mb-2 mr-2" @click="pdf"
-                      >Imprimir</v-btn
-                    >
+                     
+
+                   
                     <template>
                       <div class="text-center">
                         <v-dialog
@@ -741,7 +741,7 @@ export default {
           });
         });
     },
-    pdf() {
+   pdf() {
       axios
         .get("https://back-coohilados.vercel.app/api/aportante/activo")
         .then((res) => {
@@ -749,6 +749,7 @@ export default {
           let array = [];
           for (let i = 0; i < res.data.trabajador3.length; i++) {
             const user = res.data.trabajador3[i];
+
             array.push([
               `${user.tipoDocumento}`,
               `${user.documento}`,
@@ -756,6 +757,7 @@ export default {
               `${this.fecha(user.fechaNacimiento)}`,
               `${user.barrio}`,
               `${user.telefono}`,
+              
               
             ]);
           }
@@ -774,7 +776,7 @@ export default {
                     fit: [200, 200],
                   },
                   {
-                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES APORTANTES ACTIVOS",
+                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES TEMPORALES ACTIVOS",
                     style: "header",
                   },
                 ],
@@ -792,7 +794,7 @@ export default {
                       { text: "FECHA DE NACIMIENTO", bold: true },
                       { text: "DIRECCIÓN", bold: true },
                       { text: "TELÉFONO", bold: true },
-                     
+                      
                     ],
                     ...array,
                   ],
