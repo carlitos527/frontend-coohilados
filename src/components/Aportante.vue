@@ -76,7 +76,9 @@
                       </div>
                     </template>
 
-                     
+                      <v-btn class="warning mb-2 mr-2" @click="pdf"
+                      >Imprimir</v-btn
+                    >
 
                    
                     <template>
@@ -776,16 +778,16 @@ export default {
                     fit: [200, 200],
                   },
                   {
-                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES TEMPORALES ACTIVOS",
+                    text: "INFORME \nVISUALIZACIÓN DE TRABAJADORES APORTANGTES ACTIVOS",
                     style: "header",
                   },
                 ],
               },
               {
-                margin: [20, 5, 0, 0],
+                margin: [20, 4, 0, 0],
                 table: {
                   headerRows: 1,
-                  widths: [50, "auto", "auto", 50, "auto", 50, "auto"],
+                  widths: [50, "auto", "auto", 50, "auto", 50],
                   body: [
                     [
                       { text: "TIPO DE DOCUMENTO", bold: true },
