@@ -23,6 +23,20 @@
                       hide-details
                     >
                     </v-text-field>
+                     <template>
+                      <v-row>
+                        <v-col>
+                          <v-btn
+                            class="red mb-8 mt-7"
+                            color="white"
+                            text
+                            to="/TH"
+                          >
+                            Regresar
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </template>
                     <v-spacer></v-spacer>
 
                     <template>

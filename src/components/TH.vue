@@ -1,9 +1,27 @@
 <template>
   <v-app id="inspire">
     <v-container fluid >
-      <v-row class=" lime lighten-3 justify-center" align="center" style="height:90vh">
+       <v-row class="yellow lighten-2">
+          <v-col cols="" sm="5" md="4" lg="2" xl="2">
+            <v-row class="justify-end mt-1">
+              <v-col cols="3">
+                <v-btn
+                  color="white"
+                  class="red"
+                  outlined
+                  rounded
+                  text
+                  to="/Home"
+                >
+                  <h1>ATRAS</h1> 
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      <v-row class="yellow lighten-2 justify-center" align="center" style="height:90vh">
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
+          <v-card class="pt-0 light-green-accent-4" color="red lighten-1"  max-width="340" outlined>
             <div>
               <h1 class="text-left mb-10">
                 ASOCIADOS
@@ -31,7 +49,7 @@
         </v-col>
 
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
+          <v-card class="mx-auto" color="teal darken-3" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
                 DIRECTOS

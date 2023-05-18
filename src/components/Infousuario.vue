@@ -193,7 +193,7 @@ export default {
           console.log(res);
           this.$swal({
             icon: "success",
-            title: `Nueva Contraseña: ${res.data.aleatorio}`,
+            title: `Contraseña: ${res.data.aleatorio}`,
           });
         })
         .catch((err) => {

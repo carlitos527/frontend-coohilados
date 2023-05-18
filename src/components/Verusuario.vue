@@ -19,7 +19,7 @@
                <v-spacer></v-spacer>           
                 <router-link to="/Agregarusuario" color="black"  max-width="1600px">
                 
-                <v-btn class="mr-2 green"><h5>agg</h5> <br>
+                <v-btn class="mr-2 green"><h5>AGREGAR</h5> <br>
                   <h1><font-awesome-icon :icon="['fas', 'address-card']" /></h1>
                   </v-btn>
                 </router-link>

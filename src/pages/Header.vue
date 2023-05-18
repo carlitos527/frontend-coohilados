@@ -4,19 +4,15 @@
       <v-row>
         <v-col cols="1" v-if="token != undefined">
           <v-card-actions>
-          <v-list-item color="#41B44C" to="/Home">
-            <v-list-item-icon  class="white--text mb-2 mt-12">
-              <font-awesome-icon icon="fa-solid fa-house" />
-            </v-list-item-icon>
-          </v-list-item> 
+            <v-list-item color="#41B44C" to="/Home">
+              <v-list-item-icon class="white--text mb-5 mt-10">
+                <font-awesome-icon icon="fa-solid fa-house" />
+              </v-list-item-icon>
+            </v-list-item>
           </v-card-actions>
-          </v-col
-        >
-        <v-col cols="1" class=" mb-2 mt-6">
-        <v-card-actions>
-          <v-btn class="red" color="white" text to="/TH"> Atras </v-btn>
-        </v-card-actions>
         </v-col>
+        
+
         <v-col cols="7">
           <v-toolbar-title class="white--text mb-2 mt-7">
             <h3>COOHILADOS</h3>

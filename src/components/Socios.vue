@@ -1,12 +1,39 @@
 <template>
   <v-app id="inspire">
-    <v-container fluid >
-      <v-row class=" lime lighten-3 justify-center" align="center" style="height:90vh">
+    <v-container fluid>
+      <v-row class="amber lighten-3">
+          <v-col cols="" sm="5" md="4" lg="1" xl="2">
+            <v-row class="justify-end mt-1">
+              <v-col cols="3">
+                <v-btn
+                  color="white"
+                  class="red"
+                  outlined
+                  rounded
+                  text
+                  to="/TH"
+                >
+                  <h1>ATRAS</h1> 
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      <v-row
+        class="amber lighten-3 justify-center"
+        align="center"
+        style="height: 90vh"
+      >
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
+          <v-card
+            class="pt-0 light-green-accent-4"
+            color="#41B44C"
+            max-width="340"
+            outlined
+          >
             <div>
               <h1 class="text-left mb-10">
-                ASOCIADO TRABAJADOR 
+                ASOCIADO TRABAJADOR
                 <font-awesome-icon :icon="['fas', 'person-digging']" />
               </h1>
             </div>
@@ -31,7 +58,12 @@
         </v-col>
 
         <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card class="mx-auto" color="light-blue darken-3" max-width="344" outlined>
+          <v-card
+            class="mx-auto"
+            color="light-blue darken-3"
+            max-width="344"
+            outlined
+          >
             <div>
               <h1 class="text-left mb-10">
                 ASOCIADO APORTANTE
@@ -57,9 +89,6 @@
             </v-container>
           </v-card>
         </v-col>
-
-        
-       
       </v-row>
     </v-container>
   </v-app>
@@ -88,6 +117,6 @@ export default {
 }
 
 .boton:hover .texto {
-  visibility: visible; 
+  visibility: visible;
 }
 </style>
